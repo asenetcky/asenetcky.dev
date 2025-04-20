@@ -1,2 +1,2 @@
-# asenetcky.github.io
+# asenetcky.dev
 Personal Site
