@@ -1,2 +1,0 @@
-# asenetcky.dev
-Personal Site
