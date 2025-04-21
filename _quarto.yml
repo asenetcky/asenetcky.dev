@@ -6,18 +6,29 @@ execute:
   freeze: auto
 
 website:
-  title: "asenetcky.dev"
+  title: "Alexander Senetcky"
+  site-url: https://asenetcky.dev/
   navbar:
-    left:
+    title: false
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: Contact
+        menu:
+          - icon: linkedin
+            text: Linkedin
+            href: https://www.linkedin.com/in/alexander-senetcky-0b209822
+            target: _blank
+          - icon: envelope
+            text: email
+            href: mailto:me@asenetcky.dev
+      - icon: github
+        href: https://github.com/asenetcky
+        target: _blank
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-
-
-

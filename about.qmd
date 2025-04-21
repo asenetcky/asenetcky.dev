@@ -1,9 +1,11 @@
 ---
 title: "About"
+title-block-banner: true
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+I am a Data Scientist and an Epidemiologist. I am passionate about the R 
+programming language, Linux and other free and open-source software (FOSS). 
+I both enjoy and strive to bring many of the amazing qualities that encompass 
+FOSS to my little neck of the woods in state government. It is my hope to make 
+the data we use for decision making, and all of its related tooling more open 
+and reproducible.
