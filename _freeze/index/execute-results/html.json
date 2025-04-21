@@ -1,9 +1,11 @@
 {
-  "hash": "7f8416fa567729df6fc51ce8de2d60a2",
+  "hash": "026a9a23a988c74eaf9a7117c851f979",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"asenetcky.dev\"\n---\n\n\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"asenetcky.dev\"\n---\n\n\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.python .cell-code}\nprint(\"hello world\")\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nhello world\n```\n\n\n:::\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
