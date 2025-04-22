@@ -15,6 +15,7 @@ website:
         text: Home
       - about.qmd
       - posts.qmd
+      - projects.qmd
       - text: Contact
         menu:
           - icon: linkedin

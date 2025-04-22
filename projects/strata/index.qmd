@@ -1,0 +1,13 @@
+---
+title: "strata"
+description: "simple framework for simple automation"
+date: 04-21-2025
+categories: [R, R-Package] 
+citation: 
+    url: https://asenetcky.dev/projects/strata/
+draft: false 
+---
+
+# strata
+
+[strata](https://github.com/asenetcky/strata)
