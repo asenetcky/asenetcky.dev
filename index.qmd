@@ -16,7 +16,7 @@ other gear that goes along with coffee brewing at home! You're in the
 right place if you want to learn more [about me](about.qmd) and my work.
 
 ::: {#socials}
-[GitHub]("https://github.com") &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
+[GitHub](https://github.com/asenetcky) &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
 :::
 
 :::
