@@ -1,16 +1,30 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "No matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "asenetcky.dev",
+    "title": "Alexander Senetcky",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2\n\n\n\nprint(\"hello world\")\n\nhello world"
+    "text": "Howdy, I’m Alex Senetcky. I love working with and teaching open source data tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home! You’re in the right place if you want to learn more about me and my work.\n\nGitHub   Linkedin   Email me"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am a Data Scientist and an Epidemiologist currently working for Connecticut Department of Public Health (DPH). I am passionate about the R programming language, Linux and other free and open-source software (FOSS).\nIf you happen to work for the State of Connecticut, you can often find me presenting or helping out with our inter-agency R User Group.\nDuring my almost 7 years in public health I’ve worked with my colleagues to tackle the opioid epidemic in Connecticut, expand the use of near-realtime syndromic surveillance, and helped bring automated daily and weekly reporting to DPH and to the public through our Open Data Portal."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "No matching items"
   }
 ]
