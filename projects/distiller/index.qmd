@@ -1,0 +1,13 @@
+---
+title: "distiller"
+description: "Distill your wrangled data down to the CDC's EPHT XML format"
+date: 04-23-2025
+categories: [R, R-Package] 
+citation: 
+    url: https://github.com/asenetcky/distiller
+draft: true 
+---
+
+# distiller
+
+[distiller](https://github.com/asenetcky/distiller)

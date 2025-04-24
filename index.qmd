@@ -1,16 +1,22 @@
 ---
-title: "asenetcky.dev"
+image: images/alex-winter.jpg
+toc: false
+about:
+    template: jolla
+    image-shape: round
+    image-width: 30em
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+::: {#bio}
+Howdy, I'm Alex Senetcky. I love working with and teaching open source
+data tools and programming languages. I'm a father who loves camping, 
+woodworking, computer hardware and making manual espresso - and all the 
+other gear that goes along with coffee brewing at home! You're in the 
+right place if you want to learn more [about me](about.qmd) and my work.
 
-```{r}
-1 + 1
-```
+::: {#socials}
+[GitHub](https://github.com/asenetcky) &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
+:::
 
-```{python}
-print("hello world")
-```
-
+:::

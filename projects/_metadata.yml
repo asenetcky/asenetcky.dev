@@ -1,0 +1,8 @@
+# enable banner style title blocks ----
+title-block-banner: true
+
+# my info
+author:
+  - name: Alexander Senetcky
+    url: https://asenetcky.dev
+    orcid: 0000-0002-5300-3075
