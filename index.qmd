@@ -1,19 +1,25 @@
 ---
+title: Alexander Senetcky
 image: images/alex-winter.jpg
 toc: false
 about:
-    template: jolla
+    template: trestles
     image-shape: round
-    image-width: 30em
+    image-width: 20em
 ---
 
 
 ::: {#bio}
-Hello, I'm Alex Senetcky. I love working with and teaching open source
-data-focused tools and programming languages. I'm a father who loves camping, 
+Hello, I'm Alexander Senetcky. 
+You're in the right place if you want to learn more 
+[about me](about.qmd) and my work.
+
+I love working with and teaching open source data-focused tools 
+and programming languages. I'm a father who loves camping, 
 woodworking, computer hardware and making manual espresso - and all the 
-other gear that goes along with coffee brewing at home! You're in the 
-right place if you want to learn more [about me](about.qmd) and my work.
+other gear that goes along with coffee brewing at home! 
+
+
 This website is a work in progress so please be sure to come back 
 and check for new content and updates while I tidy up.
 
