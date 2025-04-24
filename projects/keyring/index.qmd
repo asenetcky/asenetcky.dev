@@ -100,7 +100,7 @@ keyring::key_set_with_value(
 # let's use another awesome r package `RSocrata`
 
 # pak::pak("RSocrata")
-library(RSocrata)
+# library(RSocrata)
 
 ```
 
