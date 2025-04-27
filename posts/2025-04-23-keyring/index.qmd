@@ -103,9 +103,7 @@ So the code above just prints straight to console - still not exactly
 what you would want in real life but now that can be saved to
 an object and used just about anywhere. 
 
-Let's walk through a plausible example - perhaps you frequent
-the [CT Open Data Portal](https://data.ct.gov/)  (yay open data!)
-and you have an account with an email and password.
+Let's walk through some plausible examples:
 
 ```{r use-it}
 keyring::key_set_with_value(
@@ -114,10 +112,13 @@ keyring::key_set_with_value(
   password = "mytotallyrealpassword123"
 )
 
-# let's use another awesome r package `RSocrata`
+# sometimes you just want to use the service name
+# and the password - and the "password" may
+# not even be a password per se.
 
-# pak::pak("RSocrata")
-# library(RSocrata)
-
+keyring::key_set_with_value(
+  service = "definitely real sql server connection string",
+  password = "127.0.0.1"
+)
 ```
 
