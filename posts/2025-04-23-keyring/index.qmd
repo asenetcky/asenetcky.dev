@@ -37,6 +37,7 @@ Let's take a look.
 
 
 ### Installing `keyring`
+
 ```{r install}
 # install.packages("pak")
 # pak::pak("keyring")
@@ -103,6 +104,9 @@ So the code above just prints straight to console - still not exactly
 what you would want in real life but now that can be saved to
 an object and used just about anywhere. 
 
+
+### Examples
+
 Let's walk through some plausible examples:
 
 ```{r use-it}
@@ -121,6 +125,9 @@ keyring::key_set_with_value(
   password = "127.0.0.1"
 )
 ```
+
+
+### Helper Functions
 
 Keyring works great for little private/internal helper functions and packages
 that you might write or contribute to in your line of work. 
@@ -176,14 +183,75 @@ at your conveniance.
 
 safer_nab <- purrr::safely(
   nab_service_cred,
+  # set some default or placeholder values in case of errors
   otherwise = dplyr::lst(
     email = "default-or-fake@email.com",
     password = "defualt-or-fake-password.com"
   )
-  
-  # test it out
-
-  safer_nab("not-real-service")
 )
 ```
 
+```{r bad-cred}
+# test it out
+results <- safer_nab("not-a-service")
+results$result
+# the show goes on!
+```
+
+```{r good-cred}
+# what about our service from before?
+results <- safer_nab("open data portal")
+results
+```
+
+Hopefully these examples highlight how keyring can
+be a great free tool to bolster security around credential
+handling in code, as well a buiulding block for
+helper functions that can get your team on the
+same page with connections, databases, service
+accounts etc...
+
+### Cleaning up
+
+Now we have all these fake services and credentials in 
+our operating system's credential manager. How do 
+user clean it all up?  `keyring` has tools for that
+as well.
+
+Users can use `keyring::key_delete()` to wipe out 
+credentials they no longer want stored.
+
+```{r cleanup}
+# jog our memories about the services...
+keyring::key_list()
+
+# oh yeah - these ones.
+
+dplyr::lst(
+  "my-service",
+  "open data portal",
+  "definitely real sql server connection string"
+) |>
+  # let's borrow from our helper function
+  purrr::map(
+    \(serv) {
+      x <- nab_service_cred(serv)
+      x$name <- serv
+      x
+    }
+  ) |>
+  purrr::walk(
+    \(cred) {
+      name <- purrr::pluck(cred, "name")
+      email <- purrr::pluck(cred, "email")
+      keyring::key_delete(service = name, username = email)
+    }
+  )
+
+keyring::key_list()
+```
+
+## Your turn
+
+If you haven't already, check out `keyring` and see what 
+usecases you can come up with. 
