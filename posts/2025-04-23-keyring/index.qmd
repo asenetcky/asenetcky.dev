@@ -122,3 +122,68 @@ keyring::key_set_with_value(
 )
 ```
 
+Keyring works great for little private/internal helper functions and packages
+that you might write or contribute to in your line of work. 
+Why not wrap a helper function around some keyring functionality?
+
+```{r helper-fun}
+nab_service_cred <- function(service_name) {
+  # check user input
+  # `checkmate` is great to testing function input
+  # and/or putting together unit tests in packages
+  checkmate::assert_character(service_name)
+
+  # handle global bindings
+  service <- username <- NULL
+
+  # grab email
+  email <-
+    keyring::key_list() |>
+    dplyr::filter(service == service_name) |>
+    dplyr::pull(username)
+
+  # throw error if empty
+  if (purrr::is_empty(email)) {
+    rlang::abort(glue::glue("Credential not found"))
+  }
+
+  # grab password
+  password <-
+    keyring::key_get(
+      service = service_name,
+      username = email
+    )
+
+  # returned name list
+  dplyr::lst(
+    email,
+    password
+  ) |>
+    # probably best to return
+    # invisibily in case of unintended prints
+    invisible()
+}
+```
+
+This little helper can be a building block for other
+functionality in your scripts or package.  Maybe
+you have a process upstream that handles errors
+elegantly - you can then wrap this up in
+`purrr::safely()` and then handle potential errors
+at your conveniance. 
+
+```{r more-safer}
+
+safer_nab <- purrr::safely(
+  nab_service_cred,
+  otherwise = dplyr::lst(
+    email = "default-or-fake@email.com",
+    password = "defualt-or-fake-password.com"
+  )
+  
+  # test it out
+
+  safer_nab("not-real-service")
+)
+```
+
