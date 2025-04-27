@@ -78,7 +78,24 @@ pull these back into your environment.
 # if you happen to forget your services
 # you can list them all out!
 keyring::key_list()
+```
 
+Notice how the usernames are listed alongside the service?
+Users should be aware of that if they do not want usernames
+showing up in console somewhere. However, we'll exploit
+that functionality later on.  All a logged in user needs to 
+retrieve a credential is a service name and a username. 
+
+:::{::: {.callout-caution}
+  Typically keyrings are set per user and are thus subject to 
+  whatever security is employed around the user account.  It is imperative
+  that users take care to secure their accounts, otherwise
+  one comprimised account can quicky spill over into others.
+:::}
+
+Let's grab that credential now.
+
+```{r key-get}
 keyring::key_get(service = "my-service", username = "my-username")
 ```
 
