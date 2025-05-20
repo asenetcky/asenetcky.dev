@@ -1,31 +1,38 @@
 [
   {
+    "objectID": "posts/2025-04-23-keyring/index.html",
+    "href": "posts/2025-04-23-keyring/index.html",
+    "title": "Managing Credentials with keyring",
+    "section": "",
+    "text": "How many times have you needed to enter an API token or perhaps credentials to a service account? Have you ever seen someone save credentials inside of a script? It happens, I’ve seen it - I hate to admit it, but I’ve probably done it myself. It’s easy to do when it’s crunch time. You tell yourself, you’ll remove them when you’re done testing - but, gasp - it’s too late, you’ve mindlessly committed and pushed those changes on up to the remote with git.\nOr maybe you’re new and just getting started with R. You’re almost certainly going to need to inject a credential or something similar sooner or later. You don’t have to leave these in your scripts. There is a better way!"
+  },
+  {
+    "objectID": "posts/2025-04-23-keyring/index.html#the-challenge",
+    "href": "posts/2025-04-23-keyring/index.html#the-challenge",
+    "title": "Managing Credentials with keyring",
+    "section": "",
+    "text": "How many times have you needed to enter an API token or perhaps credentials to a service account? Have you ever seen someone save credentials inside of a script? It happens, I’ve seen it - I hate to admit it, but I’ve probably done it myself. It’s easy to do when it’s crunch time. You tell yourself, you’ll remove them when you’re done testing - but, gasp - it’s too late, you’ve mindlessly committed and pushed those changes on up to the remote with git.\nOr maybe you’re new and just getting started with R. You’re almost certainly going to need to inject a credential or something similar sooner or later. You don’t have to leave these in your scripts. There is a better way!"
+  },
+  {
+    "objectID": "posts/2025-04-23-keyring/index.html#the-solution",
+    "href": "posts/2025-04-23-keyring/index.html#the-solution",
+    "title": "Managing Credentials with keyring",
+    "section": "The Solution",
+    "text": "The Solution\nThere is an R package out there that makes it just as easy not to hardcode credentials into scripts. That package is keyring!\nLet’s take a look.\n\nInstalling keyring\nI prefer to use pak to install R packages, so I will often install that first and then use it to install the desired packages.\n\n# install.packages(\"pak\")\n# pak::pak(\"keyring\")\n\nlibrary(keyring)\n\n\n\nPutting keyring into practice\nkeyring stores credentials using the default credential manager for your operating system. keyring makes interacting with that manager, inside of your code, fairly seamless.\n\n# keyring can be run interactively with pop ups\n# or you set the values in code - execute the code\n# and then remove those lines if anything is going to be saved\n\n# save some useful credentials\nkey_set_with_value(\n  service = \"my-service\",\n  username = \"my-username\",\n  password = \"my-super-secret-password-SSSHHHH\"\n)\n\n# interactively - you would call `key_set(\"my-service\")`\n# and fill in the details in the pop up.\n\n\n\n\n\n\n\nImportant\n\n\n\nRemember - you're just executing the code and not saving the\nplain text password or senstive information in the code in a real world situation.\n\n\nNow how would we access those credentials for later use? The service and username previously entered becomes the identifiers used to pull the credential back into your environment.\n\n# if you happen to forget your services\n# you can list them all out!\nkeyring::key_list()\n\n     service    username\n1 my-service my-username\n\n\nNotice how the usernames are listed alongside the service? Users should be aware of that if they do not want usernames showing up in the console output. However, we’ll exploit that functionality later on. All a logged in user needs to retrieve a credential is a service name and a username.\n\n\n\n\n\n\nCaution\n\n\n\nTypically keyrings are set per user and are thus subject to whatever security is employed around the user account. It is imperative that users take care to secure their accounts, otherwise one compromised account can quickly spill over into others.\n\n\nLet’s grab that credential now.\n\nkey_get(service = \"my-service\", username = \"my-username\")\n\n[1] \"my-super-secret-password-SSSHHHH\"\n\n\nSo the code above just prints straight to console - still not exactly what you would want in real life but now that can be saved to an object and used just about anywhere.\n\n\nExamples\nLet’s walk through some plausible examples:\n\n# remember - interactively we'd be using key_set(\"&lt;service name here&gt;\")\n\nkey_set_with_value(\n  service = \"open data portal\",\n  username = \"me@asenetcky.dev\",\n  password = \"mytotallyrealpassword123\"\n)\n\n# sometimes you just want to use the service name\n# and the password - and the \"password\" may\n# not even be a password per se.\n\nkey_set_with_value(\n  service = \"definitely real sql server connection string\",\n  password = \"127.0.0.1\"\n)\n\n\n\nHelper Functions\nKeyring works great for little private/internal helper functions and packages that you might write or contribute to in your line of work. Why not wrap a helper function around some keyring functionality?\n\n\n\n\n\n\nNote\n\n\n\nI am using renv - for dependency management and I think you should too but that can be the topic of another post. I am going to assume the reader is not using renv and list the libraries - but I may miss one because renv has spoiled me. Be sure to check our renv and its excellent documentation.\n\n\n\n# pak::pak(\n#   c(\n#     \"dplyr\", # for tidyverse data manipulations\n#     \"purrr\", # for funtional programming - and in our example, error catching\n#     \"glue\", # for easy formatted strings\n#     \"checkmate\", # for common checks in functions\n#     \"rlang\" # great for core language helpers\n#   )\n# )\n\n# if we use `renv` and don't mind using the full function name - package::function\n# you can avoid these library statements entirely.\nlibrary(dplyr)\nlibrary(purrr)\nlibrary(rlang)\nlibrary(glue)\nlibrary(checkmate)\n\nOur dependencies are set up - I’ll use the full function names so that there will be no ambiguity about what function comes from where.\n\nnab_service_cred &lt;- function(service_name) {\n  # check user input\n  # `checkmate` is great to testing function input\n  # and/or putting together unit tests in packages\n  checkmate::assert_character(service_name)\n\n  # handle global bindings\n  service &lt;- username &lt;- NULL\n\n  # grab email\n  email &lt;-\n    keyring::key_list() |&gt;\n    dplyr::filter(service == service_name) |&gt;\n    dplyr::pull(username)\n\n  # throw error if empty\n  if (purrr::is_empty(email)) {\n    rlang::abort(\n      glue::glue(\"service: '{service_name}' - credential not found\")\n    )\n  }\n\n  # grab password\n  password &lt;-\n    keyring::key_get(\n      service = service_name,\n      username = email\n    )\n\n  # return a named list\n  dplyr::lst(\n    email,\n    password\n  ) |&gt;\n    # probably best to return\n    # invisibily in case of unintended prints\n    invisible()\n}\n\nThis little helper can be a building block for other functionality in your scripts or package. Maybe you have a process upstream that handles errors elegantly - you can then wrap this up in purrr::safely() and then handle potential errors at your convenience.\n\nsafer_nab &lt;- purrr::safely(\n  nab_service_cred,\n  # set some default or placeholder values in case of errors\n  otherwise = dplyr::lst(\n    email = \"default-or-fake@email.com\",\n    password = \"default-or-fake-password.com\"\n  )\n)\n\n\n# test it out\nresults &lt;- safer_nab(\"not-a-service\")\nresults$result\n\n$email\n[1] \"default-or-fake@email.com\"\n\n$password\n[1] \"default-or-fake-password.com\"\n\n# the show goes on!\n# but if we want to see the error - we still can.\nresults$error$message\n\nservice: 'not-a-service' - credential not found\n\n# look there is our error message!\n\n\n# what about our service from before?\nresults &lt;- safer_nab(\"open data portal\")\nresults\n\n$result\n$result$email\n[1] \"me@asenetcky.dev\"\n\n$result$password\n[1] \"mytotallyrealpassword123\"\n\n\n$error\nNULL\n\n\nPlease keep in mind that keyring is very local to the user, and computer they are using. It is not a replacement for some more heavyweight solutions. However, it doesn’t cost users anything to use, it’s licensed under the permissive MIT license so it can generally be incorporated into codebases, and it is easy to use and readily available. So for simple setups and/or simple projects I cannot really think of a reason not to use it.\nHopefully these examples highlight how keyring can be a great tool to bolster security around credential handling in code, as well as a building block for helper functions that can get your team on the same page with connections, databases, service accounts and other credentials.\n\n\nCleaning up\nNow we have all these fake services and credentials in our operating system’s credential manager. How do user clean it all up? keyring has tools for that as well.\nUsers can use keyring::key_delete() to wipe out credentials they no longer want stored.\n\n# jog our memories about the services...\nkeyring::key_list()\n\n                                       service         username\n1 definitely real sql server connection string                 \n2                                   my-service      my-username\n3                             open data portal me@asenetcky.dev\n\n# oh yeah - these ones.\n\ndplyr::lst(\n  \"my-service\",\n  \"open data portal\",\n  \"definitely real sql server connection string\"\n) |&gt;\n  # let's borrow from our helper function\n  # I'm feeding the service names into our helper function\n  # so we can keep the service name and the email needed\n  # for the deletion in `purr::walk()`\n  purrr::map(\n    \\(serv) {\n      cred &lt;- nab_service_cred(serv)\n      cred$name &lt;- serv\n      cred\n    }\n  ) |&gt;\n  purrr::walk(\n    \\(cred) {\n      name &lt;- purrr::pluck(cred, \"name\")\n      email &lt;- purrr::pluck(cred, \"email\")\n      keyring::key_delete(service = name, username = email)\n    }\n  )\n\nkeyring::key_list()\n\n[1] service  username\n&lt;0 rows&gt; (or 0-length row.names)"
+  },
+  {
+    "objectID": "posts/2025-04-23-keyring/index.html#your-turn",
+    "href": "posts/2025-04-23-keyring/index.html#your-turn",
+    "title": "Managing Credentials with keyring",
+    "section": "Your turn",
+    "text": "Your turn\nIf you haven’t already, check out keyring and see what use cases you can come up with."
+  },
+  {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Pardon our dust\n\n\n\n\n\n\n\n\n\n\n\nApr 25, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexander Senetcky",
-    "section": "",
-    "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\nThis website is a work in progress so please be sure to come back and check for new content and updates while I tidy up.\n\nGitHub   Linkedin   Email me"
-  },
-  {
-    "objectID": "projects/pardon/index.html",
-    "href": "projects/pardon/index.html",
-    "title": "Pardon our dust",
-    "section": "",
-    "text": "This page is under construction. Please come back later for new content and updates."
-  },
-  {
-    "objectID": "posts/2025-04-25-pardon/index.html",
-    "href": "posts/2025-04-25-pardon/index.html",
-    "title": "Pardon our dust",
-    "section": "",
-    "text": "This page is under construction. Please come back later for new content and updates."
+    "text": "Pardon our dust\n\n\n\n\n\n\n\n\n\n\n\nApr 25, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nManaging Credentials with keyring\n\n\nDeveloper Toolkit\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\n\n\nSimple Credential Management\n\n\n\n\n\nApr 23, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -39,6 +46,27 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Pardon our dust\n\n\n\n\n\n\n\n\n\n\n\nApr 25, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\nNo matching items"
+    "text": "Pardon our dust\n\n\n\n\n\n\n\n\nApr 25, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/pardon/index.html",
+    "href": "projects/pardon/index.html",
+    "title": "Pardon our dust",
+    "section": "",
+    "text": "This page is under construction. Please come back later for new content and updates."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexander Senetcky",
+    "section": "",
+    "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\nThis website is a work in progress so please be sure to come back and check for new content and updates while I tidy up.\n\nGitHub   Linkedin   Email me"
+  },
+  {
+    "objectID": "posts/2025-04-25-pardon/index.html",
+    "href": "posts/2025-04-25-pardon/index.html",
+    "title": "Pardon our dust",
+    "section": "",
+    "text": "This page is under construction. Please come back later for new content and updates."
   }
 ]
