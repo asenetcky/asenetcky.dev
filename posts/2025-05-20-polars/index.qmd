@@ -1,0 +1,40 @@
+---
+title: "Polars and uv: An R User's Perspective"
+subtitle: ""
+description: "Working with Polars in Quarto with uv"
+date: 05-20-2025
+categories: [Python, Polars, uv] 
+citation: 
+    url: https://asenetcky.dev/polars
+draft: false 
+---
+
+## The Premise
+<!-- TODO: -->
+
+I recently read through [Polars: The Definitive Guide]() by XXXX
+and I really wanted to give it a spin for a blog post. I thought
+it could be a neat challenge to write this with quarto, in the positron
+ide, incorporate uv and use polars to do a wrangle and give me
+a visual at the end - and not have it break the website.
+
+This is how it went....
+
+## uv
+
+I've been playing with [`uv`]() lately by Astral and as someone who
+has dabbled in Rust, I instantly felt at home with uv.  For whatever
+reason going from R to python was always filled with friction for
+me. pip just never clicked for me. Going to rust was- well that was
+something else, but cargo just worked and I liked it and I wish
+R had something like cargo. so when I discovered uv for python,
+it made everything else just make more sense.
+
+### adding uv
+
+So how do I add it to an existing quarto-based website? Let's see how it goes.
+
+## Polars
+
+## not break the website
+
