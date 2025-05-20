@@ -38,3 +38,18 @@ afford to add another package dependency and you are
 programmatically working with the file system I think
 the R pakcage `fs` is worth taking along for the ride.
 
+
+but first ...
+
+## the zen of projects
+
+
+use repos and/or projects/folders etc...
+
+
+## why fs over base
+
+It's spelled out right [here](https://fs.r-lib.org/articles/function-comparisons.html).
+
+But the tl;dr is ....
+
