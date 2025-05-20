@@ -43,6 +43,8 @@ but first ...
 
 ## the zen of projects
 
+### some context
+
 I often find that new R users in my line of work don't organize their
 work into distinct projects.  If they use the [Rstudio]() IDE
 they aren't using rstudio projects with the `.Rproj` files or
@@ -67,6 +69,8 @@ It will become second nature and so fast that the
 headaches they solve down the road will more than
 make up for the short amount of time learning 
 and setting them up.
+
+### benefits of project spaces
 
 So what are these benefits?  Most of the time
 some background quality of life magic is happening.
