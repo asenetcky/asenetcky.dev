@@ -119,3 +119,12 @@ But the tl;dr is ....
 todo next steps
 use tree
 show this little folder with tree
+
+
+## the end part
+
+So what about you? What have you picked up along the way
+in your career that you would want new folks starting out
+to know?  Anything you picked up from another field, or
+even another programming language that your brought with
+you to all your projects in other languages?
