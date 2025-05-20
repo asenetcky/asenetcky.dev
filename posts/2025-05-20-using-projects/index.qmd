@@ -100,9 +100,10 @@ to be able to clone or fork your source code and be able to have it work.
 
 Some of this might seem obvious to those in a more traditional
 developer role in a more traditional developer job - but Git use is almost 
-non-existent in my area of work.
-Code isn't thought about much other than a means to an end in the now, 
-and not a second thought paid to the future.
+non-existent in my area of work. I *almost never* get a `README.md` or other
+relevant documentation.
+Code isn't thought about much other than as a means to an end in the *now*, 
+and not a second thought is paid to the *future*.
 
 So this is for my friends in public health and in government. 
 I want to focus on the biggest gains for the least amount of effort. Incorporating
@@ -115,15 +116,50 @@ and portability.
 
 It's spelled out right [here](https://fs.r-lib.org/articles/function-comparisons.html).
 
-But the tl;dr is ....
+But the tl;dr is consistancy is king TODO....
 
 ## use projects but take nothing for granted
+
+So I went on that whole big thing about using projects, but here is the kicker,
+take nothing for granted. Use absolute file paths without hardcoding absolute file paths.
+
+but how? use `fs` and friends.
+
+```{r}
+#| label: setup-fs
+
+# install.packages("pak")
+# pak::pak("fs")
+```
+
+```{r}
+#| label: quick-fs
+
+library(fs)
+
+fs::path_home()
+
+fs::path_wd()
+
+fs::dir_tree(
+  fs::path_wd("posts"),
+  recurse = FALSE
+)
+
+fs::dir_tree(
+  fs::path_wd("posts"),
+  recurse = TRUE
+)
+```
 
 
 todo next steps
 use tree
 show this little folder with tree
 
+TODO:
+`here` is great - but less set it and forget - but you'll likely need in projects
+with nested folders that use quarto or rmarkdown etc...
 
 ## the end part
 
