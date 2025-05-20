@@ -2,30 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://asenetcky.dev/posts/2025-04-23-keyring/index.html</loc>
-    <lastmod>2025-05-20T10:32:52.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/posts.html</loc>
-    <lastmod>2025-05-20T10:32:52.356Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/about.html</loc>
-    <lastmod>2025-05-20T10:32:52.354Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/projects.html</loc>
-    <lastmod>2025-05-20T10:32:52.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/projects/pardon/index.html</loc>
-    <lastmod>2025-05-20T10:32:52.357Z</lastmod>
+    <lastmod>2025-05-20T10:37:08.030Z</lastmod>
   </url>
   <url>
     <loc>https://asenetcky.dev/index.html</loc>
-    <lastmod>2025-05-20T10:32:52.356Z</lastmod>
+    <lastmod>2025-05-20T10:37:08.030Z</lastmod>
   </url>
   <url>
-    <loc>https://asenetcky.dev/posts/2025-04-25-pardon/index.html</loc>
-    <lastmod>2025-05-20T10:32:52.357Z</lastmod>
+    <loc>https://asenetcky.dev/projects/pardon/index.html</loc>
+    <lastmod>2025-05-20T10:37:08.030Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/projects.html</loc>
+    <lastmod>2025-05-20T10:37:08.030Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/about.html</loc>
+    <lastmod>2025-05-20T10:37:08.027Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/posts.html</loc>
+    <lastmod>2025-05-20T10:37:08.030Z</lastmod>
   </url>
 </urlset>
