@@ -113,3 +113,9 @@ It's spelled out right [here](https://fs.r-lib.org/articles/function-comparisons
 
 But the tl;dr is ....
 
+## use projects but take nothing for granted
+
+
+todo next steps
+use tree
+show this little folder with tree
