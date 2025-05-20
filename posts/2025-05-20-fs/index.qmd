@@ -26,3 +26,15 @@ foo <- function() {
 foo()
 
 ```
+
+You need that script to run - but it just blows up spectacularly
+in your face. You go in to change that line and then the script
+works, or it doesn't. I find - more often than not - that
+if there is a `setwd()` at the top of a script, that even
+if I correct the path there are other depedencies that did
+not come along for the ride.  There is nothing wrong
+with using `setwd()` or `getwd()` - however, if you can
+afford to add another package dependency and you are
+programmatically working with the file system I think
+the R pakcage `fs` is worth taking along for the ride.
+
