@@ -143,15 +143,7 @@ path_home()
 
 path_wd()
 
-dir_tree(
-  path_wd(),
-  recurse = FALSE
-)
-
-dir_tree(
-  path_wd(),
-  recurse = TRUE
-)
+dir_tree(path_wd())
 ```
 
 
