@@ -90,7 +90,7 @@ where inadvertantly took that name from please reach out to me.
 I will link them all here!
 
 What is the "zen of projects"? You start to think about your
-work as tiny little ecosystems, a functioning unit of work, not as a single script.  
+work as tiny little ecosystems, a functioning unit of work, not as a single script.
 a collection of scripts and all the things you need to for your work to....well, *work*.
 My mind instantly flashes back to all the organelles inside of a cell 
 the mitochondria, the nucleous and all the other things I've completely
@@ -132,22 +132,24 @@ but how? use `fs` and friends.
 # pak::pak("fs")
 ```
 
+<!-- run in a container for final render & freeze -->
+
 ```{r}
 #| label: quick-fs
 
 library(fs)
 
-fs::path_home()
+path_home()
 
-fs::path_wd()
+path_wd()
 
-fs::dir_tree(
-  fs::path_wd("posts"),
+dir_tree(
+  path_wd(),
   recurse = FALSE
 )
 
-fs::dir_tree(
-  fs::path_wd("posts"),
+dir_tree(
+  path_wd(),
   recurse = TRUE
 )
 ```
