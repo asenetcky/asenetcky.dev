@@ -52,12 +52,44 @@ can adopt is a simple reframing of how we perceieve our code.
 
 Even our small, simple little script is a project, inside of a what I'll
 call *project-space*.  I'll define what I mean by *project* and *project-space*
-and how you can use these mental constructs to think about your code. Also,
+and how you can use these mental costructs to think about your code. Also,
 if you can afford to add another package dependency and you are programmatically
 working with the file system I think the R package `fs` is worth taking a look
 at.
 
-## the zen of projects
+## Defining *Project* and *Project-Space*
+
+I'm using the these terms broadly to cast a wide net. Your Integrated 
+Development Environment (IDE) may have a very concrete concept of a project
+or some kind of workspace or the folder you are working in.  You should 
+100% take advantage of those quality of life features, however I am being a
+litte more meta than that. Your code, your logic was created to tackle a
+problem. This is your project, your solution.  Ideally this solution has
+everything it needs to stand alone as much as possible.  
+
+When users hardcode a file path at the top of the script, their computer 
+*at that point in time*  intrinsically becomes a part of that solution. 
+
+> *You* are not a project.
+
+It is up to the developer to divorce themselves from the project. It needs to
+be able to stand alone. There are many ways of doing this and a great deal
+of tooling has spring up around divorcing the project from the user and the
+machine the project was written on.
+
+This is where *project-space* comes into play. Yes, your code physically exists
+on your machine. You are possibly staring at one or more projects on your
+machine.  You need to think beyond your machine.  These projects can and should
+be able (to the ebst of your abilities) exist on any number of machines.  If
+you are tackling a business problem for work - you should strive to be able
+to have your code run just about anywhere at work should something catastrophic
+happen to your usual work computer. *project-space* is a way of thinking
+about your code being everywhere and nowhere and tackling the problems in your
+code in the most person-environment agnostic ways possible.
+
+
+TODO: the need, needs to match the effort - don't go crazy (use fs).
+
 
 ### some context
 
@@ -130,9 +162,24 @@ and portability.
 
 ## why fs over base
 
-It's spelled out right [here](https://fs.r-lib.org/articles/function-comparisons.html).
+It's spelled out right 
+[here](https://fs.r-lib.org/articles/function-comparisons.html).
 
 But the tl;dr is consistancy is king TODO....
+
+### Why not `here`?
+
+`fs` and `here` may overlap a little bit with `fs::path_wd()` and `here::here()`
+but the focus of the packages is completely different. `here` is all about
+project directory roots and `fs` has a little bit of that but the focus
+is really on working in a file system on your computer.
+
+Also, I wanted quick easy wins and I think `fs` with its `fs::path_wd()` is just
+easier to use for most usecases. I think the `here` package is fantastic and 
+those couple of extra [steps](https://here.r-lib.org/articles/here.html)
+***will*** be necessary some of the time. `here` has really saved my bacon in
+the past and you should absolutely know about it.  Most of the time though,
+`fs::path_wd()` is *good enough*.
 
 ## use projects but take nothing for granted
 
@@ -172,6 +219,13 @@ TODO:
 with nested folders that use quarto or rmarkdown etc...
 
 ## the end part
+
+Where to go from here? 
+- renv
+- git & repos
+- template repos
+- containers
+
 
 So what about you? What have you picked up along the way
 in your career that you would want new folks starting out
