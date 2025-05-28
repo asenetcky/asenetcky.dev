@@ -1,5 +1,5 @@
 ---
-title: "Using Projects to Organize and Think about your Code"
+title: "Thinking in Projects"
 subtitle: "Using `fs` and friends"
 description: "Increasing Portability and Reproducibility"
 date: 05-20-2025
@@ -11,8 +11,8 @@ draft: true
 
 ## The Premise
 
-How many times have you seen this at the top of an R script
-that was shared with you by a friend or colleague?
+How many times have you seen this at the top of an R script that was shared 
+with you by a friend or colleague?
 
 ```{r}
 #| eval: false
@@ -27,19 +27,35 @@ foo()
 
 ```
 
-You need that script to run - but it just blows up spectacularly
-in your face. You go in to change that line and then the script
-works, or it doesn't. I find - more often than not - that
-if there is a `setwd()` at the top of a script, that even
-if I correct the path there are other depedencies that did
-not come along for the ride.  There is nothing wrong
-with using `setwd()` or `getwd()` - however, if you can
-afford to add another package dependency and you are
-programmatically working with the file system I think
-the R pakcage `fs` is worth taking along for the ride.
+You need that script to run - but it just blows up spectacularly in your face. 
+You go in to change that line and then the script works, or it doesn't. 
+I find - more often than not - that if there is a `setwd()` at the top of a
+script, that even if I correct the path there are other depedencies that did
+not come along for the ride.
 
+When I started out learning R I did this alot. I still see this quite often.
+I see it from folks who have also moved well beyond the basics of R.  There is
+nothing wrong with using `setwd()` or `getwd()`.  However, I find that it is
+usually a signal that folks might not be thinking holistically about their code
+and the greater ecosystem in which it exists.  Reproducibility might not
+always be on the forefront of everyone's minds, and look, I get it - sometimes
+you just need to slap something together to solve a problem so you never have
+to think about it again. For all the other times (and I'd argue even for those
+just-get-it-times) this might be one of those rare moments where doing the
+more robust thing is also the easier thing to do.
 
-but first ...
+The road to reproducibility winds ever onward, and while there are many facets
+to making your code more reproducible, one of the easiest just about anyone
+can adopt is a simple reframing of how we perceieve our code.
+
+> Our code is a project.
+
+Even our small, simple little script is a project, inside of a what I'll
+call *project-space*.  I'll define what I mean by *project* and *project-space*
+and how you can use these mental constructs to think about your code. Also,
+if you can afford to add another package dependency and you are programmatically
+working with the file system I think the R package `fs` is worth taking a look
+at.
 
 ## the zen of projects
 
