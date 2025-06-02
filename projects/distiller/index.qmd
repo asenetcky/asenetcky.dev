@@ -1,13 +1,19 @@
 ---
 title: "distiller"
 description: "Distill your wrangled data down to the CDC's EPHT XML format"
-date: 04-23-2025
-categories: [R, R-Package] 
+date: 06-02-2025
+categories: [R, R-Package, CDC, EPHT, public health] 
 citation: 
     url: https://github.com/asenetcky/distiller
-draft: true 
+draft: false 
 ---
 
 # distiller
 
-[distiller](https://github.com/asenetcky/distiller)
+`distiller` is my R-package I wrote to help me submit data to CDC's 
+[Environmental Public Health Tracking](https://www.cdc.gov/environmental-health-tracking/about/index.html).  
+This package will take your wrangled data and create the XML documents as 
+required by the CDC specification.  Check it out and please let me know if it 
+helps ease your submissions.
+
+You can find `distiller` documentation [here](https://asenetcky.github.io/distiller/).
