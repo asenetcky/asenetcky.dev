@@ -35,18 +35,11 @@
     "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\nThis website is a work in progress so please be sure to come back and check for new content and updates while I tidy up.\n\nGitHub   Linkedin   Email me"
   },
   {
-    "objectID": "projects/pardon/index.html",
-    "href": "projects/pardon/index.html",
-    "title": "Pardon our dust",
+    "objectID": "projects/strata/index.html",
+    "href": "projects/strata/index.html",
+    "title": "strata",
     "section": "",
-    "text": "This page is under construction. Please come back later for new content and updates."
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "Pardon our dust\n\n\n\n\n\n\n\n\nApr 25, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "strata\nstrata is my R-package that serves as a lightweight automation framework that teams without access to modern orchestration tools can implement easily.\n\nstrata documenation\nstrata on CRAN\n\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Strata},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/strata/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Strata.” June 2, 2025. https://asenetcky.dev/projects/strata/."
   },
   {
     "objectID": "about.html",
@@ -54,6 +47,20 @@
     "title": "About",
     "section": "",
     "text": "I am a Data Scientist and an Epidemiologist currently working for Connecticut Department of Public Health (DPH). I am passionate about the R programming language, Linux and other free and open-source software (FOSS).\nIf you happen to work for the State of Connecticut, you can often find me presenting or helping out with our inter-agency R User Group.\nDuring my almost 7 years in public health I’ve worked with my colleagues to tackle the opioid epidemic in Connecticut, expand the use of near-realtime syndromic surveillance, and helped bring automated daily and weekly reporting to DPH and to the public through our Open Data Portal."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "distiller\n\n\n\nR\n\nR-Package\n\nCDC\n\nEPHT\n\npublic health\n\n\n\nDistill your wrangled data down to the CDC’s EPHT XML format\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nstrata\n\n\n\nR\n\nR-Package\n\n\n\nSimple Framework for Simple Automation\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/distiller/index.html",
+    "href": "projects/distiller/index.html",
+    "title": "distiller",
+    "section": "",
+    "text": "distiller\ndistiller is my R-package I wrote to help me submit data to CDC’s Environmental Public Health Tracking.\nThis package will take your wrangled data and create the XML documents as required by the CDC specification. Check it out and please let me know if it helps ease your submissions.\nYou can find distiller documentation here.\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Distiller},\n  date = {2025-06-02},\n  url = {https://github.com/asenetcky/distiller},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Distiller.” June 2, 2025. https://github.com/asenetcky/distiller."
   },
   {
     "objectID": "posts.html",
