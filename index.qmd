@@ -3,9 +3,7 @@ title: Alexander Senetcky
 image: images/alex-winter.jpg
 toc: false
 about:
-    template: trestles
-    image-shape: round
-    image-width: 20em
+    template: jolla
 ---
 
 

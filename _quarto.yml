@@ -41,3 +41,5 @@ format:
     theme: brite
     css: styles.css
     toc: true
+
+brand: _brand.yml
