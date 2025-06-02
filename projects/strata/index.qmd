@@ -1,13 +1,17 @@
 ---
 title: "strata"
-description: "simple framework for simple automation"
-date: 04-21-2025
+description: "Simple Framework for Simple Automation"
+date: 06-02-2025
 categories: [R, R-Package] 
 citation: 
     url: https://asenetcky.dev/projects/strata/
-draft: true 
+draft: false
 ---
 
 # strata
 
-[strata](https://github.com/asenetcky/strata)
+`strata` is my R-package that serves as a lightweight automation framework
+that teams without access to modern orchestration tools can implement easily.
+
+- [strata documenation](https://asenetcky.github.io/strata/)
+- [strata on CRAN](https://cran.r-project.org/package=strata)
