@@ -38,6 +38,11 @@ website:
 format:
   html:
     page-layout: full
-    theme: brite
+    theme: lux
     css: styles.css
     toc: true
+
+#brand:
+#  light: brand/light-brand.yml
+#  dark: brand/dark-brand.yml
+

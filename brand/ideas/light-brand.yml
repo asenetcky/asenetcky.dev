@@ -1,0 +1,12 @@
+color: 
+  palette:
+    sea-blue: "#33a7b5"
+    sea-green: "#b6e3d4"
+    beach-yellow: "#fff5cb"
+    off-white: "#f8f9fa"
+    off-er-white: "#f9f7f4"
+    dark-grey: "#343a40"
+  
+  primary: off-er-white
+  background: off-white
+  foreground: dark-grey

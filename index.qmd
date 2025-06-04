@@ -1,11 +1,9 @@
 ---
 title: Alexander Senetcky
-image: images/alex-winter.jpg
+image: https://gravatar.com/avatar/bec8e1e8076d3f3e1a80936433db726032023a8b60bad11bd3709731c422f0d4.jpg?s=2048
 toc: false
 about:
-    template: trestles
-    image-shape: round
-    image-width: 20em
+    template: jolla
 ---
 
 
