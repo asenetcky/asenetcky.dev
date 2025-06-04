@@ -1,6 +1,6 @@
 ---
 title: Alexander Senetcky
-image: images/alex-winter.jpg
+image: images/alex-office.jpg
 toc: false
 about:
     template: jolla
