@@ -41,12 +41,12 @@ and the greater ecosystem in which it exists.  Reproducibility might not
 always be on the forefront of everyone's minds, and look, I get it - sometimes
 you just need to slap something together to solve a problem so you never have
 to think about it again. For all the other times (and I'd argue even for those
-just-get-it-times) this might be one of those rare moments where doing the
+just-get-it-done-times) this might be one of those rare moments where doing the
 more robust thing is also the easier thing to do.
 
 The road to reproducibility winds ever onward, and while there are many facets
 to making your code more reproducible, one of the easiest just about anyone
-can adopt is a simple reframing of how we perceieve our code.
+can adopt is a simple reframing of how we perceive our code.
 
 > Our code is a project.
 
@@ -64,31 +64,93 @@ Development Environment (IDE) may have a very concrete concept of a project
 or some kind of workspace or the folder you are working in.  You should 
 100% take advantage of those quality of life features, however I am being a
 litte more meta than that. Your code, your logic was created to tackle a
-problem. This is your project, your solution.  Ideally this solution has
-everything it needs to stand alone as much as possible.  
+problem. This is your project, *your solution*.
 
+> Ideally this solution has everything it needs to stand alone
+
+If it can stand alone, you can confidently pass it along to a teammate.
 When users hardcode a file path at the top of the script, their computer 
 *at that point in time*  intrinsically becomes a part of that solution. 
 
 > *You* are not a project.
 
 It is up to the developer to divorce themselves from the project. It needs to
-be able to stand alone. There are many ways of doing this and a great deal
+be self-contained. There are many ways of doing this and a great deal
 of tooling has spring up around divorcing the project from the user and the
-machine the project was written on.
+machine the project was written on. It's also a spectrum too.  You need to be
+realistic with yourself and your deadlines.  If R packages are all the way on
+"reproducible" end of the spectrum - you may not have time for that level
+of commitment, so you do what you can and aim to ship easy wins and build up
+to the ideal in time.
 
-This is where *project-space* comes into play. Yes, your code physically exists
-on your machine. You are possibly staring at one or more projects on your
-machine.  You need to think beyond your machine.  These projects can and should
-be able (to the ebst of your abilities) exist on any number of machines.  If
-you are tackling a business problem for work - you should strive to be able
+So what are these easy wins? You can make code soultion aware of its
+surroundings. This is where *project-space* comes into play.
+Yes, your code physically exists on your machine. You are possibly staring at
+one or more projects on your machine.  But you need to think beyond your
+machine.  These projects can and should be able (to the best of your abilities)
+exist on any number of machines.  
+If you are tackling a business problem for work - you should strive to be able
 to have your code run just about anywhere at work should something catastrophic
 happen to your usual work computer. *project-space* is a way of thinking
 about your code being everywhere and nowhere and tackling the problems in your
 code in the most person-environment agnostic ways possible.
 
+## The Easy Win
 
-TODO: the need, needs to match the effort - don't go crazy (use fs).
+Using [`fs`](https://fs.r-lib.org/) will help to think about, and 
+programmatically interact with your project-space.  It's a wonderful
+package for working with files, folders and paths. The package is well
+organized and has consistant names that make finding functionality
+within the package a breeze. 
+
+Interacting with files and folders is great, but it's the function
+`fs::path_wd()` that I find myself using *all* the time.  You can basically
+drop this function in your scripts and functions and it is probably going
+to handle 98% of your project-space pathing issues, with a few exceptions.
+
+Let's cover some basic concepts with `fs` before we finish with `fs::path_wd()`.
+
+## Why fs over base?
+
+It's spelled out better than I can ever state it in the 
+[documentation](https://fs.r-lib.org/articles/function-comparisons.html).
+
+The tl;dr is that consistancy is king, and it really is. I cannot 
+emphasize that enough.  Nobody likes hidden surprises, much less coming 
+from your behind-schedule, tech-debt-ridden past self.
+If you can confidently tell what the code is going to do by just reading it.
+Then your teammates are more likely to tell what that code is going to do
+by just reading it, and they will thank you for it.
+
+## Diving in
+
+You'll be constructing alot of paths with `fs`, but thankfully
+that is easy!
+
+```{r}
+#| label: paths
+
+# few different ways, you can mix and match
+fs::path("folder", "subfolder", "file", ext = "R")
+fs::path("folder/subfolder/file.R")
+
+```
+
+Inspecting an `fs` path we'll see that it has it's own class `fs_path`.
+
+```{r}
+file_name <- "my_file"
+my_path <-
+  fs::path("folder/subfolder", file_name, ext = "csv")
+
+my_path
+class(my_path)
+```
+
+Some bells and whistles come along for the ride, but you can mostly think
+of these as `characters` with some nice vectorized function friends.
+
+
 
 
 ### some context
