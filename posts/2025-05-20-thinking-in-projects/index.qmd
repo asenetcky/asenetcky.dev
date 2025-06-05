@@ -287,14 +287,21 @@ the best of both worlds.
 **entrypoint** into thinking about your project in a broader, project focused 
 context. 
 
-## the end part
+### Where do we go from here?
 
-Where to go from here? 
-- renv
-- git & repos
-- template repos
-- containers
+Keep practicing and building cool things of course! Really this 
+project-focused thinking is an introduction to starting to think reproducibly
+about your code, your methods and your environment.  Some incredibly
+helpful tools you might want to check out if you haven't are:
 
+- `renv`: An R package for dependency management - a game changer.
+- git and using repositories: Distributed version control software that really
+drives home working in projects.
+- GitHub template repositories: If you have your projects setup how you like
+them, why not make a blank template for yourself?
+- containers: If you haven't worked with these before - they'll blow your mind.
+Read up on Podman or Docker and see how these tackle "well, it works on my
+machine" problem that we all encounter one way or another.
 
 So what about you? What have you picked up along the way
 in your career that you would want new folks starting out
