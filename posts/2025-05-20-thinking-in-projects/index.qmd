@@ -130,9 +130,11 @@ that is easy!
 ```{r}
 #| label: paths
 
+library(fs)
+
 # few different ways, you can mix and match
-fs::path("folder", "subfolder", "file", ext = "R")
-fs::path("folder/subfolder/file.R")
+path("folder", "subfolder", "file", ext = "R")
+path("folder/subfolder/file.R")
 
 ```
 
@@ -141,95 +143,126 @@ Inspecting an `fs` path we'll see that it has it's own class `fs_path`.
 ```{r}
 file_name <- "my_file"
 my_path <-
-  fs::path("folder/subfolder", file_name, ext = "csv")
+  path("folder/subfolder", file_name, ext = "csv")
 
 my_path
 class(my_path)
 ```
 
 Some bells and whistles come along for the ride, but you can mostly think
-of these as `characters` with some nice vectorized function friends.
+of these as `characters` with some nice vectorized function friends. Now
+let's look at some real files.
 
 
+```{r}
+#| label: real-files
+
+# let's create a temporary file
+
+# create the path
+temp_file <- file_temp(ext = "R")
+temp_file
+
+# does it exist yet?
+file_exists(temp_file)
+
+# create the file
+file_touch(temp_file)
+
+# now does it exist?
+file_exists(temp_file)
+```
+
+Let's grab some info about this file.
+
+```{r}
+#| label: file-info
+
+# we can programmatically grab all the pieces about this file and surroundings
+
+# the extension
+path_ext(temp_file)
+
+# the directory
+path_dir(temp_file)
+
+# file info
+file_info(temp_file) |>
+  dplyr::select("block_size") |>
+  fs::as_fs_bytes()
+
+# list surroundings
+path_dir(temp_file) |>
+  dir_ls()
+
+# or get a cool tree!
+path_dir(temp_file) |>
+  dir_tree()
+```
 
 
-### some context
+### Kept you waiting, huh?
 
-I often find that new R users in my line of work don't organize their
-work into distinct projects.  If they use the [Rstudio]() IDE
-they aren't using rstudio projects with the `.Rproj` files or
-workspaces in other IDEs. Using `git` will often force the
-use of project folders or at least the mindset of one, but
-often git isn't in use either.
+Let's delete that file for now and move on to why we're here - `fs::path_wd()`.
 
-I found that, while working in public health during a pandemic
-that anything I may have produced in code - no matter how many times
-it was relayed to me that the ask was "a one-time thing" - will
-live on forever whether you want it to or not. If it provided 
-some value, and even if it didn't, it became familiar and 
-eventually took on a life all its own.
-This is probably true in many other fields - so do yourself a favor
-and make sure whatever it is you build is something that
-isn't going to haunt you. Use `git` if you're able, and 
-if not work in projects to organize your work. It may
-not seem like setting up a project is worth it for
-a quick todo - but if the ask is worth doing at all,
-setup a project however your IDE of choice expects it.
-It will become second nature and so fast that the
-headaches they solve down the road will more than
-make up for the short amount of time learning 
-and setting them up.
+```{r}
+#| label: path-wd
 
-### benefits of project spaces
+# delete file
+file_delete(temp_file)
 
-So what are these benefits?  Most of the time
-some background quality of life magic is happening.
-In the case of Rstudio - the scripts are "aware" of
-where they are so you usually no longer have use `setwd()` or
-`getwd()`.  Project level settings can also be saved to
-the project space. I think the biggest benefit of all
-is a shift in your own mindset.
+# and shift focus to where we are
+project_path <- path_wd()
+project_path
+```
 
-what is that shift? I don't know what to call it
-so I'm making it up right now - "the zen of projects".
-I probably read something like this somewhere and forgot
-that this isn't my own idea. So I am so sorry if this is
-someone else's idea. I am not trying to pass it off as my own.
-If there are other related articles, or there is one 
-where inadvertantly took that name from please reach out to me.
-I will link them all here!
+Did you catch that?
+It's subtle - and possibly underwhelming. The file know's where it is.
+What's more important is what it ***did not do*** - it did not mess with
+and change a user's project-space.  `setwd()` might be set to a path that
+does not exist and that is annoying, but at least it would fail fast. What 
+if it didn't though? What if it silently set it some far off location
+and one part of your script works, but then the rest start throwing errors or
+clobbering file that should not be touched. 
 
-What is the "zen of projects"? You start to think about your
-work as tiny little ecosystems, a functioning unit of work, not as a single script.
-a collection of scripts and all the things you need to for your work to....well, *work*.
-My mind instantly flashes back to all the organelles inside of a cell 
-the mitochondria, the nucleous and all the other things I've completely
-forgotten about until I wrote that very sentence above. I think `git` 
-helps you get into this mindset most of all because you want folks
-to be able to clone or fork your source code and be able to have it work.
+`fs::path_wd()` uses the point of view from the script/function and separates
+the user from the project and the project-space.  Now it doesn't matter - 
+more or less - where your drop your logic, it will pick up on its surroundings
+and execute commands.
 
-Some of this might seem obvious to those in a more traditional
-developer role in a more traditional developer job - but Git use is almost 
-non-existent in my area of work. I *almost never* get a `README.md` or other
-relevant documentation.
-Code isn't thought about much other than as a means to an end in the *now*, 
-and not a second thought is paid to the *future*.
+It is also just so easy to drop `path_wd()` anywhere and save yourself some
+typing.  If you have a deeply nested project you can use that to take care
+of some of the pathing boilerplate.
 
-So this is for my friends in public health and in government. 
-I want to focus on the biggest gains for the least amount of effort. Incorporating
-a project space is easy to do, becomes natural and gets folks into
-this project zen that will hopefully get folks to start thinking about code reproducibility
-and portability.
+What if I wanted to print the first few lines of code from another post?
+Easy.
 
+```{r}
+#| label: creating-paths-wd
 
-## why fs over base
+# you can add the folders and files into path_wd()
+path_wd("file-that-is-definitely-here")
 
-It's spelled out right 
-[here](https://fs.r-lib.org/articles/function-comparisons.html).
+#  you can substitute path_wd() for our project_path object as well
+path(path_wd(), "cool-folder", "possibly-more-complex-path")
+```
 
-But the tl;dr is consistancy is king TODO....
+### Some Caveats
 
-### Why not `here`?
+It's so easy to use, there really isn't a reason *not* to use it.
+Except there is that last 2% of the time where you might not want to use
+`path_wd()` and that's usually when working with a program that shifts the
+working directory, or at least, it's focus.  An example of that would be
+`Quarto` which is what I use to write this website and this very post.
+The `project_path` we saved earlier - when I go to print that - the one
+I see in the notebook/console/terminal is not going to be the same path
+when the final document is rendered.  There are probably some other times
+when this happens - but that is the biggest one I encounter.  That's not
+a failing of `fs` it's just that different tool altogether is taking the reins
+for a bit. For something like that - you probably want to use the `here`
+package.
+
+## So why not `here` all the time?
 
 `fs` and `here` may overlap a little bit with `fs::path_wd()` and `here::here()`
 but the focus of the packages is completely different. `here` is all about
@@ -237,48 +270,22 @@ project directory roots and `fs` has a little bit of that but the focus
 is really on working in a file system on your computer.
 
 Also, I wanted quick easy wins and I think `fs` with its `fs::path_wd()` is just
-easier to use for most usecases. I think the `here` package is fantastic and 
+easier to use for *most* usecases. I think the `here` package is fantastic and 
 those couple of extra [steps](https://here.r-lib.org/articles/here.html)
 ***will*** be necessary some of the time. `here` has really saved my bacon in
 the past and you should absolutely know about it.  Most of the time though,
 `fs::path_wd()` is *good enough*.
 
-## use projects but take nothing for granted
+## Being flexible but take nothing for granted
 
-So I went on that whole big thing about using projects, but here is the kicker,
-take nothing for granted. Use absolute file paths without hardcoding absolute file paths.
+So what did we do here today? We learned that we can be both explicit
+in our pathing at run time - but flexible enough where we don't have to
+hardcode every path so that *only we* can run our code. We truly can have
+the best of both worlds.
 
-but how? use `fs` and friends.
-
-```{r}
-#| label: setup-fs
-
-# install.packages("pak")
-# pak::pak("fs")
-```
-
-<!-- run in a container for final render & freeze -->
-
-```{r}
-#| label: quick-fs
-
-library(fs)
-
-path_home()
-
-path_wd()
-
-dir_tree(path_wd())
-```
-
-
-todo next steps
-use tree
-show this little folder with tree
-
-TODO:
-`here` is great - but less set it and forget - but you'll likely need in projects
-with nested folders that use quarto or rmarkdown etc...
+`fs` is great for working within your filesystem, but it is also an 
+**entrypoint** into thinking about your project in a broader, project focused 
+context. 
 
 ## the end part
 
