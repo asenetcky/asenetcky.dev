@@ -30,7 +30,7 @@ foo()
 You need that script to run - but it just blows up spectacularly in your face. 
 You go in to change that line and then the script works, or it doesn't. 
 I find - more often than not - that if there is a `setwd()` at the top of a
-script, that even if I correct the path there are other depedencies that did
+script, that even if I correct the path there are other dependencies that did
 not come along for the ride.
 
 When I started out learning R I did this alot. I still see this quite often.
