@@ -28,32 +28,11 @@
     "text": "Your turn\nIf you haven’t already, check out keyring and see what use cases you can come up with."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexander Senetcky",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
     "section": "",
-    "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\nThis website is a work in progress so please be sure to come back and check for new content and updates while I tidy up.\n\nGitHub   Linkedin   Email me"
-  },
-  {
-    "objectID": "projects/strata/index.html",
-    "href": "projects/strata/index.html",
-    "title": "strata",
-    "section": "",
-    "text": "strata\nstrata is my R-package that serves as a lightweight automation framework that teams without access to modern orchestration tools can implement easily.\n\nstrata documenation\nstrata on CRAN\n\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Strata},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/strata/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Strata.” June 2, 2025. https://asenetcky.dev/projects/strata/."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I am a Data Scientist and an Epidemiologist currently working for Connecticut Department of Public Health (DPH). I am passionate about the R programming language, Linux and other free and open-source software (FOSS).\nIf you happen to work for the State of Connecticut, you can often find me presenting or helping out with our inter-agency R User Group.\nDuring my almost 7 years in public health I’ve worked with my colleagues to tackle the opioid epidemic in Connecticut, expand the use of near-realtime syndromic surveillance, and helped bring automated daily and weekly reporting to DPH and to the public through our Open Data Portal."
-  },
-  {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
-    "section": "",
-    "text": "distiller\n\n\n\nR\n\nR-Package\n\nCDC\n\nEPHT\n\npublic health\n\n\n\nDistill your wrangled data down to the CDC’s EPHT XML format\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nstrata\n\n\n\nR\n\nR-Package\n\n\n\nSimple Framework for Simple Automation\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "Thinking in Projects\n\n\nUsing fs and friends\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\nDeveloper-Mindset\n\n\n\nIncreasing Portability and Reproducibility\n\n\n\n\n\nJun 5, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nManaging Credentials with keyring\n\n\nDeveloper Toolkit\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\n\n\nSimple Credential Management\n\n\n\n\n\nApr 23, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/distiller/index.html",
@@ -63,10 +42,87 @@
     "text": "distiller\ndistiller is my R-package I wrote to help me submit data to CDC’s Environmental Public Health Tracking.\nThis package will take your wrangled data and create the XML documents as required by the CDC specification. Check it out and please let me know if it helps ease your submissions.\nYou can find distiller documentation here.\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Distiller},\n  date = {2025-06-02},\n  url = {https://github.com/asenetcky/distiller},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Distiller.” June 2, 2025. https://github.com/asenetcky/distiller."
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "Managing Credentials with keyring\n\n\nDeveloper Toolkit\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\n\n\nSimple Credential Management\n\n\n\n\n\nApr 23, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "distiller\n\n\n\nR\n\nR-Package\n\nCDC\n\nEPHT\n\npublic health\n\n\n\nDistill your wrangled data down to the CDC’s EPHT XML format\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nstrata\n\n\n\nR\n\nR-Package\n\n\n\nSimple Framework for Simple Automation\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am a Data Scientist and an Epidemiologist currently working for Connecticut Department of Public Health (DPH). I am passionate about the R programming language, Linux and other free and open-source software (FOSS).\nIf you happen to work for the State of Connecticut, you can often find me presenting or helping out with our inter-agency R User Group.\nDuring my almost 7 years in public health I’ve worked with my colleagues to tackle the opioid epidemic in Connecticut, expand the use of near-realtime syndromic surveillance, and helped bring automated daily and weekly reporting to DPH and to the public through our Open Data Portal."
+  },
+  {
+    "objectID": "projects/strata/index.html",
+    "href": "projects/strata/index.html",
+    "title": "strata",
+    "section": "",
+    "text": "strata\nstrata is my R-package that serves as a lightweight automation framework that teams without access to modern orchestration tools can implement easily.\n\nstrata documenation\nstrata on CRAN\n\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Strata},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/strata/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Strata.” June 2, 2025. https://asenetcky.dev/projects/strata/."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexander Senetcky",
+    "section": "",
+    "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\nThis website is a work in progress so please be sure to come back and check for new content and updates while I tidy up.\n\nGitHub   Linkedin   Email me"
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html",
+    "title": "Thinking in Projects",
+    "section": "",
+    "text": "How many times have you seen this at the top of an R script that was shared with you by a friend or colleague?\n\nsetwd(\"~/some/path/not/on/your/computer/\")\n\nfoo &lt;- function() {\n  print(\"AHHHH I NEED THIS TO WORK I HAVE A DEADLINE\")\n}\n\nfoo()\n\nYou need that script to run - but it just blows up spectacularly in your face. You go in to change that line and then the script works, or it doesn’t. I find - more often than not - that if there is a setwd() at the top of a script, that even if I correct the path there are other dependencies that did not come along for the ride.\nWhen I started out learning R I did this alot. I still see this quite often. I see it from folks who have also moved well beyond the basics of R. There is nothing wrong with using setwd() or getwd(). However, I find that it is usually a signal that folks might not be thinking holistically about their code and the greater ecosystem in which it exists. Reproducibility might not always be on the forefront of everyone’s minds, and look, I get it - sometimes you just need to slap something together to solve a problem so you never have to think about it again. For all the other times (and I’d argue even for those just-get-it-done-times) this might be one of those rare moments where doing the more robust thing is also the easier thing to do.\nThe road to reproducibility winds ever onward, and while there are many facets to making your code more reproducible, one of the easiest just about anyone can adopt is a simple reframing of how we perceive our code.\n\nOur code is a project.\n\nEven our small, simple little script is a project, inside of a what I’ll call project-space. I’ll define what I mean by project and project-space and how you can use these mental costructs to think about your code. Also, if you can afford to add another package dependency and you are programmatically working with the file system I think the R package fs is worth taking a look at."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#the-premise",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#the-premise",
+    "title": "Thinking in Projects",
+    "section": "",
+    "text": "How many times have you seen this at the top of an R script that was shared with you by a friend or colleague?\n\nsetwd(\"~/some/path/not/on/your/computer/\")\n\nfoo &lt;- function() {\n  print(\"AHHHH I NEED THIS TO WORK I HAVE A DEADLINE\")\n}\n\nfoo()\n\nYou need that script to run - but it just blows up spectacularly in your face. You go in to change that line and then the script works, or it doesn’t. I find - more often than not - that if there is a setwd() at the top of a script, that even if I correct the path there are other dependencies that did not come along for the ride.\nWhen I started out learning R I did this alot. I still see this quite often. I see it from folks who have also moved well beyond the basics of R. There is nothing wrong with using setwd() or getwd(). However, I find that it is usually a signal that folks might not be thinking holistically about their code and the greater ecosystem in which it exists. Reproducibility might not always be on the forefront of everyone’s minds, and look, I get it - sometimes you just need to slap something together to solve a problem so you never have to think about it again. For all the other times (and I’d argue even for those just-get-it-done-times) this might be one of those rare moments where doing the more robust thing is also the easier thing to do.\nThe road to reproducibility winds ever onward, and while there are many facets to making your code more reproducible, one of the easiest just about anyone can adopt is a simple reframing of how we perceive our code.\n\nOur code is a project.\n\nEven our small, simple little script is a project, inside of a what I’ll call project-space. I’ll define what I mean by project and project-space and how you can use these mental costructs to think about your code. Also, if you can afford to add another package dependency and you are programmatically working with the file system I think the R package fs is worth taking a look at."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#defining-project-and-project-space",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#defining-project-and-project-space",
+    "title": "Thinking in Projects",
+    "section": "Defining Project and Project-Space",
+    "text": "Defining Project and Project-Space\nI’m using the these terms broadly to cast a wide net. Your Integrated Development Environment (IDE) may have a very concrete concept of a project or some kind of workspace or the folder you are working in. You should 100% take advantage of those quality of life features, however I am being a litte more meta than that. Your code, your logic was created to tackle a problem. This is your project, your solution.\n\nIdeally this solution has everything it needs to stand alone\n\nIf it can stand alone, you can confidently pass it along to a teammate. When users hardcode a file path at the top of the script, their computer at that point in time intrinsically becomes a part of that solution.\n\nYou are not a project.\n\nIt is up to the developer to divorce themselves from the project. It needs to be self-contained. There are many ways of doing this and a great deal of tooling has spring up around divorcing the project from the user and the machine the project was written on. It’s also a spectrum too. You need to be realistic with yourself and your deadlines. If R packages are all the way on “reproducible” end of the spectrum - you may not have time for that level of commitment, so you do what you can and aim to ship easy wins and build up to the ideal in time.\nSo what are these easy wins? You can make code soultion aware of its surroundings. This is where project-space comes into play. Yes, your code physically exists on your machine. You are possibly staring at one or more projects on your machine. But you need to think beyond your machine. These projects can and should be able (to the best of your abilities) exist on any number of machines.\nIf you are tackling a business problem for work - you should strive to be able to have your code run just about anywhere at work should something catastrophic happen to your usual work computer. project-space is a way of thinking about your code being everywhere and nowhere and tackling the problems in your code in the most person-environment agnostic ways possible."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#the-easy-win",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#the-easy-win",
+    "title": "Thinking in Projects",
+    "section": "The Easy Win",
+    "text": "The Easy Win\nUsing fs will help to think about, and programmatically interact with your project-space. It’s a wonderful package for working with files, folders and paths. The package is well organized and has consistant names that make finding functionality within the package a breeze.\nInteracting with files and folders is great, but it’s the function fs::path_wd() that I find myself using all the time. You can basically drop this function in your scripts and functions and it is probably going to handle 98% of your project-space pathing issues, with a few exceptions.\nLet’s cover some basic concepts with fs before we finish with fs::path_wd()."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#why-fs-over-base",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#why-fs-over-base",
+    "title": "Thinking in Projects",
+    "section": "Why fs over base?",
+    "text": "Why fs over base?\nIt’s spelled out better than I can ever state it in the documentation.\nThe tl;dr is that consistancy is king, and it really is. I cannot emphasize that enough. Nobody likes hidden surprises, much less coming from your behind-schedule, tech-debt-ridden past self. If you can confidently tell what the code is going to do by just reading it. Then your teammates are more likely to tell what that code is going to do by just reading it, and they will thank you for it."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#diving-in",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#diving-in",
+    "title": "Thinking in Projects",
+    "section": "Diving in",
+    "text": "Diving in\nYou’ll be constructing alot of paths with fs, but thankfully that is easy!\n\nlibrary(fs)\n\n# few different ways, you can mix and match\npath(\"folder\", \"subfolder\", \"file\", ext = \"R\")\n\nfolder/subfolder/file.R\n\npath(\"folder/subfolder/file.R\")\n\nfolder/subfolder/file.R\n\n\nInspecting an fs path we’ll see that it has it’s own class fs_path.\n\nfile_name &lt;- \"my_file\"\nmy_path &lt;-\n  path(\"folder/subfolder\", file_name, ext = \"csv\")\n\nmy_path\n\nfolder/subfolder/my_file.csv\n\nclass(my_path)\n\n[1] \"fs_path\"   \"character\"\n\n\nSome bells and whistles come along for the ride, but you can mostly think of these as characters with some nice vectorized function friends. Now let’s look at some real files.\n\n# let's create a temporary file\n\n# create the path\ntemp_file &lt;- file_temp(ext = \"R\")\ntemp_file\n\n/tmp/Rtmp68O1Cn/file8ced60dffb7f.R\n\n# does it exist yet?\nfile_exists(temp_file)\n\n/tmp/Rtmp68O1Cn/file8ced60dffb7f.R \n                             FALSE \n\n# create the file\nfile_touch(temp_file)\n\n# now does it exist?\nfile_exists(temp_file)\n\n/tmp/Rtmp68O1Cn/file8ced60dffb7f.R \n                              TRUE \n\n\nLet’s grab some info about this file.\n\n# we can programmatically grab all the pieces about this file and surroundings\n\n# the extension\npath_ext(temp_file)\n\n[1] \"R\"\n\n# the directory\npath_dir(temp_file)\n\n[1] \"/tmp/Rtmp68O1Cn\"\n\n# file info\nfile_info(temp_file) |&gt;\n  dplyr::select(\"block_size\") |&gt;\n  fs::as_fs_bytes()\n\n4K\n\n# list surroundings\npath_dir(temp_file) |&gt;\n  dir_ls()\n\n/tmp/Rtmp68O1Cn/file8ced60dffb7f.R\n/tmp/Rtmp68O1Cn/libloc_171_2b363be77582bd8f.rds\n/tmp/Rtmp68O1Cn/libloc_238_3dec933b1be4517c.rds\n/tmp/Rtmp68O1Cn/libloc_245_3f803f276593ddff.rds\n\n# or get a cool tree!\npath_dir(temp_file) |&gt;\n  dir_tree()\n\n/tmp/Rtmp68O1Cn\n├── file8ced60dffb7f.R\n├── libloc_171_2b363be77582bd8f.rds\n├── libloc_238_3dec933b1be4517c.rds\n└── libloc_245_3f803f276593ddff.rds\n\n\n\nKept you waiting, huh?\nLet’s delete that file for now and move on to why we’re here - fs::path_wd().\n\n# delete file\nfile_delete(temp_file)\n\n# and shift focus to where we are\nproject_path &lt;- path_wd()\nproject_path\n\n/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects\n\n\nDid you catch that? It’s subtle - and possibly underwhelming. The function knows where it is. What’s more important is what it did not do - it did not mess with and change a user’s project-space. setwd() might be set to a path that does not exist and that is annoying, but at least it would fail fast. What if it didn’t though? What if it silently set it some far off location and one part of your script works, but then the rest start throwing errors or clobbering file that should not be touched.\nfs::path_wd() uses the point of view from the script/function and separates the user from the project and the project-space. Now it doesn’t matter - more or less - where your drop your logic, it will pick up on its surroundings and execute commands.\nIt is also just so easy to drop path_wd() anywhere and save yourself some typing. If you have a deeply nested project you can use that to take care of some of the pathing boilerplate.\nWhat if I wanted to print the first few lines of code from another post? Easy.\n\n# you can add the folders and files into path_wd()\npath_wd(\"file-that-is-definitely-here\")\n\n/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects/file-that-is-definitely-here\n\n#  you can substitute path_wd() for our project_path object as well\npath(path_wd(), \"cool-folder\", \"possibly-more-complex-path\")\n\n/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects/cool-folder/possibly-more-complex-path\n\n\n\n\nSome Caveats\nIt’s so easy to use, there really isn’t a reason not to use it. Except there is that last 2% of the time where you might not want to use path_wd() and that’s usually when working with a program that shifts the working directory, or at least, it’s focus. An example of that would be Quarto which is what I use to write this website and this very post. The project_path we saved earlier - when I go to print that - the one I see in the notebook/console/terminal is not going to be the same path when the final document is rendered. There are probably some other times when this happens - but that is the biggest one I encounter. That’s not a failing of fs it’s just that different tool altogether is taking the reins for a bit. For something like that - you probably want to use the here package."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#so-why-not-here-all-the-time",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#so-why-not-here-all-the-time",
+    "title": "Thinking in Projects",
+    "section": "So why not here all the time?",
+    "text": "So why not here all the time?\nfs and here may overlap a little bit with fs::path_wd() and here::here() but the focus of the packages is completely different. here is all about project directory roots and fs has a little bit of that but the focus is really on working in a file system on your computer.\nAlso, I wanted quick easy wins and I think fs with its fs::path_wd() is just easier to use for most usecases. I think the here package is fantastic and those couple of extra steps will be necessary some of the time. here has really saved my bacon in the past and you should absolutely know about it. Most of the time though, fs::path_wd() is good enough."
+  },
+  {
+    "objectID": "posts/2025-05-20-thinking-in-projects/index.html#being-flexible-but-take-nothing-for-granted",
+    "href": "posts/2025-05-20-thinking-in-projects/index.html#being-flexible-but-take-nothing-for-granted",
+    "title": "Thinking in Projects",
+    "section": "Being flexible but take nothing for granted",
+    "text": "Being flexible but take nothing for granted\nSo what did we do here today? We learned that we can be both explicit in our pathing at run time - but flexible enough where we don’t have to hardcode every path so that only we can run our code. We truly can have the best of both worlds.\nfs is great for working within your filesystem, but it is also an entrypoint into thinking about your project in a broader, project focused context.\n\nWhere do we go from here?\nKeep practicing and building cool things of course! Really this project-focused thinking is an introduction to starting to think reproducibly about your code, your methods and your environment. Some incredibly helpful tools you might want to check out if you haven’t are:\n\nrenv: An R package for dependency management - a game changer.\ngit and using repositories: Distributed version control software that really drives home working in projects.\nGitHub template repositories: If you have your projects setup how you like them, why not make a blank template for yourself?\ncontainers: If you haven’t worked with these before - they’ll blow your mind. Read up on Podman or Docker and see how these tackle “well, it works on my machine” problem that we all encounter one way or another.\n\nSo what about you? What have you picked up along the way in your career that you would want new folks starting out to know? Anything you picked up from another field, or even another programming language that your brought with you to all your projects in other languages?"
   }
 ]

@@ -1,15 +1,16 @@
 [
   {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2025-05-20-thinking-in-projects/index.html",
+      "/posts/2025-04-23-keyring/index.html"
+    ]
+  },
+  {
     "listing": "/projects.html",
     "items": [
       "/projects/distiller/index.html",
       "/projects/strata/index.html"
-    ]
-  },
-  {
-    "listing": "/posts.html",
-    "items": [
-      "/posts/2025-04-23-keyring/index.html"
     ]
   }
 ]
