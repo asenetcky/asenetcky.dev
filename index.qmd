@@ -22,4 +22,6 @@ other gear that goes along with coffee brewing at home!
 [GitHub](https://github.com/asenetcky) &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
 :::
 
+<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="667738a6-dbaf-460f-8c74-96e9f6379783" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+
 :::
