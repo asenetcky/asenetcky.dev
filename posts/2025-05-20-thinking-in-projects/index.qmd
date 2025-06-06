@@ -1,0 +1,310 @@
+---
+title: "Thinking in Projects"
+subtitle: "Using `fs` and friends"
+description: "Increasing Portability and Reproducibility"
+date: 06-05-2025
+categories: [R, R-Package, Developer-Toolkit, Developer-Mindset] 
+citation: 
+    url: https://asenetcky.dev/using-projects
+draft: false 
+---
+
+## The Premise
+
+How many times have you seen this at the top of an R script that was shared 
+with you by a friend or colleague?
+
+```{r}
+#| eval: false
+
+setwd("~/some/path/not/on/your/computer/")
+
+foo <- function() {
+  print("AHHHH I NEED THIS TO WORK I HAVE A DEADLINE")
+}
+
+foo()
+
+```
+
+You need that script to run - but it just blows up spectacularly in your face. 
+You go in to change that line and then the script works, or it doesn't. 
+I find - more often than not - that if there is a `setwd()` at the top of a
+script, that even if I correct the path there are other dependencies that did
+not come along for the ride.
+
+When I started out learning R I did this alot. I still see this quite often.
+I see it from folks who have also moved well beyond the basics of R.  There is
+nothing wrong with using `setwd()` or `getwd()`.  However, I find that it is
+usually a signal that folks might not be thinking holistically about their code
+and the greater ecosystem in which it exists.  Reproducibility might not
+always be on the forefront of everyone's minds, and look, I get it - sometimes
+you just need to slap something together to solve a problem so you never have
+to think about it again. For all the other times (and I'd argue even for those
+just-get-it-done-times) this might be one of those rare moments where doing the
+more robust thing is also the easier thing to do.
+
+The road to reproducibility winds ever onward, and while there are many facets
+to making your code more reproducible, one of the easiest just about anyone
+can adopt is a simple reframing of how we perceive our code.
+
+> Our code is a project.
+
+Even our small, simple little script is a project, inside of a what I'll
+call *project-space*.  I'll define what I mean by *project* and *project-space*
+and how you can use these mental costructs to think about your code. Also,
+if you can afford to add another package dependency and you are programmatically
+working with the file system I think the R package `fs` is worth taking a look
+at.
+
+## Defining *Project* and *Project-Space*
+
+I'm using the these terms broadly to cast a wide net. Your Integrated 
+Development Environment (IDE) may have a very concrete concept of a project
+or some kind of workspace or the folder you are working in.  You should 
+100% take advantage of those quality of life features, however I am being a
+litte more meta than that. Your code, your logic was created to tackle a
+problem. This is your project, *your solution*.
+
+> Ideally this solution has everything it needs to stand alone
+
+If it can stand alone, you can confidently pass it along to a teammate.
+When users hardcode a file path at the top of the script, their computer 
+*at that point in time*  intrinsically becomes a part of that solution. 
+
+> *You* are not a project.
+
+It is up to the developer to divorce themselves from the project. It needs to
+be self-contained. There are many ways of doing this and a great deal
+of tooling has spring up around divorcing the project from the user and the
+machine the project was written on. It's also a spectrum too.  You need to be
+realistic with yourself and your deadlines.  If R packages are all the way on
+"reproducible" end of the spectrum - you may not have time for that level
+of commitment, so you do what you can and aim to ship easy wins and build up
+to the ideal in time.
+
+So what are these easy wins? You can make code soultion aware of its
+surroundings. This is where *project-space* comes into play.
+Yes, your code physically exists on your machine. You are possibly staring at
+one or more projects on your machine.  But you need to think beyond your
+machine.  These projects can and should be able (to the best of your abilities)
+exist on any number of machines.  
+If you are tackling a business problem for work - you should strive to be able
+to have your code run just about anywhere at work should something catastrophic
+happen to your usual work computer. *project-space* is a way of thinking
+about your code being everywhere and nowhere and tackling the problems in your
+code in the most person-environment agnostic ways possible.
+
+## The Easy Win
+
+Using [`fs`](https://fs.r-lib.org/) will help to think about, and 
+programmatically interact with your project-space.  It's a wonderful
+package for working with files, folders and paths. The package is well
+organized and has consistant names that make finding functionality
+within the package a breeze. 
+
+Interacting with files and folders is great, but it's the function
+`fs::path_wd()` that I find myself using *all* the time.  You can basically
+drop this function in your scripts and functions and it is probably going
+to handle 98% of your project-space pathing issues, with a few exceptions.
+
+Let's cover some basic concepts with `fs` before we finish with `fs::path_wd()`.
+
+## Why fs over base?
+
+It's spelled out better than I can ever state it in the 
+[documentation](https://fs.r-lib.org/articles/function-comparisons.html).
+
+The tl;dr is that consistancy is king, and it really is. I cannot 
+emphasize that enough.  Nobody likes hidden surprises, much less coming 
+from your behind-schedule, tech-debt-ridden past self.
+If you can confidently tell what the code is going to do by just reading it.
+Then your teammates are more likely to tell what that code is going to do
+by just reading it, and they will thank you for it.
+
+## Diving in
+
+You'll be constructing alot of paths with `fs`, but thankfully
+that is easy!
+
+```{r}
+#| label: paths
+
+library(fs)
+
+# few different ways, you can mix and match
+path("folder", "subfolder", "file", ext = "R")
+path("folder/subfolder/file.R")
+
+```
+
+Inspecting an `fs` path we'll see that it has it's own class `fs_path`.
+
+```{r}
+file_name <- "my_file"
+my_path <-
+  path("folder/subfolder", file_name, ext = "csv")
+
+my_path
+class(my_path)
+```
+
+Some bells and whistles come along for the ride, but you can mostly think
+of these as `characters` with some nice vectorized function friends. Now
+let's look at some real files.
+
+
+```{r}
+#| label: real-files
+
+# let's create a temporary file
+
+# create the path
+temp_file <- file_temp(ext = "R")
+temp_file
+
+# does it exist yet?
+file_exists(temp_file)
+
+# create the file
+file_touch(temp_file)
+
+# now does it exist?
+file_exists(temp_file)
+```
+
+Let's grab some info about this file.
+
+```{r}
+#| label: file-info
+
+# we can programmatically grab all the pieces about this file and surroundings
+
+# the extension
+path_ext(temp_file)
+
+# the directory
+path_dir(temp_file)
+
+# file info
+file_info(temp_file) |>
+  dplyr::select("block_size") |>
+  fs::as_fs_bytes()
+
+# list surroundings
+path_dir(temp_file) |>
+  dir_ls()
+
+# or get a cool tree!
+path_dir(temp_file) |>
+  dir_tree()
+```
+
+
+### Kept you waiting, huh?
+
+Let's delete that file for now and move on to why we're here - `fs::path_wd()`.
+
+```{r}
+#| label: path-wd
+
+# delete file
+file_delete(temp_file)
+
+# and shift focus to where we are
+project_path <- path_wd()
+project_path
+```
+
+Did you catch that?
+It's subtle - and possibly underwhelming. The function knows where it is.
+What's more important is what it ***did not do*** - it did not mess with
+and change a user's project-space.  `setwd()` might be set to a path that
+does not exist and that is annoying, but at least it would fail fast. What 
+if it didn't though? What if it silently set it some far off location
+and one part of your script works, but then the rest start throwing errors or
+clobbering file that should not be touched. 
+
+`fs::path_wd()` uses the point of view from the script/function and separates
+the user from the project and the project-space.  Now it doesn't matter - 
+more or less - where your drop your logic, it will pick up on its surroundings
+and execute commands.
+
+It is also just so easy to drop `path_wd()` anywhere and save yourself some
+typing.  If you have a deeply nested project you can use that to take care
+of some of the pathing boilerplate.
+
+What if I wanted to print the first few lines of code from another post?
+Easy.
+
+```{r}
+#| label: creating-paths-wd
+
+# you can add the folders and files into path_wd()
+path_wd("file-that-is-definitely-here")
+
+#  you can substitute path_wd() for our project_path object as well
+path(path_wd(), "cool-folder", "possibly-more-complex-path")
+```
+
+### Some Caveats
+
+It's so easy to use, there really isn't a reason *not* to use it.
+Except there is that last 2% of the time where you might not want to use
+`path_wd()` and that's usually when working with a program that shifts the
+working directory, or at least, it's focus.  An example of that would be
+`Quarto` which is what I use to write this website and this very post.
+The `project_path` we saved earlier - when I go to print that - the one
+I see in the notebook/console/terminal is not going to be the same path
+when the final document is rendered.  There are probably some other times
+when this happens - but that is the biggest one I encounter.  That's not
+a failing of `fs` it's just that different tool altogether is taking the reins
+for a bit. For something like that - you probably want to use the `here`
+package.
+
+## So why not `here` all the time?
+
+`fs` and `here` may overlap a little bit with `fs::path_wd()` and `here::here()`
+but the focus of the packages is completely different. `here` is all about
+project directory roots and `fs` has a little bit of that but the focus
+is really on working in a file system on your computer.
+
+Also, I wanted quick easy wins and I think `fs` with its `fs::path_wd()` is just
+easier to use for *most* usecases. I think the `here` package is fantastic and 
+those couple of extra [steps](https://here.r-lib.org/articles/here.html)
+***will*** be necessary some of the time. `here` has really saved my bacon in
+the past and you should absolutely know about it.  Most of the time though,
+`fs::path_wd()` is *good enough*.
+
+## Being flexible but take nothing for granted
+
+So what did we do here today? We learned that we can be both explicit
+in our pathing at run time - but flexible enough where we don't have to
+hardcode every path so that *only we* can run our code. We truly can have
+the best of both worlds.
+
+`fs` is great for working within your filesystem, but it is also an 
+**entrypoint** into thinking about your project in a broader, project focused 
+context. 
+
+### Where do we go from here?
+
+Keep practicing and building cool things of course! Really this 
+project-focused thinking is an introduction to starting to think reproducibly
+about your code, your methods and your environment.  Some incredibly
+helpful tools you might want to check out if you haven't are:
+
+- `renv`: An R package for dependency management - a game changer.
+- git and using repositories: Distributed version control software that really
+drives home working in projects.
+- GitHub template repositories: If you have your projects setup how you like
+them, why not make a blank template for yourself?
+- containers: If you haven't worked with these before - they'll blow your mind.
+Read up on Podman or Docker and see how these tackle "well, it works on my
+machine" problem that we all encounter one way or another.
+
+So what about you? What have you picked up along the way
+in your career that you would want new folks starting out
+to know?  Anything you picked up from another field, or
+even another programming language that your brought with
+you to all your projects in other languages?
