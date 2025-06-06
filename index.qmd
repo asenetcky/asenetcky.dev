@@ -18,9 +18,6 @@ woodworking, computer hardware and making manual espresso - and all the
 other gear that goes along with coffee brewing at home! 
 
 
-This website is a work in progress so please be sure to come back 
-and check for new content and updates while I tidy up.
-
 ::: {#socials}
 [GitHub](https://github.com/asenetcky) &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
 :::
