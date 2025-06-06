@@ -9,9 +9,9 @@ programming language, Linux and other free and open-source software (FOSS).
 
 If you happen to work for the State of Connecticut, you can often
 find me presenting or helping out with our inter-agency 
-[R User Group](https://github.com/CTOpenData/r-user-group).
+[R_User Group](https://github.com/CTOpenData/r-user-group).
 
-During my almost 7 years in public health I've worked with my colleagues
+During my 7 years in public health I've worked with my colleagues
 to tackle the opioid epidemic in Connecticut, expand the use of near-realtime
 syndromic surveillance, and helped bring automated daily and weekly reporting
 to DPH and to the public through our [Open Data Portal](https://data.ct.gov/).
