@@ -6,7 +6,7 @@ date: 05-20-2025
 categories: [R, R-Package, Developer-Toolkit, Developer-Mindset] 
 citation: 
     url: https://asenetcky.dev/using-projects
-draft: true 
+draft: false 
 ---
 
 ## The Premise
