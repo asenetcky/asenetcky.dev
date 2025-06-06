@@ -9,7 +9,7 @@ website:
   title: "Alexander Senetcky"
   site-url: https://asenetcky.dev/
   navbar:
-    title: false
+    title: Alexander Senetcky
     right:
       - href: index.qmd
         text: Home
