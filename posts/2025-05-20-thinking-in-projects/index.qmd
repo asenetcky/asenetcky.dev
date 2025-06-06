@@ -217,7 +217,7 @@ project_path
 ```
 
 Did you catch that?
-It's subtle - and possibly underwhelming. The file know's where it is.
+It's subtle - and possibly underwhelming. The function knows where it is.
 What's more important is what it ***did not do*** - it did not mess with
 and change a user's project-space.  `setwd()` might be set to a path that
 does not exist and that is annoying, but at least it would fail fast. What 
