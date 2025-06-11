@@ -4,6 +4,8 @@ description: "Presentation given to CT R-User Group about my thoughts on R packa
 date: "2024-12-10"
 categories: [R, R-User Group, R Packages]
 image: there-and-back-again.png
+citation: 
+    url: https://asenetcky.dev/presentations/2024-12-10-rpkgs/
 format: 
   revealjs:
     theme: dark
