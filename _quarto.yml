@@ -16,6 +16,7 @@ website:
       - about.qmd
       - posts.qmd
       - projects.qmd
+      - presentations.qmd
       - text: Contact
         menu:
           - icon: linkedin
@@ -23,7 +24,7 @@ website:
             href: https://www.linkedin.com/in/alexander-senetcky-0b209822
             target: _blank
           - icon: envelope
-            text: email
+            text: Email
             href: mailto:me@asenetcky.dev
       - icon: github
         href: https://github.com/asenetcky
