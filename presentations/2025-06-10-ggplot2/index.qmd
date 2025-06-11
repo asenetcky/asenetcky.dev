@@ -16,6 +16,8 @@ affiliation:
       state: CT
       country: United States
 
+image: ev-col-plot.png
+
 format:
   html:
     other-links:
