@@ -4,7 +4,7 @@ description: "Distill your wrangled data down to the CDC's EPHT XML format"
 date: 06-02-2025
 categories: [R, R-Package, CDC, EPHT, public health] 
 citation: 
-    url: https://github.com/asenetcky/distiller
+    url: https://asenetcky.dev/projects/distiller/
 draft: false 
 ---
 
