@@ -12,5 +12,12 @@
       "/projects/distiller/index.html",
       "/projects/strata/index.html"
     ]
+  },
+  {
+    "listing": "/presentations.html",
+    "items": [
+      "/presentations/2025-06-10-ggplot2/index.html",
+      "/presentations/2024-12-10-rpkgs/index.html"
+    ]
   }
 ]

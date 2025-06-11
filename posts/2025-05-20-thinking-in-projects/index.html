@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-662336c501d35f24d5d0202bee0f2717.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a7c0a8b2e5fe9a419e3699694a79256e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -143,6 +143,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations.html"> 
+<span class="menu-text">Presentations</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Contact</span>
@@ -156,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="mailto:me@asenetcky.dev"><i class="bi bi-envelope" role="img">
 </i> 
- <span class="dropdown-text">email</span></a>
+ <span class="dropdown-text">Email</span></a>
   </li>  
     </ul>
   </li>
@@ -329,13 +333,13 @@ If you are tackling a business problem for work - you should strive to be able t
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>temp_file <span class="ot">&lt;-</span> <span class="fu">file_temp</span>(<span class="at">ext =</span> <span class="st">"R"</span>)</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>temp_file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/tmp/Rtmp68O1Cn/file8ced60dffb7f.R</code></pre>
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># does it exist yet?</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">file_exists</span>(temp_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/tmp/Rtmp68O1Cn/file8ced60dffb7f.R 
-                             FALSE </code></pre>
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R 
+                            FALSE </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create the file</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">file_touch</span>(temp_file)</span>
@@ -343,8 +347,8 @@ If you are tackling a business problem for work - you should strive to be able t
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># now does it exist?</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file_exists</span>(temp_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/tmp/Rtmp68O1Cn/file8ced60dffb7f.R 
-                              TRUE </code></pre>
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R 
+                             TRUE </code></pre>
 </div>
 </div>
 <p>Let’s grab some info about this file.</p>
@@ -359,7 +363,7 @@ If you are tackling a business problem for work - you should strive to be able t
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the directory</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">path_dir</span>(temp_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/tmp/Rtmp68O1Cn"</code></pre>
+<pre><code>[1] "/tmp/Rtmpbik27P"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># file info</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">file_info</span>(temp_file) <span class="sc">|&gt;</span></span>
@@ -372,17 +376,17 @@ If you are tackling a business problem for work - you should strive to be able t
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">path_dir</span>(temp_file) <span class="sc">|&gt;</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir_ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/tmp/Rtmp68O1Cn/file8ced60dffb7f.R
-/tmp/Rtmp68O1Cn/libloc_171_2b363be77582bd8f.rds
-/tmp/Rtmp68O1Cn/libloc_238_3dec933b1be4517c.rds
-/tmp/Rtmp68O1Cn/libloc_245_3f803f276593ddff.rds</code></pre>
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R
+/tmp/Rtmpbik27P/libloc_171_2b363be77582bd8f.rds
+/tmp/Rtmpbik27P/libloc_238_3dec933b1be4517c.rds
+/tmp/Rtmpbik27P/libloc_245_3f803f276593ddff.rds</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or get a cool tree!</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">path_dir</span>(temp_file) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir_tree</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/tmp/Rtmp68O1Cn
-├── file8ced60dffb7f.R
+<pre><code>/tmp/Rtmpbik27P
+├── file183ea8da81b.R
 ├── libloc_171_2b363be77582bd8f.rds
 ├── libloc_238_3dec933b1be4517c.rds
 └── libloc_245_3f803f276593ddff.rds</code></pre>
@@ -452,12 +456,12 @@ If you are tackling a business problem for work - you should strive to be able t
   author = {Senetcky, Alexander},
   title = {Thinking in {Projects}},
   date = {2025-06-05},
-  url = {https://asenetcky.dev/using-projects},
+  url = {https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-senetcky2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Senetcky, Alexander. 2025. <span>“Thinking in Projects.”</span> June 5,
-2025. <a href="https://asenetcky.dev/using-projects">https://asenetcky.dev/using-projects</a>.
+2025. <a href="https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/">https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

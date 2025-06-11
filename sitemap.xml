@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://asenetcky.dev/posts/2025-04-23-keyring/index.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/posts.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/projects/distiller/index.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/projects.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/about.html</loc>
-    <lastmod>2025-06-06T02:16:21.396Z</lastmod>
-  </url>
-  <url>
-    <loc>https://asenetcky.dev/projects/strata/index.html</loc>
-    <lastmod>2025-06-06T02:16:21.402Z</lastmod>
+    <loc>https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
   </url>
   <url>
     <loc>https://asenetcky.dev/index.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
   </url>
   <url>
-    <loc>https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/index.html</loc>
-    <lastmod>2025-06-06T02:16:21.401Z</lastmod>
+    <loc>https://asenetcky.dev/presentations/2025-06-10-ggplot2/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.196Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/projects/strata/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.196Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/posts.html</loc>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/about.html</loc>
+    <lastmod>2025-06-11T02:38:55.190Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/projects.html</loc>
+    <lastmod>2025-06-11T02:38:55.196Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/projects/distiller/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.196Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/presentations.html</loc>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/presentations/2024-12-10-rpkgs/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://asenetcky.dev/posts/2025-04-23-keyring/index.html</loc>
+    <lastmod>2025-06-11T02:38:55.195Z</lastmod>
   </url>
 </urlset>
