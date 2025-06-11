@@ -5,7 +5,7 @@ description: "Increasing Portability and Reproducibility"
 date: 06-05-2025
 categories: [R, R-Package, Developer-Toolkit, Developer-Mindset] 
 citation: 
-    url: https://asenetcky.dev/using-projects
+    url: https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/
 draft: false 
 ---
 
