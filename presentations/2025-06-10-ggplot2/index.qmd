@@ -1,0 +1,548 @@
+---
+title: "Plotting Electric Vehicle Open Data"
+subtitle: "with ggplot2 and friends"
+description: "Presentation given to CT R-User Group for our homegrown tidytuesday community challenge"
+date: "2025-06-10"
+categories: [R, R-User Group, TidyTuesday, ggplot2, beginner] 
+citation: 
+    url: https://asenetcky.dev/presentations/2025-06-10-ggplot2/
+draft: false
+number-sections: true
+
+affiliation: 
+    - id: dph
+      name: Connecticut Public Health
+      url: https://portal.ct.gov/dph
+      state: CT
+      country: United States
+
+format:
+  html:
+    other-links:
+      - text: Source Code
+        href: https://github.com/asenetcky/ggplot2-overview
+        icon: "github"
+      - text: R-User Group's GitHub
+        href: https://github.com/CTOpenData/r-user-group
+        icon: "github"
+      - text: OPM CT Data Viz Guidelines
+        href: https://ctopendata.github.io/data-visualization-guidelines/
+        icon: "box-arrow-up-right"
+      - text: github.com/asenetcky
+        href: https://github.com/asenetcky
+        icon: "github"
+      - text: My ORCID
+        href: https://orcid.org/0009-0009-3730-5397
+        icon: "box-arrow-up-right"
+      - text: My Linkedin
+        href: https://www.linkedin.com/in/alexander-senetcky-0b209822/
+        icon: "linkedin"
+---
+
+## Goal
+
+Today we're going to:
+
+- Introduce plotting with R and the `ggplot2` package
+- Provide resources for further reading
+- Highlight some best practices
+
+
+## The Setup
+
+I'll be using `renv` - however, `renv` is not the
+focus of today. Plotting in R using the `ggplot2` package is.
+Be sure to check out the doco [here](https://rstudio.github.io/renv/).
+We're going to start by attaching the libraries with `library()`.
+
+```{r setup}
+# suppressing the startup messages
+library(tidyverse) |> suppressPackageStartupMessages()
+
+# ggplot2 is a core tidyverse package so it's
+# included in the namespace when folks `library(tidyverse)`
+```
+
+
+## The Data
+
+Today we're going to use the Electric Vehicle data from our #tidytuesday
+community [challenge](https://github.com/CTOpenData/r-user-group/tree/d748587f4802578325b6a9d55c59b71563ba260d/tidy-tuesday).
+
+### Grabbing the Data
+
+Unfortunately, `RSocrata` was pulled from the CRAN - so we're going to have to
+homebrew our own solution.
+
+Fortunately, I put together a gist on github. You may recall Charles Powell
+introduced these last year. You can take a look at the gist
+[here](https://gist.github.com/asenetcky/52bf3fa10a2dff08f62da96e2347e018).
+
+We can use `devtools` to source the gist and grab the function I wrote
+to download *all* the EV data.
+
+::: {.callout-tip}
+  `devtools` is a collection of packages, like the `tidyverse`
+  that aims to smmoth over alot of *rough edges* in development.
+  Primarily around building R packages or interacting with **GitHub**,
+  but there is all sorts of neat things in `devtools` - so be sure
+  to check it out.
+:::
+
+```{r}
+#| label: gist
+
+devtools::source_gist(
+  id = "https://gist.github.com/asenetcky/52bf3fa10a2dff08f62da96e2347e018",
+  sha1 = "5b27e785462239543a6cda235382ebec7c381471"
+)
+
+# function exist?
+head(pull_odp)
+```
+
+We have our function, now lets grab that open data.
+
+```{r}
+#| label: data-grab
+ev <- pull_odp(resource = "y7ky-5wcz") # this is the ODP "four by four"
+```
+
+### Data Recon
+
+Lets take a look at this dataset so we can have a better idea
+of what we are working with.
+
+```{r}
+#| label: peeking
+head(ev)
+glimpse(ev)
+```
+
+So we have `20` columns and `60,489` rows. 
+
+### Quick Wrangle!
+
+> I don't want to spoil anyone's sense of discovery with these data.
+> So I am going to just quickly wrangle it and skip over it,
+> but feel free to take a look at the source code when you have time.
+> Or after you're done experimenting with it.
+
+```{r}
+#| label: wrangle
+#| code-fold: true
+#| code-summary: "Show the code"
+
+data <-
+  ev |>
+  mutate(
+    across(
+      .cols = c(
+        id,
+        vehicleweight,
+        vehicleyear,
+        vehicledeclaredgrossweight,
+        vehiclerecordedgvwr,
+      ),
+      .fns = as.numeric
+    ),
+    across(
+      .cols = c(
+        registration_date_start,
+        registration_date_expiration
+      ),
+      .fns = as_date
+    )
+  )
+
+char_data <-
+  data |>
+  select(where(is.character))
+
+char_data <-
+  data |>
+  select(where(is.character))
+
+maybe_factors <-
+  map(
+    char_data,
+    \(var) {
+      count(char_data, {{ var }}, sort = TRUE)
+    }
+  ) |>
+  keep(\(df) nrow(df) < 100) |>
+  names()
+
+ev <-
+  data |>
+  mutate(
+    across(
+      .cols = all_of(maybe_factors),
+      .fns = \(col) {
+        col |>
+          forcats::as_factor() |>
+          forcats::fct_infreq()
+      }
+    )
+  )
+
+```
+
+
+## ggplot2 and friends
+
+`ggplot2` is now over 10 years old and a stable and trusted package
+for visualizations.  It is based on the core philosphy around
+Leland Wilkinson's _The Grammar of Graphics_.  
+
+> _Wilkinson, L. (2005), The Grammar of Graphics, 2nd ed., Springer._
+
+If you like, you can read up on how `ggplot2` incorporates
+those ideals [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/).
+
+It's probably safe to say it is a cornerstone of the R community.  
+The examples, and [documentation](https://ggplot2.tidyverse.org/) 
+you can find online is often extensive and well written. 
+`python` even has a port of it with the `plotnine` package.
+
+### Syntax: a note about `+`
+
+Right away folks are going to notice that `ggplot2` uses
+a different syntax than the usual base pipe `|>` or 
+maggritr pipe `%>%` that you will often see out in
+the wild.  This is primarily down to how old the 
+package is, however, I find that `+` more accurately
+describes the thought process involved with crafting
+a plot.
+
+::: {.callout-tip}
+With pipes, actions happen linearly in order, whereas
+with `+` you can think of `ggplot2` plots like building 
+up a layer cake. You are _adding_ layers, quite literally
+with a `+`. The order of the layers doesn't matter *quite*
+as much as the whole.
+:::
+
+## ggplot 2 in action
+
+`ggplot2` is fairly flexible in how you structure your
+commands, so you're likley to see some variations between
+developers.
+
+```{r}
+#| label: setting-the-stage
+
+# we can start with the data, or a call to `ggplot()`
+# I prefer starting with the data and piping it in, otherwise
+# folks can use ggplot(data = ev, ...)
+
+ev |>
+  ggplot(
+    mapping = aes(
+      # we're mapping our aesthetic, think of it like a base we pin layers to
+      x = registration_date_start, # x axis
+      y = vehicletype # y axis
+    )
+  )
+
+```
+
+If we just run the above, we'll get a blank plot. However, take a quick look at 
+that - so much of the stage has already been laid out for us.  `ggplot2` has fairly
+sensible defaults, so for the folks who want to get in and get out quickly, they
+can do that.  This allows plotting and visualizations to be used as one part
+of an exploratory analysis, and not just as a final, finished product, because
+it is so quick and easy to do once users are acquainted with `ggplot2`.
+
+### Adding Details
+
+How about we fill in some useful details, no?
+
+```{r}
+#| label: details
+
+# Let's add some layers!
+ev |>
+  ggplot(
+    mapping = aes(
+      # we're mapping our aesthetic, think of it like a base we pin layers to
+      x = registration_date_start # x axis
+    )
+  ) +
+  geom_bar() # How about some bars?
+```
+
+You can combine `geom_` layers!
+
+We can have one geom:
+
+```{r}
+#| label: combining-geoms
+#| code-fold: true
+
+count_by_day <-
+  ev |>
+  count(registration_date_start, name = "count")
+
+count_by_day |>
+  ggplot(
+    mapping = aes(
+      x = registration_date_start,
+      y = count
+    )
+  ) +
+  geom_point()
+```
+
+Or two - sharing the same aesthetic and variables
+```{r}
+#| label: or-two
+
+count_by_day |>
+  ggplot(
+    mapping = aes(
+      x = registration_date_start,
+      y = count
+    )
+  ) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    color = "red",
+    linewidth = 1.5
+  ) |>
+    suppressMessages()
+
+```
+
+Goodness there is alot going on there! 
+
+Does day of week make a difference? Let's find out.
+
+```{r}
+#| label: day-of-week
+
+ev |>
+  select(registration_date_start) |>
+  mutate(
+    dow = wday(
+      registration_date_start,
+      label = TRUE
+    )
+  ) |>
+  count(registration_date_start, dow) |>
+  ggplot() +
+  geom_boxplot(aes(dow, n))
+```
+
+
+Notice again that we had some fairly sensible defaults, without having to
+dig into all the arguments of the functions.
+
+
+### The Ask
+Pretend for a moment that our supervisor wants to compare the 
+`vehicletype` over `time`.
+We'll do another quick wrangle so we can more easily compare types
+over time.
+
+```{r}
+#| label: aggregating
+
+agg_by_year_quarter_type <-
+  ev |>
+  mutate(
+    year = year(registration_date_start),
+    quarter = quarter(registration_date_start),
+    vehicletype = forcats::fct_lump_prop(
+      vehicletype,
+      prop = .01
+    )
+  ) |>
+  count(year, quarter, vehicletype, name = "type_count")
+
+agg_by_year_quarter_type |>
+  ggplot() +
+  geom_col(
+    aes(
+      x = quarter,
+      y = type_count
+    )
+  )
+```
+
+what about year and quarter?
+
+```{r}
+#| label: year-quarter
+
+agg_by_year_quarter_type |>
+  ggplot() +
+  geom_col(
+    aes(
+      x = quarter,
+      y = type_count
+    )
+  ) +
+  facet_grid(cols = vars(year))
+```
+
+
+### Adding Color based on Features in the Data
+Didn't we want to compare `vehicletype`?
+let's do that....but how?
+
+Using color!
+
+```{r}
+#| label: caryons
+
+agg_by_year_quarter_type |>
+  ggplot() +
+  geom_col(
+    aes(
+      x = quarter,
+      y = type_count,
+      # now colors are added to break out based on values in the data
+      fill = vehicletype
+    ),
+    position = position_dodge()
+  ) +
+  facet_grid(cols = vars(year))
+```
+
+Let's natural log transform these data to get rid of that skew.
+
+```{r}
+#| label: natural-log
+
+# using lubridate and forcats
+agg_by_year_quarter_type <-
+  agg_by_year_quarter_type |>
+  mutate(log_type = log(type_count))
+
+head(agg_by_year_quarter_type)
+```
+
+And try again.
+
+```{r}
+#| label: take-two
+
+agg_by_year_quarter_type |>
+  ggplot() +
+  geom_col(
+    aes(quarter, log_type, fill = vehicletype),
+    position = position_dodge()
+  ) +
+  facet_grid(cols = vars(year))
+```
+
+
+Now, I want to save some typing. `ggplot2` objects can be saved and combined
+in fun and exciting ways.
+
+```{r}
+#| label: saving-ggplot-objects
+
+base <-
+  agg_by_year_quarter_type |>
+  ggplot(
+    aes(quarter, log_type, fill = vehicletype)
+  ) +
+  facet_grid(cols = vars(year))
+
+base
+```
+
+Nothing in that plot until we add a `geom_`. So just like our
+plot with the points and the trendline  where we combined
+`geom_`'s in one end to end statement - you can combine *saved* 
+`ggplot2` objects with `geom_`'s as well.
+
+```{r}
+#| label: combine-objects
+
+col_base <- base + geom_col(position = position_dodge())
+col_base
+```
+
+Cool... now we can focus on making this look nicer.
+
+### Tweaking the look and feel
+
+`ggplot2` has a number of built in themes, and you can even make your
+own. State of Connecticut has some newish style specifications, sounds
+like a great theme to make and have on hand. Why not ship it in an R package?
+
+::: {.callout-tip}
+OPM took that style spec and ran with it in their publication:
+[CT Data Visualization Guidelines](https://ctopendata.github.io/data-visualization-guidelines/)
+:::
+
+Here are some common built-in themes:
+
+```{r}
+#| label: ggplot-themes
+
+# there are many to choose from - and you can even build your own!
+
+col_base + theme_classic()
+
+col_base + theme_bw()
+
+col_base + theme_minimal()
+
+```
+
+```{r}
+#| label: label-plot
+
+# now for the labels
+with_labels <-
+  col_base +
+  theme_classic() +
+  # add some labels
+  labs(
+    title = "This is a Title",
+    subtitle = paste("Subtitle as of", lubridate::today()),
+    caption = "this is a caption - Open Data is Awesome!",
+    tag = "This is a tag",
+    # the next bit refers to the mapped variables x, y etc... BUT it may
+    # not always be x and y
+    x = "This is an x axis",
+    y = "This is a y axis",
+    fill = "my fill values"
+  )
+
+with_labels
+
+```
+
+
+### Opinionated Polish
+
+```{r}
+#| label: its-like-my-opinion-man
+
+base +
+  geom_col(
+    position = position_dodge(), # I want bars side by side, not stacked
+    col = "black" # just a black outline
+  ) +
+  scale_fill_viridis_d() + # use viridis color scale
+  theme_classic() + # we can use a default theme
+  theme(
+    # and add our own components!
+    legend.position = "bottom",
+    legend.direction = "horizontal"
+  ) +
+  labs(
+    x = "", # I don't want axis labels
+    y = "",
+    fill = "",
+    title = "Natural Log of Vehicle Type Count by Quarter by Year"
+  )
+
+```
