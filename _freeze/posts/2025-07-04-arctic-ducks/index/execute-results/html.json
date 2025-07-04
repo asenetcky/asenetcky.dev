@@ -1,0 +1,15 @@
+{
+  "hash": "3059708ffab80848b9de9ff13870baed",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Arctic Ducks\"\nsubtitle: \"`polars` and `duckplyr`\"\ndescription: \"Interpreted Languages can have nice things too!\"\ndate: 07-04-2025\ncategories: [R, R-Package, Developer-Toolkit] \ncitation: \n    url: https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/\ndraft: true \n---\n\n## What a Time to be Alive\n\nIn an era where AI is the all the rage, some of the most exciting things I have\nencountered and have been playing around with lately have been remixes on old\nfavorites.  I'm talking of course about working with dataframes.  One of \nmy favorites lately has been `polars` TODO: add link in python.\n\n...\n\nI've always admired DuckDB from a distance. Dabbling here or there.  Some \nfriends and colleagues of mine have thoroughly enjoyed it. I write a bunch\nof SQL code for work, and for me, it has always felt like that - work. I think\nthat actually has more to do with the locked down work environment with little\nto no tooling availible to anyone outside IT (like Data Scientists) than SQL\nitself so it is not *really* fair to SQL. However, because of the harsh \ndeveloper experience when dealing with SQL, I try to do  the absolute bare\nminimum I need to do and bail as fast as possible.  So DuckDB just never fell\ninto my lap - until now.\n\nEnter `duckplyr` TODO: link to posit post/tidyverse blog etc...\n\nTODO: look up the code block switchers.\n\nTODO: Compare and Contrast the two\nTODO: Hammer the excellent bits, larger than memory analyses, lazy eval \nand opportunities for optimization.\n\n\n## Setup\n\n:::{.panel-tabset group=\"language\"}\n\n## R\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsuppressPackageStartupMessages({\n    library(conflicted)\n    library(duckplyr)\n    conflict_prefer(\"filter\", \"dplyr\") |> suppressMessages()\n})\n```\n:::\n\n\n## Python\n\nIn the terminal:\n```\n$ uv init\n$ uv add polars\n\n```\n\nand then:\n\n\n::: {.cell}\n\n```{.python .cell-code}\nimport polars as pl\n```\n:::\n\n\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -35,3 +35,40 @@ TODO: look up the code block switchers.
 TODO: Compare and Contrast the two
 TODO: Hammer the excellent bits, larger than memory analyses, lazy eval 
 and opportunities for optimization.
+
+
+## Setup
+
+:::{.panel-tabset group="language"}
+
+## R
+
+```{r}
+#| label: r-setup
+
+suppressPackageStartupMessages({
+    library(conflicted)
+    library(duckplyr)
+    conflict_prefer("filter", "dplyr") |> suppressMessages()
+})
+
+```
+
+## Python
+
+In the terminal:
+```
+$ uv init
+$ uv add polars
+
+```
+
+and then:
+
+```{python}
+#| label: python-setup
+
+import polars as pl
+```
+
+:::
