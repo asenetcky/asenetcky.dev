@@ -1,0 +1,37 @@
+---
+title: "Arctic Ducks"
+subtitle: "`polars` and `duckplyr`"
+description: "Interpreted Languages can have nice things too!"
+date: 07-04-2025
+categories: [R, R-Package, Developer-Toolkit] 
+citation: 
+    url: https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/
+draft: true 
+---
+
+## What a Time to be Alive
+
+In an era where AI is the all the rage, some of the most exciting things I have
+encountered and have been playing around with lately have been remixes on old
+favorites.  I'm talking of course about working with dataframes.  One of 
+my favorites lately has been `polars` TODO: add link in python.
+
+...
+
+I've always admired DuckDB from a distance. Dabbling here or there.  Some 
+friends and colleagues of mine have thoroughly enjoyed it. I write a bunch
+of SQL code for work, and for me, it has always felt like that - work. I think
+that actually has more to do with the locked down work environment with little
+to no tooling availible to anyone outside IT (like Data Scientists) than SQL
+itself so it is not *really* fair to SQL. However, because of the harsh 
+developer experience when dealing with SQL, I try to do  the absolute bare
+minimum I need to do and bail as fast as possible.  So DuckDB just never fell
+into my lap - until now.
+
+Enter `duckplyr` TODO: link to posit post/tidyverse blog etc...
+
+TODO: look up the code block switchers.
+
+TODO: Compare and Contrast the two
+TODO: Hammer the excellent bits, larger than memory analyses, lazy eval 
+and opportunities for optimization.
