@@ -1,5 +1,5 @@
 ---
-title: "Arctic Ducks"
+title: "Arctic Fowl"
 subtitle: "`polars` and `duckplyr`"
 description: "Interpreted Languages can have nice things too!"
 date: 07-04-2025
