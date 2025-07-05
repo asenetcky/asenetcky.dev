@@ -30,8 +30,6 @@ into my lap - until now.
 
 Enter `duckplyr` TODO: link to posit post/tidyverse blog etc...
 
-TODO: look up the code block switchers.
-
 TODO: Compare and Contrast the two
 TODO: Hammer the excellent bits, larger than memory analyses, lazy eval 
 and opportunities for optimization.
@@ -43,6 +41,15 @@ and opportunities for optimization.
 
 ## R
 
+I'm using `renv` so setup might initially look something like
+this in the console:
+
+```r
+renv::install("duckplyr", "dplyr", "conflicted")
+```
+
+and then at the top of our R scripts:
+
 ```{r}
 #| label: r-setup
 
@@ -50,20 +57,21 @@ suppressPackageStartupMessages({
     library(conflicted)
     library(duckplyr)
     conflict_prefer("filter", "dplyr") |> suppressMessages()
+    library(nanoparquet)
 })
 
 ```
 
 ## Python
+I'm using `uv` for python - so setup in the terminal would look 
+something like this:
 
-In the terminal:
-```
+```bash
 $ uv init
 $ uv add polars
-
 ```
 
-and then:
+and then at the top of our python scripts:
 
 ```{python}
 #| label: python-setup
@@ -72,3 +80,24 @@ import polars as pl
 ```
 
 :::
+
+
+#TODO use those parq files from the duckdb example.
+
+## Taking a Look
+
+Right up front I want to say this isn't going to be post where I pick
+a favorite and sell you on it. I think having options, in multiple languages
+across a few tools is good to have.  I intend to do a bit of exploring here
+and highlight why you might want to implement tools such as `duckplyr` and/or
+`polars`.
+
+At the time of writing this, I am primarily an R programmer. I have spent more
+time with python polars than anything duckdb-related, and quite a bit of time
+recently with polars. Still, all of the time with python has been considerably 
+less time compared to R. I have experimented a little bit with the duckdb cli
+tool in the past, but nothing more than an afternoon or two.  This is my first
+real foray into working with the `duckplyr` package.  All this to say, that
+I am not an expert in either of these tools and I am likely not working
+with them in the most idiomatic way. I'm mostly just here to crush
+parquet files and have a good time.
