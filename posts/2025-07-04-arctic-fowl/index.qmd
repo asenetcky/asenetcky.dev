@@ -101,3 +101,27 @@ real foray into working with the `duckplyr` package.  All this to say, that
 I am not an expert in either of these tools and I am likely not working
 with them in the most idiomatic way. I'm mostly just here to crush
 parquet files and have a good time.
+
+Just going to borrow the flight data from the duckplyr example and then
+save to parquet locally at the end. Pretty cool you can interact with duckdb
+extensions with R.
+
+```{r}
+#| eval: false
+
+# TODO: See the full context and examples at  -  add link
+year <- 2022:2024
+base_url <- "https://blobs.duckdb.org/flight-data-partitioned/"
+files <- paste0("Year=", year, "/data_0.parquet")
+urls <- paste0(base_url, files)
+tibble(urls)
+
+db_exec("INSTALL httpfs")
+db_exec("LOAD httpfs")
+
+flights <- read_parquet_duckdb(urls)
+
+# added this bit at the end
+compute_parquet(flights, "flights.parquet")
+```
+
