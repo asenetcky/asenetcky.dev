@@ -107,21 +107,91 @@ save to parquet locally at the end. Pretty cool you can interact with duckdb
 extensions with R.
 
 ```{r}
-#| eval: false
 
 # TODO: See the full context and examples at  -  add link
 year <- 2022:2024
 base_url <- "https://blobs.duckdb.org/flight-data-partitioned/"
 files <- paste0("Year=", year, "/data_0.parquet")
 urls <- paste0(base_url, files)
-tibble(urls)
 
 db_exec("INSTALL httpfs")
 db_exec("LOAD httpfs")
 
-flights <- read_parquet_duckdb(urls)
-
 # added this bit at the end
-compute_parquet(flights, "flights.parquet")
+compute_parquet(read_parquet_duckdb(urls), "flights.parquet")
 ```
 
+I want to take a quick aside and mention that `nanoparquet` has some nice tools 
+for inspecting parquets without reading the entire file into memory.
+Since we have a parquet file - these functions would be the ideal choice for
+taking a quick look. We'll take a quick peek, and then go back to using the
+packages. 
+
+```{r}
+info <- nanoparquet::read_parquet_info("flights.parquet")
+schema <- nanoparquet::read_parquet_schema("flights.parquet")
+metadata <- nanoparquet::read_parquet_metadata("flights.parquet")
+
+
+# dimensions and file info
+head(info)
+
+# variable, variable types and conversion metrics
+head(schema)
+
+# everything above and the kitchen sink
+# here is a sample of the new stuff
+metadata |> 
+    purrr::discard_at(c("file_meta_data", "schema")) |> 
+    purrr::map(head, 1)
+```
+
+
+Now we have are parquet - let's dive in.
+
+Polars and duckplyr are both able to lazily evaluate
+data.
+
+TODO: duckplyr prudence
+lavish - "think eager" always materialize
+stingy - avoid spending at all cost 
+thrifty - use memory wisely
+
+polars lazyframe -lazy and dataframe eager.
+
+TODO: get the dimensions from the pkgs
+
+:::{.panel-tabset group="language"}
+
+## R
+
+```{r}
+# reading parquet - lazily
+
+ducks <- read_parquet_duckdb("flights.parquet", prudence = "stingy")
+
+# no collect
+ducks |> head()
+
+# collect -  notice the rows
+ducks |> head() |> collect()
+
+
+```
+
+## Python
+
+```{python}
+bears = pl.scan_parquet("flights.parquet")
+
+# lazyframes - won't print any data without collection
+
+# collect into a dataframe
+bears.head().collect()
+```
+
+:::
+
+
+If I tried to `collect()` the whole thing - at least on this computer
+I run out of memory everytime.
