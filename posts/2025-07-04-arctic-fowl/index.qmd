@@ -149,25 +149,14 @@ parquet files and have a good time.
 `duckplyr` has some example data bundled with the package. We'll work with that.
 
 ```{r}
-data <- duckplr::flights_data
+library(fs)
 
-# TODO save parq to tempdir
+my_temp_dir <- fs::file_temp() |> fs::dir_create()
+data_path <- fs::path(my_temp_dir, "temp-flight-data", ext = "parquet")
+
+duckplyr::flights_df() |> duckplyr::compute_parquet(data_path) |> invisible()
 ```
 
-```{r}
-
-year <- 2022:2024
-base_url <- "https://blobs.duckdb.org/flight-data-partitioned/"
-files <- paste0("Year=", year, "/data_0.parquet")
-urls <- paste0(base_url, files)
-
-
-db_exec("INSTALL httpfs")
-db_exec("LOAD httpfs")
-
-# added this bit at the end
-compute_parquet(read_parquet_duckdb(urls), "flights.parquet")
-```
 
 I want to take a quick aside and mention that `nanoparquet` has some nice tools 
 for inspecting parquets without reading the entire file into memory.
