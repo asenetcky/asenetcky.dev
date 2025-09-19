@@ -89,7 +89,7 @@ library(reticulate)
 
 ## R
 
-I'm using `renv` so setup might initially look something like
+With`renv` setup might look something like
 this in the console:
 
 ```r
@@ -109,16 +109,23 @@ suppressPackageStartupMessages({
 
 ```
 
+You _technically_ don't even need `conflicted`, but using that package
+will provide a smoother user experience, and the explicitness in the will
+help with reproducibility.
+
 ## Python
 I'm using `uv` for python - so setup in the terminal would look 
 _something_ like this:
 
 ```bash
+$ mkdir my-project-folder
+$ cd my-project-folder
 $ uv init
 $ uv add polars
 ```
 
-and then at the top of our python scripts:
+and then at the top of our python scripts
+(or bottom of your marimo notebooks ;p):
 
 ```{python}
 #| label: python-setup
@@ -161,10 +168,15 @@ packages - so that is the route we're going to take.
 
 ### Example Data
 ```{r}
+#| label: save-example-data
+
 library(fs)
 
 my_temp_dir <- fs::file_temp() |> fs::dir_create()
 data_path <- fs::path(my_temp_dir, "temp-flight-data", ext = "parquet")
+
+# save path to python object
+py_data_path <- reticulate::r_to_py(data_path)
 
 duckplyr::flights_df() |> duckplyr::compute_parquet(data_path) |> invisible()
 ```
@@ -185,31 +197,131 @@ Since we have a parquet file - let's take a quick peek, and then go back to
 using the `duckplyr` and `polars`.
 
 ```{r}
+#| label: nanoparquet
+
 library(nanoparquet)
 
+# grab very basic info about the file and data structure
 info <- nanoparquet::read_parquet_info(data_path)
+```
+
+```r
+# grab much more granular information about the data schema
 schema <- nanoparquet::read_parquet_schema(data_path)
+
+# grab the info above and more!
 metadata <- nanoparquet::read_parquet_metadata(data_path)
+```
 
+```{r}
 
-# dimensions and file info
-head(info)
-
-# variable, variable types and conversion metrics
-head(schema)
-
-# everything above and the kitchen sink
-# here is a sample of the new stuff
-metadata |> 
-    purrr::discard_at(c("file_meta_data", "schema")) |> 
-    purrr::map(head, 1)
+# scope out the basic info
+glimpse(info)
 ```
 
 
-Now we have are parquet - let's dive in.
+We have the parquet, we know the data's basic dimensions, and we know that
+the number rows probably won't blow up our IDE session. Let's dive in, but
+we'll pretend there are a few more 0's after that `info$num_rows` and show off
+how we might dance around that problem.
 
-Polars and duckplyr are both able to lazily evaluate
-data.
+## Diving Right In
+
+We're going to look at some common actions side by side.
+
+:::{.panel-tabset group="language"}
+
+## R
+
+```{r}
+#| label: r-read-parquet
+
+ducks <- 
+    read_parquet_duckdb(
+        data_path, 
+        prudence = "stingy"
+        )
+
+# no collect - no row count
+head(ducks)
+
+# collect -  notice the row count
+ducks |> 
+    head() |> 
+    arrange() |>
+    collect()
+
+
+ducks |> 
+    head() |> 
+    collect() |> 
+    glimpse()
+
+# basic group by
+ducks |> 
+    # notice the use of `.by` in summarise and not group_by()
+    summarise(
+        count = n(),
+        .by = month
+    ) |> 
+    head(n=5) |> 
+    arrange(month) |> 
+    collect()
+```
+
+
+## Python
+
+
+```{python}
+#| label: py-read-parquet
+
+bears = pl.scan_parquet(r.py_data_path)
+
+# collect into a dataframe
+bears.head().collect()
+
+bears.head().collect().glimpse()
+
+(
+    bears.group_by(pl.col("month"))
+    .len(name="count")
+    .sort("month")
+    .head(5)
+    .collect()
+)
+
+```
+
+:::
+
+
+## Taking a step back
+
+Killer features: 
+
+### Lazy Evaluation
+
+`polars` and `duckplyr` are both able to lazily evaluate data transformations.
+
+Users can take objects in-memory, or a file, and queue up actions to perform
+later on.  Why is this important? This is primarily a plus when working with
+large amounts of data that you could not possibly store into the RAM of your
+computer, or it would be prohibitively expensive to provision a cloud computer
+with the amount of RAM needed to. 
+
+What if our example data was a 7GB parquet file and it was 259 million
+rows long. I couldn't possibly hope to read that whole file in _and then_
+start filtering and grouping and other data wrangling. Lazy evaluation
+allows users to effectively stream the data from memory or a file, taking
+only the needed bits, doing only the necessary operations, and doing nothing
+more.
+
+Delaying the execution of actions also allows for the packages to implement
+query optimization, where the user describes the steps and what they want to see
+and the package will work out the best steps to get there.
+
+### So Fast
 
 TODO: duckplyr prudence
 lavish - "think eager" always materialize
@@ -220,41 +332,6 @@ polars lazyframe -lazy and dataframe eager.
 
 TODO: get the dimensions from the pkgs
 
-:::{.panel-tabset group="language"}
-
-## R
-
-TODO: prudence and lazyframe/dataframe etc..
-
-```{r}
-# reading parquet - lazily
-
-ducks <- read_parquet_duckdb(data_path, prudence = "stingy")
-
-# no collect
-ducks |> head()
-
-# collect -  notice the rows
-ducks |> head() |> collect()
-```
-
-```{r}
-# save path to python object
-py_data_path <- reticulate::r_to_py(data_path)
-```
-
-## Python
-
-TODO: lazyframe vs dataframe
-
-```{python}
-bears = pl.scan_parquet(r.py_data_path)
-
-# collect into a dataframe
-bears.head().collect()
-```
-
-:::
 
 
 If I tried to `collect()` even one of these - at least on this computer,
