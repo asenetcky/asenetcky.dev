@@ -147,7 +147,19 @@ with them in the most idiomatic way. I'm mostly just here to crush
 parquet files and have a good time.
 
 `duckplyr` has some example data bundled with the package. We'll work with that.
+First we'll save to parquet file into a temporary folder. In the real world 
 
+
+::: {.callout-note}
+Ideally, users would just use the data in memory and pass it around between 
+the languages using something like `arrow` and `reticulate` to handle 
+zero-copy streaming etc...
+
+However, I think using local files more clearly displays the pros of these
+packages - so that is the route we're going to take.
+:::
+
+### Example Data
 ```{r}
 library(fs)
 
@@ -157,19 +169,27 @@ data_path <- fs::path(my_temp_dir, "temp-flight-data", ext = "parquet")
 duckplyr::flights_df() |> duckplyr::compute_parquet(data_path) |> invisible()
 ```
 
+These data aren't large by any means, but they are readily available - and 
+`duckplyr` uses these data in their documentation. I was able to use 7GB+ 
+parquet files on my humble laptop working with the same code below without
+crashing my IDE, which is a modern miracle.
+
+### Nanoparquet
 
 I want to take a quick aside and mention that `nanoparquet` has some nice tools 
-for inspecting parquets without reading the entire file into memory.
-Since we have a parquet file - these functions would be the ideal choice for
-taking a quick look. We'll take a quick peek, and then go back to using the
-packages. 
+for inspecting parquets without reading the entire file into memory as well.
+[nanoparquet](https://nanoparquet.r-lib.org/) is completely dependency free
+and a worthy companion to `duckplyr`.
+
+Since we have a parquet file - let's take a quick peek, and then go back to
+using the `duckplyr` and `polars`.
 
 ```{r}
 library(nanoparquet)
 
-info <- nanoparquet::read_parquet_info("flights.parquet")
-schema <- nanoparquet::read_parquet_schema("flights.parquet")
-metadata <- nanoparquet::read_parquet_metadata("flights.parquet")
+info <- nanoparquet::read_parquet_info(data_path)
+schema <- nanoparquet::read_parquet_schema(data_path)
+metadata <- nanoparquet::read_parquet_metadata(data_path)
 
 
 # dimensions and file info
@@ -204,26 +224,31 @@ TODO: get the dimensions from the pkgs
 
 ## R
 
+TODO: prudence and lazyframe/dataframe etc..
+
 ```{r}
 # reading parquet - lazily
 
-ducks <- read_parquet_duckdb("flights.parquet", prudence = "stingy")
+ducks <- read_parquet_duckdb(data_path, prudence = "stingy")
 
 # no collect
 ducks |> head()
 
 # collect -  notice the rows
 ducks |> head() |> collect()
+```
 
-
+```{r}
+# save path to python object
+py_data_path <- reticulate::r_to_py(data_path)
 ```
 
 ## Python
 
-```{python}
-bears = pl.scan_parquet("flights.parquet")
+TODO: lazyframe vs dataframe
 
-# lazyframes - won't print any data without collection
+```{python}
+bears = pl.scan_parquet(r.py_data_path)
 
 # collect into a dataframe
 bears.head().collect()
@@ -250,7 +275,6 @@ ducks |>
 ```
 
 
-St
 
 ```{python}
 bears.head().collect().glimpse()
