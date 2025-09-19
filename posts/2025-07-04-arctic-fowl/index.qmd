@@ -14,28 +14,76 @@ draft: true
 In an era where AI is the all the rage, some of the most exciting things I have
 encountered and have been playing around with lately have been remixes on old
 favorites.  I'm talking of course about working with dataframes.  One of 
-my favorites lately has been `polars` TODO: add link in python.
+my favorites lately has been [polars](https://pola.rs/) and everytime
+I'd use `polars` and then eventually do some work in R using the 
+[tidyverse](https://www.tidyverse.org/), I would really feel some of the
+niceities in `polars` that were missing in my day-to-day R workflow.
+
+This is made all the more apparent to me because I adore working with
+[dbplyr](https://dbplyr.tidyverse.org/) and its ability to lazily evaluate
+R code as sql expressions and `collect()` the results into memory at a time
+of my choosing. `polars` brings similar asbstractions to the table, however,
+instead of a sql table being the target, dataframes are.  It's a genius 
+idea that has really changed how I work and think about data and what I am
+capable of doing with both resource rich, and starved computers before 
+needing to scale up to other tools and techniques (if I even need to scale up
+at all).
 
 ...
 
+Enter [DuckDB](https://duckdb.org/),
+
 I've always admired DuckDB from a distance. Dabbling here or there.  Some 
 friends and colleagues of mine have thoroughly enjoyed it. I write a bunch
-of SQL code for work, and for me, it has always felt like that - work. I think
-that actually has more to do with the locked down work environment with little
-to no tooling availible to anyone outside IT (like Data Scientists) than SQL
-itself so it is not *really* fair to SQL. However, because of the harsh 
-developer experience when dealing with SQL, I try to do  the absolute bare
-minimum I need to do and bail as fast as possible.  So DuckDB just never fell
-into my lap - until now.
+of SQL code for work, and for me, it has always felt like that - work. 
+I believe that perhaps this has more to do with the locked down work 
+environment with little to no modern tooling availible to anyone outside of IT 
+(like Data Scientists). 
 
-Enter `duckplyr` TODO: link to posit post/tidyverse blog etc...
+However, because of the harsh developer experience when dealing with SQL, 
+I try to do  the absolute bare minimum I need to do and bail as fast as 
+possible.  So DuckDB just never fell into my lap - until now.
 
-TODO: Compare and Contrast the two
-TODO: Hammer the excellent bits, larger than memory analyses, lazy eval 
-and opportunities for optimization.
+[duckplyr](https://www.tidyverse.org/blog/2025/06/duckplyr-1-1-0/) joins
+the `tidyverse` and now we have a fairly seamless drop-in replacement for
+`dplyr` that leverages a `DuckDB` backend for everything it can, and falls
+back to regular `dplyr` automatically when handed something it cannot
+evaluate. For barely any setup at all - you get many of the same bells
+and whistles of `polars`, but in quite _literally_ a tidy package.
 
+Users get their lazy evaluation, their swapping between immediate and deferred
+execution. Folks can work with data larger than the memory on their computer.
+Like `polars` there are awesome functions for reading and writing data files.
+If you're a tidyverse-native like myself, you can do all this without leaving
+your comfortzone, and why would you want to be anywhere else?
+
+In all seriousness, I think this is such an incredible win, `polars` syntax
+was already fairly similar to `tidyverse` syntax in many ways.  There
+was some cross-over with SQL verbage as well in the `tidyverse`, and DuckDB is
+in-memory SQL and more.
+
+In theory, I now have the ability to be dropped into basically
+any team working with dataframes, and can just hit the ground running with 
+_good_ options at my disposal regardless of the language of choice and the 
+least amount of impact from context switching.
 
 ## Setup
+
+You might mutter under your breath: "sure, that is all
+great, but setup must be a pain" and I would argue no, or at least, it doesn't 
+have to be.
+
+Please refer to the documentation for the respective packages, especially
+as they revolve over time.  However, setup might look something like this
+for most users.
+
+```{r}
+#| label: actual-setup
+#| echo: false
+
+library(reticulate)
+```
+
 
 :::{.panel-tabset group="language"}
 
@@ -57,14 +105,13 @@ suppressPackageStartupMessages({
     library(conflicted)
     library(duckplyr)
     conflict_prefer("filter", "dplyr") |> suppressMessages()
-    library(nanoparquet)
 })
 
 ```
 
 ## Python
 I'm using `uv` for python - so setup in the terminal would look 
-something like this:
+_something_ like this:
 
 ```bash
 $ uv init
@@ -81,20 +128,17 @@ import polars as pl
 
 :::
 
-
-#TODO use those parq files from the duckdb example.
-
 ## Taking a Look
 
-Right up front I want to say this isn't going to be post where I pick
-a favorite and sell you on it. I think having options, in multiple languages
-across a few tools is good to have.  I intend to do a bit of exploring here
-and highlight why you might want to implement tools such as `duckplyr` and/or
-`polars`.
+If it wasn't obvious before, I want to say this isn't going to be post where I 
+pick a favorite and sell you on it. I really enjoy both packages and programming
+languages.  
 
 At the time of writing this, I am primarily an R programmer. I have spent more
 time with python polars than anything duckdb-related, and quite a bit of time
-recently with polars. Still, all of the time with python has been considerably 
+recently with polars. 
+
+Still, all of the time with python has been considerably 
 less time compared to R. I have experimented a little bit with the duckdb cli
 tool in the past, but nothing more than an afternoon or two.  This is my first
 real foray into working with the `duckplyr` package.  All this to say, that
@@ -102,17 +146,21 @@ I am not an expert in either of these tools and I am likely not working
 with them in the most idiomatic way. I'm mostly just here to crush
 parquet files and have a good time.
 
-Just going to borrow the flight data from the duckplyr example and then
-save to parquet locally at the end. Pretty cool you can interact with duckdb
-extensions with R.
+`duckplyr` has some example data bundled with the package. We'll work with that.
+
+```{r}
+data <- duckplr::flights_data
+
+# TODO save parq to tempdir
+```
 
 ```{r}
 
-# TODO: See the full context and examples at  -  add link
 year <- 2022:2024
 base_url <- "https://blobs.duckdb.org/flight-data-partitioned/"
 files <- paste0("Year=", year, "/data_0.parquet")
 urls <- paste0(base_url, files)
+
 
 db_exec("INSTALL httpfs")
 db_exec("LOAD httpfs")
@@ -128,6 +176,8 @@ taking a quick look. We'll take a quick peek, and then go back to using the
 packages. 
 
 ```{r}
+library(nanoparquet)
+
 info <- nanoparquet::read_parquet_info("flights.parquet")
 schema <- nanoparquet::read_parquet_schema("flights.parquet")
 metadata <- nanoparquet::read_parquet_metadata("flights.parquet")
@@ -193,5 +243,27 @@ bears.head().collect()
 :::
 
 
-If I tried to `collect()` the whole thing - at least on this computer
-I run out of memory everytime.
+If I tried to `collect()` even one of these - at least on this computer,
+I run out of memory everytime. However, I can have `ducks` and `bears`
+living together in harmony!
+
+
+```{r}
+
+# I can't glimpse and collect()
+# but I can head and collect and glimpse
+ducks |>
+    head() |> 
+    select(1:10) |> 
+    collect() |> 
+    glimpse()
+
+```
+
+
+St
+
+```{python}
+bears.head().collect().glimpse()
+
+```
