@@ -1,12 +1,5 @@
 [
   {
-    "listing": "/posts.html",
-    "items": [
-      "/posts/2025-05-20-thinking-in-projects/index.html",
-      "/posts/2025-04-23-keyring/index.html"
-    ]
-  },
-  {
     "listing": "/projects.html",
     "items": [
       "/projects/distiller/index.html",
@@ -18,6 +11,13 @@
     "items": [
       "/presentations/2025-06-10-ggplot2/index.html",
       "/presentations/2024-12-10-rpkgs/index.html"
+    ]
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2025-05-20-thinking-in-projects/index.html",
+      "/posts/2025-04-23-keyring/index.html"
     ]
   }
 ]
