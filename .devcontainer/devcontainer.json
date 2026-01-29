@@ -33,6 +33,7 @@
     "postCreateCommand": {
         "setup": [
             "sudo apt-get update && sudo apt-get install -y libsecret-1-dev libsodium-dev",
+            "&&",
             "R",
             "-q",
             "-e",
