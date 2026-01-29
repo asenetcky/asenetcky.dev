@@ -52,3 +52,4 @@ rsconnect/
 # github paages and quarto
 /.quarto/
 /_site/
+**/*.quarto_ipynb

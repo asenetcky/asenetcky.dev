@@ -1,0 +1,24 @@
+---
+title: "Positron, DevPod and TailScale, Oh My!"
+subtitle: "Reproducible Development Environments"
+description: "Simple Credential Management"
+date: 01-28-2026
+categories: [Positron, DevPod, TailScale, Developer-Toolkit] 
+citation: 
+    url: https://asenetcky.dev/posts/2026-01-28-devpod/
+draft: true 
+---
+
+## Do you like Codespaces?
+
+I think github codespaces is an incredible tool for developers with so
+many features that smooth away some of the rough edges associated with
+developing with containers. 
+
+However, if you find yourself to be a fellow R enjoyer, you might
+find that the R experience with Visual Studio Code that comes
+along for the ride with codespaces is a bit lacking. It can be
+made to work, but ultimately I could never get it feeling as good
+as good ole RStudio.
+
+

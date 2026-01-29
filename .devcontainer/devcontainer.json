@@ -11,7 +11,8 @@
             "extensions": [
                 "REditorSupport.r", 
                 "quarto.quarto",
-                "tailscale.vscode-tailscale"
+                "tailscale.vscode-tailscale",
+                "vscodevim.vim"
             ],
             "settings": {
                 "r.plot.view": "httpgd",
