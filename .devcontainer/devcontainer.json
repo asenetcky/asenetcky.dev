@@ -4,14 +4,17 @@
     "features": {
         "ghcr.io/rocker-org/devcontainer-features/renv-cache:latest": {},
         "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
-        "ghcr.io/tailscale/codespace/tailscale:latest": {}
+        "ghcr.io/tailscale/codespace/tailscale:latest": {},
+        "ghcr.io/mpriscella/features/typst:1": {}
     },
     "customizations": {
         "vscode": {
             "extensions": [
                 "REditorSupport.r", 
                 "quarto.quarto",
-                "tailscale.vscode-tailscale"
+                "tailscale.vscode-tailscale",
+                "nvarner.typst-lsp", 
+                "mgt19937.typst-preview"
             ],
             "settings": {
                 "r.plot.view": "httpgd",
