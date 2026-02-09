@@ -1,7 +1,7 @@
 ---
 title: "Positron, DevPod and TailScale, Oh My!"
 subtitle: "Reproducible Development Environments"
-description: "With Positron, DevPod and Tailscale"
+description: "With Positron, DevPod and Tailscale Part 1"
 date: 01-28-2026
 categories: [Positron, DevPod, TailScale, Developer-Toolkit] 
 citation: 
@@ -23,8 +23,8 @@ IDE into more and more of my workflows lately. I am a long time
 Rstudio user and I've completely replaced that with Positron - I
 am that enamoured with it.  
 
-> Wouldn't it be great if I could get that codespace experience
-> up and running with Positron?
+> **Wouldn't it be great if I could get that codespace experience**
+> **up and running with Positron?**
 
 And how great would it be if I could access that environment 
 from just about anywhere I have an internet connection. 
@@ -43,14 +43,75 @@ piece of software that has a GUI for folks who like
 those and a cli component for folks looking to
 stay in the terminal.
 
-
-
-
+TODO
 
 ## Tailscale
 
 Tailscale is a is a service that allows you to connect
 your devices into it own private little network.
 
+TODO
 
 
+## Getting Started
+
+Today we're going to stick with the Devpod CLI, because that 
+is going to be the easiest setup to reproduce step by step.
+
+### Installing DevPod CLI
+
+Please refer to your OS's specific 
+[installation instructions](https://devpod.sh/docs/getting-started/install).
+
+I am working from Fedora Silverblue on my laptop and my server at home is using
+Fedora Server. So installing the cli tool for me looked like the following.
+I am installing this on both my laptop and my little server.
+
+```bash
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
+```
+
+Now when you restart your terminal and run devpod you should see something
+similar to this:
+
+```bash
+$ devpod
+
+$ DevPod
+
+Usage:
+  devpod [command]
+
+Available Commands:
+  build        Builds a workspace
+  completion   Generate the autocompletion script for the specified shell
+  context      DevPod Context commands
+  delete       Deletes an existing workspace
+  help         Help about any command
+  ide          DevPod IDE commands
+  list         Lists existing workspaces
+  logs         Prints the workspace logs on the machine
+  logs-daemon  Prints the daemon logs on the machine
+  machine      DevPod Machine commands
+  pro          DevPod Pro commands
+  provider     DevPod Provider commands
+  ssh          Starts a new ssh session to a workspace
+  status       Shows the status of a workspace
+  stop         Stops an existing workspace
+  up           Starts a new workspace
+  upgrade      Upgrade the DevPod CLI to the newest version
+  use          Use DevPod resources
+  version      Prints the version
+
+Flags:
+      --context string       The context to use
+      --debug                Prints the stack trace if an error occurs
+      --devpod-home string   If defined will override the default devpod home. You can also use DEVPOD_HOME to set this
+  -h, --help                 help for devpod
+      --log-output string    The log format to use. Can be either plain, raw or json (default "plain")
+      --provider string      The provider to use. Needs to be configured for the selected context.
+      --silent               Run in silent mode and prevents any devpod log output except panics & fatals
+
+Use "devpod [command] --help" for more information about a command.
+
+```
