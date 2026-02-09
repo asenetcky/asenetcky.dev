@@ -55,8 +55,15 @@ TODO
 
 ## Getting Started
 
+It's going to take a little legwork to get setup but
+once setup, it's a fairly stable setup.
 Today we're going to stick with the Devpod CLI, because that 
 is going to be the easiest setup to reproduce step by step.
+
+TODO:
+Installing docker
+Installing Tailscale
+Installing Positron
 
 ### Installing DevPod CLI
 
@@ -113,5 +120,5 @@ Flags:
       --silent               Run in silent mode and prevents any devpod log output except panics & fatals
 
 Use "devpod [command] --help" for more information about a command.
-
 ```
+
