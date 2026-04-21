@@ -1,27 +1,36 @@
 ---
-title: Alexander Senetcky
-image: https://gravatar.com/avatar/bec8e1e8076d3f3e1a80936433db726032023a8b60bad11bd3709731c422f0d4.jpg?s=512
+title: "Alexander Senetcky"
+pagetitle: "Alexander Senetcky"
+description-meta: "Data scientist and epidemiologist writing about R, open-source tooling, and public health data."
 toc: false
-about:
-    template: jolla
+page-layout: article
+format:
+  html:
+    anchor-sections: false
+include-in-header:
+  text: |
+    <style>#title-block-header { display: none; }</style>
 ---
 
+::: {.hero}
 
-::: {#bio}
-Hello, I'm Alexander Senetcky. 
-You're in the right place if you want to learn more 
-[about me](about.qmd) and my work.
-
-I love working with and teaching open source data-focused tools 
-and programming languages. I'm a father who loves camping, 
-woodworking, computer hardware and making manual espresso - and all the 
-other gear that goes along with coffee brewing at home! 
-
-
-::: {#socials}
-[GitHub](https://github.com/asenetcky) &nbsp; [Linkedin](https://www.linkedin.com/in/alexander-senetcky-0b209822) &nbsp; [Email me](mailto:me@asenetcky.dev)
+::: {.hero-eyebrow}
+Data Scientist · Epidemiologist
 :::
 
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="667738a6-dbaf-460f-8c74-96e9f6379783" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+# Hi, I'm Alexander. {.hero-title}
+
+::: {.hero-lede}
+I work at the intersection of public health and open-source data tooling —
+mostly in R, often on the Linux command line. I write here about the things
+I build, break, and learn along the way.
+:::
+
+::: {.hero-links}
+[Read the blog →](posts.qmd)
+[About me →](about.qmd)
+[GitHub ↗](https://github.com/asenetcky){target="_blank"}
+[Email ↗](mailto:me@asenetcky.dev)
+:::
 
 :::

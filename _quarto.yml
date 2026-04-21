@@ -8,43 +8,60 @@ execute:
 website:
   title: "Alexander Senetcky"
   site-url: https://asenetcky.dev/
+  description: "Data scientist and epidemiologist writing about R, open-source tooling, and public health data."
+
   navbar:
-    title: Alexander Senetcky
+    pinned: true
+    collapse-below: sm
+    left:
+      - text: "AS"
+        href: index.qmd
     right:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-      - posts.qmd
-      - projects.qmd
-      - presentations.qmd
-      - text: Contact
-        menu:
-          - icon: linkedin
-            text: Linkedin
-            href: https://www.linkedin.com/in/alexander-senetcky-0b209822
-            target: _blank
-          - icon: envelope
-            text: Email
-            href: mailto:me@asenetcky.dev
+      - text: Writing
+        href: posts.qmd
+      - text: Projects
+        href: projects.qmd
+      - text: Talks
+        href: presentations.qmd
+      - text: About
+        href: about.qmd
       - icon: github
         href: https://github.com/asenetcky
+        aria-label: GitHub
         target: _blank
-  page-footer:
-    left: © 2025 Alexander Senetcky
-    right: This website is built with [Quarto]("https://quarto.org/") and [GitHub]("https://github.com")
-  draft-mode: unlinked
+      - icon: linkedin
+        href: https://www.linkedin.com/in/alexander-senetcky-0b209822
+        aria-label: LinkedIn
+        target: _blank
+      - icon: envelope
+        href: mailto:me@asenetcky.dev
+        aria-label: Email
 
+  page-footer:
+    border: false
+    left: "© 2026 Alexander Senetcky"
+    right: "Built with [Quarto](https://quarto.org/)"
+
+  draft-mode: unlinked
   repo-url: https://github.com/asenetcky/asenetcky.dev
   repo-actions: [edit, source, issue]
 
 format:
   html:
-    page-layout: full
-    theme: lux
+    theme:
+      light: theme-light.scss
+      dark: theme-dark.scss
     css: styles.css
     toc: true
-
-#brand:
-#  light: brand/light-brand.yml
-#  dark: brand/dark-brand.yml
-
+    toc-location: right
+    toc-depth: 3
+    page-layout: article
+    fontsize: 1rem
+    linestretch: 1.65
+    anchor-sections: true
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    highlight-style:
+      light: github
+      dark: github-dark
