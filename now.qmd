@@ -1,0 +1,48 @@
+---
+title: "Now"
+description: "What I'm working on, reading, and thinking about right now."
+toc: false
+page-layout: article
+date-modified: last-modified
+---
+
+::: {.now-intro}
+This is a [/now page](https://nownownow.com/about) — a snapshot of what's
+actually on my plate, updated every month or two. Last touched on
+`{{< meta date-modified >}}`.
+:::
+
+## At work
+
+I'm in the middle of refactoring a data pipeline — the
+one that's been held together with intensely manual steps and institutional
+memory for toooo long.
+
+## On the side
+
+Revamping this website and building a "digital twin" resume app in Python — 
+a small RAG application that answers questions about my work experience 
+from my own documents. It's an excuse to get deep into hexagonal architecture, 
+ports-and-adapters patterns, and the kinds of Python generics that feel 
+abstract until you actually need them. Ingestion, embeddings and retrieval 
+work, the front end is next.
+
+## Tooling
+
+Leaning hard into Claude Code right now — specifically, using it with
+Obsidian as a thinking and writing environment. Configuring skills from
+community repos, working out sensible sandboxing The goal is an AI-assisted 
+workflow for my  "second brain" where I can just shout ideas into the void
+and they get organized and linked without thinking about it. Next I want to
+get openWhispr up and running on fedora using my local AI stack.
+
+
+## Off the computer
+
+Getting outdoor house projects we've been putting off for years! First up is
+replacing the outside flood lights without falling off my ladder.
+
+---
+
+*This page is inspired by Derek Sivers' [now page movement](https://nownownow.com/about).
+If you have one, I'd love to see it.*

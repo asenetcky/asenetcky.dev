@@ -1,8 +1,16 @@
 ---
-title: Blog
-listing: 
-    contents: posts
-    type: default
-    sort: "date desc"
-    categories: true
+title: "Writing"
+description: "Notes on data science, R, and public health work."
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [date, title, description, reading-time, categories]
+  date-format: "MMM D, YYYY"
+  feed: true
+  sort-ui: false
+  filter-ui: false
+toc: false
+page-layout: article
 ---

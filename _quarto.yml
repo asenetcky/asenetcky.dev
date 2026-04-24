@@ -8,43 +8,85 @@ execute:
 website:
   title: "Alexander Senetcky"
   site-url: https://asenetcky.dev/
+  description: "Data scientist and epidemiologist writing about R, open-source tooling, and public health data."
+
+# TODO: create these two images and uncomment.
+  #   - favicon.png: 512x512 square, usually a monogram or simple mark on a
+  #     solid background. Export to /images/favicon.png.
+  #   - og-image.png: 1200x630 social share card. This is what shows up when
+  #     a link to any page on the site is pasted into Slack, LinkedIn, etc.
+  #     A simple "Alexander Senetcky / asenetcky.dev" on a solid background
+  #     works fine. Can be generated from a Figma template or at
+  #     https://og-playground.vercel.app/.
+  # favicon: images/favicon.png
+  # open-graph:
+  #   image: /images/og-image.png
+  # twitter-card:
+  #   image: /images/og-image.png
+  #   card-style: summary_large_image
+
+  # Make the RSS feed discoverable to browsers and feed readers via a
+  # <link rel="alternate"> tag in every page's <head>.
+
+
   navbar:
-    title: Alexander Senetcky
+    pinned: true
+    collapse-below: sm
+    left:
+      - text: "AS"
+        href: index.qmd
     right:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-      - posts.qmd
-      - projects.qmd
-      - presentations.qmd
-      - text: Contact
-        menu:
-          - icon: linkedin
-            text: Linkedin
-            href: https://www.linkedin.com/in/alexander-senetcky-0b209822
-            target: _blank
-          - icon: envelope
-            text: Email
-            href: mailto:me@asenetcky.dev
+      - text: Writing
+        href: posts.qmd
+      - text: Now
+        href: now.qmd
+      - text: Projects
+        href: projects.qmd
+      - text: Talks
+        href: presentations.qmd
+      - text: About
+        href: about.qmd
       - icon: github
         href: https://github.com/asenetcky
+        aria-label: GitHub
         target: _blank
-  page-footer:
-    left: © 2025 Alexander Senetcky
-    right: This website is built with [Quarto]("https://quarto.org/") and [GitHub]("https://github.com")
-  draft-mode: unlinked
+      - icon: linkedin
+        href: https://www.linkedin.com/in/alexander-senetcky
+        aria-label: LinkedIn
+        target: _blank
+      - icon: envelope
+        href: mailto:me@asenetcky.dev
+        aria-label: Email
 
+  page-footer:
+    border: false
+    left: "© 2026 Alexander Senetcky"
+    center: "[RSS](/posts.xml) · [Colophon](colophon.qmd)"
+    right: "Built with [Quarto](https://quarto.org/)"
+
+  draft-mode: unlinked
   repo-url: https://github.com/asenetcky/asenetcky.dev
   repo-actions: [edit, source, issue]
 
 format:
   html:
-    page-layout: full
-    theme: lux
+    include-in-header:
+      - text: |
+          <link rel="alternate" type="application/rss+xml" title="Alexander Senetcky — Writing" href="https://asenetcky.dev/posts.xml">
+    theme:
+      light: theme-light.scss
+      dark: theme-dark.scss
     css: styles.css
     toc: true
-
-#brand:
-#  light: brand/light-brand.yml
-#  dark: brand/dark-brand.yml
-
+    toc-location: right
+    toc-depth: 3
+    page-layout: article
+    fontsize: 1rem
+    linestretch: 1.65
+    anchor-sections: true
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    highlight-style:
+      light: github
+      dark: github-dark

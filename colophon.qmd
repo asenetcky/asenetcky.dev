@@ -1,0 +1,84 @@
+---
+title: "Colophon"
+description: "How this site is built, and why."
+toc: true
+toc-location: right
+page-layout: article
+date-modified: last-modified
+---
+
+A note on how this site works, for anyone curious — or for future me,
+trying to remember why past me did something.
+
+The whole thing is open source at
+[github.com/asenetcky/asenetcky.dev](https://github.com/asenetcky/asenetcky.dev).
+
+## The stack
+
+**[Quarto](https://quarto.org/)** renders the pages. Source is a mix of
+Markdown (`.md`) and Quarto documents (`.qmd`), the latter of which can
+embed executable R or Python. Posts that include code get computed at
+build time and cached via Quarto's `freeze` mechanism, so I don't re-run
+a six-hour model every time I fix a typo.
+
+**[renv](https://rstudio.github.io/renv/)** pins the R environment. If
+you clone the repo and run `renv::restore()`, you get the exact package
+versions the site was built with.
+
+**[GitHub Actions](https://github.com/asenetcky/asenetcky.dev/tree/main/.github/workflows)**
+builds the site on every push to `main` and deploys the result to
+**[GitHub Pages](https://pages.github.com/)**. The custom domain
+(`asenetcky.dev`) is a DNS CNAME; GitHub handles HTTPS automatically via
+Let's Encrypt.
+
+## Design
+
+Two custom Sass partials in the repo root, `theme-light.scss` and
+`theme-dark.scss`, handle colors and typography. A small `styles.css`
+handles layout pieces that don't change between modes (content width, the
+hero block, the post listing grid). Quarto's built-in light/dark toggle
+does the rest.
+
+The accent color is `#3b6ea8` — a muted blue that is sort of like what
+I wish my kitchen used with butcher block tops... one can dream.
+
+**Fonts:** [Inter](https://rsms.me/inter/) for body and UI,
+[JetBrains Mono](https://www.jetbrains.com/lp/mono/) for code. Both
+served from Google Fonts.
+
+**Comments** are handled by [giscus](https://giscus.app/), which backs
+comment threads with GitHub Discussions. If you leave a comment it
+appears both here and in the repo's Discussions tab.
+
+## Why these choices and not others
+
+**Quarto instead of a general-purpose static site generator.** Hugo is
+faster, Astro is more flexible, Eleventy is more JavaScript-native. None
+of them natively execute R. Most of what I write starts as analysis I'm
+already doing in Quarto for work; using Quarto for the blog means my
+scratch notebook and my published post are the same file. When I inevitably
+realize a chart needs a fix, I re-render one file and push. That's hard
+to give up.
+
+**Custom SCSS instead of a theme.** I started on Bootswatch's
+[`lux`](https://bootswatch.com/lux/) and spent more time overriding it than
+I would have spent writing CSS from scratch. Themes make design decisions
+you'll want to un-make. A hundred lines of Sass is cheaper than fighting a
+five-thousand-line framework.
+
+**GitHub Pages instead of Netlify or Cloudflare.** Both are excellent.
+GitHub Pages won on surface area: the code, the CI, the deploy, and the
+issue tracker all live behind one login. One fewer dashboard to remember
+the password for.
+
+## Credits
+
+- [Inter](https://rsms.me/inter/) by Rasmus Andersson
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/) by JetBrains
+- [Bootstrap Icons](https://icons.getbootstrap.com/) by the Bootstrap team
+- [Quarto](https://quarto.org/) by Posit
+- [giscus](https://giscus.app/) by Ikko Ashimine et al.
+- The [Connecticut R User Group](https://github.com/CTOpenData/r-user-group),
+  which is where a lot of what I write about gets its first read.
+
+*Last rebuilt: `{{< meta date-modified >}}`.*

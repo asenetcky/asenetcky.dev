@@ -1,8 +1,29 @@
-# enable banner style title blocks ----
-title-block-banner: true
-
-# my info
+# Defaults applied to every .qmd file under posts/.
+# Individual posts can override any of these in their own front matter.
+ 
+# Author defaults to you unless a post says otherwise.
 author:
   - name: Alexander Senetcky
     url: https://asenetcky.dev
     orcid: 0000-0002-5300-3075
+
+ 
+# Auto-populate date-modified from git so posts show "updated" dates
+# without manual bookkeeping.
+date-modified: last-modified
+ 
+# Comments — giscus, scoped to blog posts only (not About, Now, Projects, etc.)
+# Configuration matches the giscus.app snippet generated for this repo.
+# To change settings, re-run giscus.app/en and update the values below.
+comments:
+  giscus:
+    repo: asenetcky/asenetcky.dev
+    repo-id: R_kgDOOcdvfQ
+    category: Announcements
+    category-id: DIC_kwDOOcdvfc4C7nMx
+    mapping: title
+    reactions-enabled: true
+    loading: lazy
+    theme: preferred_color_scheme
+    language: en
+ 
