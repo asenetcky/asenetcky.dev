@@ -38,6 +38,8 @@ website:
     right:
       - text: Writing
         href: posts.qmd
+      - text: Now
+        href: now.qmd
       - text: Projects
         href: projects.qmd
       - text: Talks
