@@ -44,6 +44,29 @@ main.content {
   margin-bottom: 2rem;
 }
 
+/* Blinking terminal-style cursor after the hero title */
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.1em;
+  background-color: currentColor;
+  vertical-align: -0.1em;
+  animation: cursor-blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes cursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
 .hero-links {
   display: flex;
   flex-wrap: wrap;

@@ -15,14 +15,14 @@ include-in-header:
 ::: {.hero}
 
 ::: {.hero-eyebrow}
-Data Scientist · Epidemiologist
+AI Engineer · Data Scientist · Epidemiologist
 :::
 
-# Hi, I'm Alexander. {.hero-title}
+# Howdy, I'm Alex.[]{.cursor} {.hero-title}
 
 ::: {.hero-lede}
 I work at the intersection of public health and open-source data tooling —
-mostly in R, often on the Linux command line. I write here about the things
+Working in R, Python, SQL and living in the Linux command line. I write here about the things
 I build, break, and learn along the way.
 :::
 
