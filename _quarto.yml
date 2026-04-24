@@ -51,7 +51,7 @@ website:
         aria-label: GitHub
         target: _blank
       - icon: linkedin
-        href: https://www.linkedin.com/in/alexander-senetcky-0b209822
+        href: https://www.linkedin.com/in/alexander-senetcky
         aria-label: LinkedIn
         target: _blank
       - icon: envelope
@@ -61,7 +61,7 @@ website:
   page-footer:
     border: false
     left: "© 2026 Alexander Senetcky"
-    center: "[RSS](/posts.xml)"
+    center: "[RSS](/posts.xml) · [Colophon](colophon.qmd)"
     right: "Built with [Quarto](https://quarto.org/)"
 
   draft-mode: unlinked
