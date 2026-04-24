@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Data scientist and epidemiologist writing about R, open-source tooling, and public health data.">
+<meta name="description" content="How this site is built, and why.">
 
-<title>Alexander Senetcky</title>
+<title>Colophon – Alexander Senetcky</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,6 +37,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-6143d9cc8d96822d55ef3f498120c1c9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-62281f137ff76b7eac9af6ac9c79878e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -75,13 +76,12 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <link rel="alternate" type="application/rss+xml" title="Alexander Senetcky — Writing" href="https://asenetcky.dev/posts.xml">
-<style>#title-block-header { display: none; }</style>
 
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -261,7 +261,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">AS</span></a>
   </li>  
 </ul>
@@ -313,22 +313,44 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-stack" id="toc-the-stack" class="nav-link active" data-scroll-target="#the-stack">The stack</a></li>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a></li>
+  <li><a href="#why-these-choices-and-not-others" id="toc-why-these-choices-and-not-others" class="nav-link" data-scroll-target="#why-these-choices-and-not-others">Why these choices and not others</a></li>
+  <li><a href="#credits" id="toc-credits" class="nav-link" data-scroll-target="#credits">Credits</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/asenetcky/asenetcky.dev/edit/main/colophon.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/blob/main/colophon.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Alexander Senetcky</h1>
+<h1 class="title">Colophon</h1>
 </div>
 
+<div>
+  <div class="description">
+    How this site is built, and why.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">April 24, 2026</p>
+    </div>
+  </div>
     
   </div>
   
@@ -337,30 +359,41 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="hero">
-<div class="hero-eyebrow">
-<p>AI Engineer · Data Scientist · Epidemiologist</p>
-</div>
-<section id="howdy-im-alex." class="level1 hero-title">
-<h1 class="hero-title">Howdy, I’m Alex.<span class="cursor"></span></h1>
-<div class="hero-lede">
-<p>I work at the intersection of public health and open-source data tooling — Working in R, Python, SQL and living in the Linux command line. I write here about the things I build, break, and learn along the way.</p>
-</div>
-<div class="hero-links">
-<p><a href="./posts.html">Read the blog →</a> <a href="./about.html">About me →</a> <a href="https://github.com/asenetcky" target="_blank">GitHub ↗</a> <a href="mailto:me@asenetcky.dev">Email ↗</a></p>
-</div>
-<!--
-When you have a post you want to feature, replace the "Read the blog →"
-link above with a direct link to it, e.g.:
-
-  [Latest: *On building a digital-twin resume* →](posts/2026-05-digital-twin/index.qmd)
-
-Then move the generic blog link into the list below if you still want it.
--->
+<p>A note on how this site works, for anyone curious — or for future me, trying to remember why past me did something.</p>
+<p>The whole thing is open source at <a href="https://github.com/asenetcky/asenetcky.dev">github.com/asenetcky/asenetcky.dev</a>.</p>
+<section id="the-stack" class="level2">
+<h2 class="anchored" data-anchor-id="the-stack">The stack</h2>
+<p><strong><a href="https://quarto.org/">Quarto</a></strong> renders the pages. Source is a mix of Markdown (<code>.md</code>) and Quarto documents (<code>.qmd</code>), the latter of which can embed executable R or Python. Posts that include code get computed at build time and cached via Quarto’s <code>freeze</code> mechanism, so I don’t re-run a six-hour model every time I fix a typo.</p>
+<p><strong><a href="https://rstudio.github.io/renv/">renv</a></strong> pins the R environment. If you clone the repo and run <code>renv::restore()</code>, you get the exact package versions the site was built with.</p>
+<p><strong><a href="https://github.com/asenetcky/asenetcky.dev/tree/main/.github/workflows">GitHub Actions</a></strong> builds the site on every push to <code>main</code> and deploys the result to <strong><a href="https://pages.github.com/">GitHub Pages</a></strong>. The custom domain (<code>asenetcky.dev</code>) is a DNS CNAME; GitHub handles HTTPS automatically via Let’s Encrypt.</p>
 </section>
-</div>
+<section id="design" class="level2">
+<h2 class="anchored" data-anchor-id="design">Design</h2>
+<p>Two custom Sass partials in the repo root, <code>theme-light.scss</code> and <code>theme-dark.scss</code>, handle colors and typography. A small <code>styles.css</code> handles layout pieces that don’t change between modes (content width, the hero block, the post listing grid). Quarto’s built-in light/dark toggle does the rest.</p>
+<p>The accent color is <code>#3b6ea8</code> — a muted blue that is sort of like what I wish my kitchen used with butcher block tops… one can dream.</p>
+<p><strong>Fonts:</strong> <a href="https://rsms.me/inter/">Inter</a> for body and UI, <a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a> for code. Both served from Google Fonts.</p>
+<p><strong>Comments</strong> are handled by <a href="https://giscus.app/">giscus</a>, which backs comment threads with GitHub Discussions. If you leave a comment it appears both here and in the repo’s Discussions tab.</p>
+</section>
+<section id="why-these-choices-and-not-others" class="level2">
+<h2 class="anchored" data-anchor-id="why-these-choices-and-not-others">Why these choices and not others</h2>
+<p><strong>Quarto instead of a general-purpose static site generator.</strong> Hugo is faster, Astro is more flexible, Eleventy is more JavaScript-native. None of them natively execute R. Most of what I write starts as analysis I’m already doing in Quarto for work; using Quarto for the blog means my scratch notebook and my published post are the same file. When I inevitably realize a chart needs a fix, I re-render one file and push. That’s hard to give up.</p>
+<p><strong>Custom SCSS instead of a theme.</strong> I started on Bootswatch’s <a href="https://bootswatch.com/lux/"><code>lux</code></a> and spent more time overriding it than I would have spent writing CSS from scratch. Themes make design decisions you’ll want to un-make. A hundred lines of Sass is cheaper than fighting a five-thousand-line framework.</p>
+<p><strong>GitHub Pages instead of Netlify or Cloudflare.</strong> Both are excellent. GitHub Pages won on surface area: the code, the CI, the deploy, and the issue tracker all live behind one login. One fewer dashboard to remember the password for.</p>
+</section>
+<section id="credits" class="level2">
+<h2 class="anchored" data-anchor-id="credits">Credits</h2>
+<ul>
+<li><a href="https://rsms.me/inter/">Inter</a> by Rasmus Andersson</li>
+<li><a href="https://www.jetbrains.com/lp/mono/">JetBrains Mono</a> by JetBrains</li>
+<li><a href="https://icons.getbootstrap.com/">Bootstrap Icons</a> by the Bootstrap team</li>
+<li><a href="https://quarto.org/">Quarto</a> by Posit</li>
+<li><a href="https://giscus.app/">giscus</a> by Ikko Ashimine et al.</li>
+<li>The <a href="https://github.com/CTOpenData/r-user-group">Connecticut R User Group</a>, which is where a lot of what I write about gets its first read.</li>
+</ul>
+<p><em>Last rebuilt: <code>April 24, 2026</code>.</em></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -378,6 +411,13 @@ Then move the generic blog link into the list below if you still want it.
       window.document.body.appendChild(a);
     }
     setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -777,7 +817,7 @@ Then move the generic blog link into the list below if you still want it.
 </div>   
     <div class="nav-footer-center">
 <p><a href="./posts.xml">RSS</a> · <a href="./colophon.html">Colophon</a></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/asenetcky/asenetcky.dev/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/asenetcky/asenetcky.dev/edit/main/colophon.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/blob/main/colophon.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/asenetcky/asenetcky.dev/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Built with <a href="https://quarto.org/">Quarto</a></p>
 </div>

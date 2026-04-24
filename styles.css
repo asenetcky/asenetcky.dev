@@ -1,1 +1,245 @@
-/* css styles */
+/* ==========================================================================
+   asenetcky.dev — layout styles (theme-agnostic)
+   Colors are handled by theme-light.scss / theme-dark.scss via CSS variables.
+   ========================================================================== */
+
+/* Constrain content width across the site for readability */
+main.content {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+/* Homepage hero — centered, airy */
+.hero {
+  padding: 4rem 0 3rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 1rem;
+}
+
+.hero h1,
+.hero .hero-title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-lede {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+/* Blinking terminal-style cursor after the hero title */
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.1em;
+  background-color: currentColor;
+  vertical-align: -0.1em;
+  animation: cursor-blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes cursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color, rgba(128,128,128,0.15));
+}
+
+.hero-links a {
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hero-links a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Post / project listings — trade cards for a clean reverse-chrono list */
+.quarto-listing-default .list .quarto-post {
+  border: none;
+  border-bottom: 1px solid var(--bs-border-color, rgba(128,128,128,0.12));
+  padding: 1.5rem 0;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.quarto-listing-default .list .quarto-post:first-child {
+  border-top: 1px solid var(--bs-border-color, rgba(128,128,128,0.12));
+}
+
+.quarto-listing-default .list .quarto-post .metadata {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.quarto-listing-default .list .quarto-post .body h3.listing-title,
+.quarto-listing-default .list .quarto-post .body .listing-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+}
+
+.quarto-listing-default .list .quarto-post .body h3.listing-title a {
+  text-decoration: none !important;
+}
+
+.quarto-listing-default .list .quarto-post .body h3.listing-title a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.quarto-listing-default .list .quarto-post .listing-description {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.quarto-listing-default .list .quarto-post .listing-categories {
+  margin-top: 0.5rem;
+}
+
+.listing-category {
+  font-size: 0.75rem !important;
+  padding: 0.15rem 0.55rem !important;
+  border-radius: 3px !important;
+  background: var(--bs-tertiary-bg, rgba(128,128,128,0.1)) !important;
+  border: none !important;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Collapse to single column on narrow screens */
+@media (max-width: 640px) {
+  .quarto-listing-default .list .quarto-post {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  main.content {
+    padding-top: 2rem;
+  }
+
+  .hero {
+    padding: 2.5rem 0 2rem;
+  }
+}
+
+/* Slight polish on the TOC */
+#TOC, .sidebar nav[role="doc-toc"] {
+  font-size: 0.85rem;
+}
+
+#TOC ul, .sidebar nav[role="doc-toc"] ul {
+  border-left: 1px solid var(--bs-border-color, rgba(128,128,128,0.15));
+}
+
+/* /now page — small meta block at the top */
+.now-intro {
+  font-size: 0.9rem;
+  opacity: 0.65;
+  padding: 0.75rem 0 0.75rem 1rem;
+  border-left: 2px solid var(--bs-border-color, rgba(128,128,128,0.2));
+  margin-bottom: 2.5rem;
+}
+
+/* 404 page — terminal-prompt styling */
+.not-found {
+  padding: 3rem 0;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.not-found-shell {
+  margin-bottom: 2.5rem;
+}
+
+.not-found-shell pre {
+  font-size: 0.875rem;
+  padding: 1rem 1.25rem;
+  margin: 0;
+}
+
+.not-found h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.not-found-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color, rgba(128,128,128,0.15));
+  font-size: 0.95rem;
+}
+
+.not-found-links a {
+  text-decoration: none !important;
+}
+
+.not-found-links a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.not-found-prompt {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.not-found-prompt code {
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: inherit;
+}
+
+/* Remove bootstrap's hard focus rings in favor of subtle ones */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}

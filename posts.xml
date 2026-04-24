@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Alexander Senetcky</title>
+<link>https://asenetcky.dev/posts.html</link>
+<atom:link href="https://asenetcky.dev/posts.xml" rel="self" type="application/rss+xml"/>
+<description>Notes on data science, R, and public health work.</description>
+<generator>quarto-1.9.37</generator>
+<lastBuildDate>Thu, 05 Jun 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Thinking in Projects</title>
+  <dc:creator>Alexander Senetcky</dc:creator>
+  <link>https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="the-premise" class="level2">
+<h2 class="anchored" data-anchor-id="the-premise">The Premise</h2>
+<p>How many times have you seen this at the top of an R script that was shared with you by a friend or colleague?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">setwd</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"~/some/path/not/on/your/computer/"</span>)</span>
+<span id="cb1-2"></span>
+<span id="cb1-3">foo <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>() {</span>
+<span id="cb1-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"AHHHH I NEED THIS TO WORK I HAVE A DEADLINE"</span>)</span>
+<span id="cb1-5">}</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">foo</span>()</span></code></pre></div></div>
+</div>
+<p>You need that script to run - but it just blows up spectacularly in your face. You go in to change that line and then the script works, or it doesn’t. I find - more often than not - that if there is a <code>setwd()</code> at the top of a script, that even if I correct the path there are other dependencies that did not come along for the ride.</p>
+<p>When I started out learning R I did this alot. I still see this quite often. I see it from folks who have also moved well beyond the basics of R. There is nothing wrong with using <code>setwd()</code> or <code>getwd()</code>. However, I find that it is usually a signal that folks might not be thinking holistically about their code and the greater ecosystem in which it exists. Reproducibility might not always be on the forefront of everyone’s minds, and look, I get it - sometimes you just need to slap something together to solve a problem so you never have to think about it again. For all the other times (and I’d argue even for those just-get-it-done-times) this might be one of those rare moments where doing the more robust thing is also the easier thing to do.</p>
+<p>The road to reproducibility winds ever onward, and while there are many facets to making your code more reproducible, one of the easiest just about anyone can adopt is a simple reframing of how we perceive our code.</p>
+<blockquote class="blockquote">
+<p>Our code is a project.</p>
+</blockquote>
+<p>Even our small, simple little script is a project, inside of a what I’ll call <em>project-space</em>. I’ll define what I mean by <em>project</em> and <em>project-space</em> and how you can use these mental costructs to think about your code. Also, if you can afford to add another package dependency and you are programmatically working with the file system I think the R package <code>fs</code> is worth taking a look at.</p>
+</section>
+<section id="defining-project-and-project-space" class="level2">
+<h2 class="anchored" data-anchor-id="defining-project-and-project-space">Defining <em>Project</em> and <em>Project-Space</em></h2>
+<p>I’m using the these terms broadly to cast a wide net. Your Integrated Development Environment (IDE) may have a very concrete concept of a project or some kind of workspace or the folder you are working in. You should 100% take advantage of those quality of life features, however I am being a litte more meta than that. Your code, your logic was created to tackle a problem. This is your project, <em>your solution</em>.</p>
+<blockquote class="blockquote">
+<p>Ideally this solution has everything it needs to stand alone</p>
+</blockquote>
+<p>If it can stand alone, you can confidently pass it along to a teammate. When users hardcode a file path at the top of the script, their computer <em>at that point in time</em> intrinsically becomes a part of that solution.</p>
+<blockquote class="blockquote">
+<p><em>You</em> are not a project.</p>
+</blockquote>
+<p>It is up to the developer to divorce themselves from the project. It needs to be self-contained. There are many ways of doing this and a great deal of tooling has spring up around divorcing the project from the user and the machine the project was written on. It’s also a spectrum too. You need to be realistic with yourself and your deadlines. If R packages are all the way on “reproducible” end of the spectrum - you may not have time for that level of commitment, so you do what you can and aim to ship easy wins and build up to the ideal in time.</p>
+<p>So what are these easy wins? You can make code soultion aware of its surroundings. This is where <em>project-space</em> comes into play. Yes, your code physically exists on your machine. You are possibly staring at one or more projects on your machine. But you need to think beyond your machine. These projects can and should be able (to the best of your abilities) exist on any number of machines.<br>
+If you are tackling a business problem for work - you should strive to be able to have your code run just about anywhere at work should something catastrophic happen to your usual work computer. <em>project-space</em> is a way of thinking about your code being everywhere and nowhere and tackling the problems in your code in the most person-environment agnostic ways possible.</p>
+</section>
+<section id="the-easy-win" class="level2">
+<h2 class="anchored" data-anchor-id="the-easy-win">The Easy Win</h2>
+<p>Using <a href="https://fs.r-lib.org/"><code>fs</code></a> will help to think about, and programmatically interact with your project-space. It’s a wonderful package for working with files, folders and paths. The package is well organized and has consistant names that make finding functionality within the package a breeze.</p>
+<p>Interacting with files and folders is great, but it’s the function <code>fs::path_wd()</code> that I find myself using <em>all</em> the time. You can basically drop this function in your scripts and functions and it is probably going to handle 98% of your project-space pathing issues, with a few exceptions.</p>
+<p>Let’s cover some basic concepts with <code>fs</code> before we finish with <code>fs::path_wd()</code>.</p>
+</section>
+<section id="why-fs-over-base" class="level2">
+<h2 class="anchored" data-anchor-id="why-fs-over-base">Why fs over base?</h2>
+<p>It’s spelled out better than I can ever state it in the <a href="https://fs.r-lib.org/articles/function-comparisons.html">documentation</a>.</p>
+<p>The tl;dr is that consistancy is king, and it really is. I cannot emphasize that enough. Nobody likes hidden surprises, much less coming from your behind-schedule, tech-debt-ridden past self. If you can confidently tell what the code is going to do by just reading it. Then your teammates are more likely to tell what that code is going to do by just reading it, and they will thank you for it.</p>
+</section>
+<section id="diving-in" class="level2">
+<h2 class="anchored" data-anchor-id="diving-in">Diving in</h2>
+<p>You’ll be constructing alot of paths with <code>fs</code>, but thankfully that is easy!</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(fs)</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># few different ways, you can mix and match</span></span>
+<span id="cb2-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"folder"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"subfolder"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"file"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ext =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"R"</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>folder/subfolder/file.R</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"folder/subfolder/file.R"</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>folder/subfolder/file.R</code></pre>
+</div>
+</div>
+<p>Inspecting an <code>fs</code> path we’ll see that it has it’s own class <code>fs_path</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">file_name <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my_file"</span></span>
+<span id="cb6-2">my_path <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span></span>
+<span id="cb6-3">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"folder/subfolder"</span>, file_name, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ext =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"csv"</span>)</span>
+<span id="cb6-4"></span>
+<span id="cb6-5">my_path</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>folder/subfolder/my_file.csv</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">class</span>(my_path)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "fs_path"   "character"</code></pre>
+</div>
+</div>
+<p>Some bells and whistles come along for the ride, but you can mostly think of these as <code>characters</code> with some nice vectorized function friends. Now let’s look at some real files.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># let's create a temporary file</span></span>
+<span id="cb10-2"></span>
+<span id="cb10-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># create the path</span></span>
+<span id="cb10-4">temp_file <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_temp</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ext =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"R"</span>)</span>
+<span id="cb10-5">temp_file</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># does it exist yet?</span></span>
+<span id="cb12-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_exists</span>(temp_file)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R 
+                            FALSE </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># create the file</span></span>
+<span id="cb14-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_touch</span>(temp_file)</span>
+<span id="cb14-3"></span>
+<span id="cb14-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># now does it exist?</span></span>
+<span id="cb14-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_exists</span>(temp_file)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R 
+                             TRUE </code></pre>
+</div>
+</div>
+<p>Let’s grab some info about this file.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># we can programmatically grab all the pieces about this file and surroundings</span></span>
+<span id="cb16-2"></span>
+<span id="cb16-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># the extension</span></span>
+<span id="cb16-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_ext</span>(temp_file)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># the directory</span></span>
+<span id="cb18-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_dir</span>(temp_file)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/tmp/Rtmpbik27P"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># file info</span></span>
+<span id="cb20-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_info</span>(temp_file) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb20-3">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">select</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"block_size"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb20-4">  fs<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as_fs_bytes</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4K</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># list surroundings</span></span>
+<span id="cb22-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_dir</span>(temp_file) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb22-3">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dir_ls</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/tmp/Rtmpbik27P/file183ea8da81b.R
+/tmp/Rtmpbik27P/libloc_171_2b363be77582bd8f.rds
+/tmp/Rtmpbik27P/libloc_238_3dec933b1be4517c.rds
+/tmp/Rtmpbik27P/libloc_245_3f803f276593ddff.rds</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># or get a cool tree!</span></span>
+<span id="cb24-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_dir</span>(temp_file) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb24-3">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dir_tree</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/tmp/Rtmpbik27P
+├── file183ea8da81b.R
+├── libloc_171_2b363be77582bd8f.rds
+├── libloc_238_3dec933b1be4517c.rds
+└── libloc_245_3f803f276593ddff.rds</code></pre>
+</div>
+</div>
+<section id="kept-you-waiting-huh" class="level3">
+<h3 class="anchored" data-anchor-id="kept-you-waiting-huh">Kept you waiting, huh?</h3>
+<p>Let’s delete that file for now and move on to why we’re here - <code>fs::path_wd()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># delete file</span></span>
+<span id="cb26-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">file_delete</span>(temp_file)</span>
+<span id="cb26-3"></span>
+<span id="cb26-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># and shift focus to where we are</span></span>
+<span id="cb26-5">project_path <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_wd</span>()</span>
+<span id="cb26-6">project_path</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects</code></pre>
+</div>
+</div>
+<p>Did you catch that? It’s subtle - and possibly underwhelming. The function knows where it is. What’s more important is what it <strong><em>did not do</em></strong> - it did not mess with and change a user’s project-space. <code>setwd()</code> might be set to a path that does not exist and that is annoying, but at least it would fail fast. What if it didn’t though? What if it silently set it some far off location and one part of your script works, but then the rest start throwing errors or clobbering file that should not be touched.</p>
+<p><code>fs::path_wd()</code> uses the point of view from the script/function and separates the user from the project and the project-space. Now it doesn’t matter - more or less - where your drop your logic, it will pick up on its surroundings and execute commands.</p>
+<p>It is also just so easy to drop <code>path_wd()</code> anywhere and save yourself some typing. If you have a deeply nested project you can use that to take care of some of the pathing boilerplate.</p>
+<p>What if I wanted to print the first few lines of code from another post? Easy.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># you can add the folders and files into path_wd()</span></span>
+<span id="cb28-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_wd</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"file-that-is-definitely-here"</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects/file-that-is-definitely-here</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#  you can substitute path_wd() for our project_path object as well</span></span>
+<span id="cb30-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">path_wd</span>(), <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cool-folder"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"possibly-more-complex-path"</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/alex/r-projects/asenetcky.dev/posts/2025-05-20-thinking-in-projects/cool-folder/possibly-more-complex-path</code></pre>
+</div>
+</div>
+</section>
+<section id="some-caveats" class="level3">
+<h3 class="anchored" data-anchor-id="some-caveats">Some Caveats</h3>
+<p>It’s so easy to use, there really isn’t a reason <em>not</em> to use it. Except there is that last 2% of the time where you might not want to use <code>path_wd()</code> and that’s usually when working with a program that shifts the working directory, or at least, it’s focus. An example of that would be <code>Quarto</code> which is what I use to write this website and this very post. The <code>project_path</code> we saved earlier - when I go to print that - the one I see in the notebook/console/terminal is not going to be the same path when the final document is rendered. There are probably some other times when this happens - but that is the biggest one I encounter. That’s not a failing of <code>fs</code> it’s just that different tool altogether is taking the reins for a bit. For something like that - you probably want to use the <code>here</code> package.</p>
+</section>
+</section>
+<section id="so-why-not-here-all-the-time" class="level2">
+<h2 class="anchored" data-anchor-id="so-why-not-here-all-the-time">So why not <code>here</code> all the time?</h2>
+<p><code>fs</code> and <code>here</code> may overlap a little bit with <code>fs::path_wd()</code> and <code>here::here()</code> but the focus of the packages is completely different. <code>here</code> is all about project directory roots and <code>fs</code> has a little bit of that but the focus is really on working in a file system on your computer.</p>
+<p>Also, I wanted quick easy wins and I think <code>fs</code> with its <code>fs::path_wd()</code> is just easier to use for <em>most</em> usecases. I think the <code>here</code> package is fantastic and those couple of extra <a href="https://here.r-lib.org/articles/here.html">steps</a> <strong><em>will</em></strong> be necessary some of the time. <code>here</code> has really saved my bacon in the past and you should absolutely know about it. Most of the time though, <code>fs::path_wd()</code> is <em>good enough</em>.</p>
+</section>
+<section id="being-flexible-but-take-nothing-for-granted" class="level2">
+<h2 class="anchored" data-anchor-id="being-flexible-but-take-nothing-for-granted">Being flexible but take nothing for granted</h2>
+<p>So what did we do here today? We learned that we can be both explicit in our pathing at run time - but flexible enough where we don’t have to hardcode every path so that <em>only we</em> can run our code. We truly can have the best of both worlds.</p>
+<p><code>fs</code> is great for working within your filesystem, but it is also an <strong>entrypoint</strong> into thinking about your project in a broader, project focused context.</p>
+<section id="where-do-we-go-from-here" class="level3">
+<h3 class="anchored" data-anchor-id="where-do-we-go-from-here">Where do we go from here?</h3>
+<p>Keep practicing and building cool things of course! Really this project-focused thinking is an introduction to starting to think reproducibly about your code, your methods and your environment. Some incredibly helpful tools you might want to check out if you haven’t are:</p>
+<ul>
+<li><code>renv</code>: An R package for dependency management - a game changer.</li>
+<li>git and using repositories: Distributed version control software that really drives home working in projects.</li>
+<li>GitHub template repositories: If you have your projects setup how you like them, why not make a blank template for yourself?</li>
+<li>containers: If you haven’t worked with these before - they’ll blow your mind. Read up on Podman or Docker and see how these tackle “well, it works on my machine” problem that we all encounter one way or another.</li>
+</ul>
+<p>So what about you? What have you picked up along the way in your career that you would want new folks starting out to know? Anything you picked up from another field, or even another programming language that your brought with you to all your projects in other languages?</p>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{senetcky2025,
+  author = {Senetcky, Alexander},
+  title = {Thinking in {Projects}},
+  date = {2025-06-05},
+  url = {https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-senetcky2025" class="csl-entry quarto-appendix-citeas">
+Senetcky, Alexander. 2025. <span>“Thinking in Projects.”</span> June 5.
+<a href="https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/">https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/</a>.
+</div></div></section></div> ]]></description>
+  <category>R</category>
+  <category>R-Package</category>
+  <category>Developer-Toolkit</category>
+  <category>Developer-Mindset</category>
+  <guid>https://asenetcky.dev/posts/2025-05-20-thinking-in-projects/</guid>
+  <pubDate>Thu, 05 Jun 2025 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Managing Credentials with keyring</title>
+  <dc:creator>Alexander Senetcky</dc:creator>
+  <link>https://asenetcky.dev/posts/2025-04-23-keyring/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="the-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge">The Challenge</h2>
+<p>How many times have you needed to enter an API token or perhaps credentials to a service account? Have you ever seen someone save credentials inside of a script? It happens, I’ve seen it - I hate to admit it, but I’ve probably done it myself. It’s easy to do when it’s crunch time. You tell yourself, you’ll remove them when you’re done testing - but, gasp - it’s too late, you’ve mindlessly committed and pushed those changes on up to the remote with git.</p>
+<p>Or maybe you’re new and just getting started with R. You’re almost certainly going to need to inject a credential or something similar sooner or later. You <em>don’t</em> have to leave these in your scripts. There is a better way!</p>
+</section>
+<section id="the-solution" class="level2">
+<h2 class="anchored" data-anchor-id="the-solution">The Solution</h2>
+<p>There is an R package out there that makes it just as easy <em>not</em> to hardcode credentials into scripts. That package is <a href="https://keyring.r-lib.org/index.html"><code>keyring</code></a>!</p>
+<p>Let’s take a look.</p>
+<section id="installing-keyring" class="level3">
+<h3 class="anchored" data-anchor-id="installing-keyring">Installing <code>keyring</code></h3>
+<p>I prefer to use <code>pak</code> to install R packages, so I will often install that first and then use it to install the desired packages.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># install.packages("pak")</span></span>
+<span id="cb1-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># pak::pak("keyring")</span></span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(keyring)</span></code></pre></div></div>
+</div>
+</section>
+<section id="putting-keyring-into-practice" class="level3">
+<h3 class="anchored" data-anchor-id="putting-keyring-into-practice">Putting <code>keyring</code> into practice</h3>
+<p><code>keyring</code> stores credentials using the default credential manager for your operating system. <code>keyring</code> makes interacting with that manager, inside of your code, fairly seamless.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># keyring can be run interactively with pop ups</span></span>
+<span id="cb2-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># or you set the values in code - execute the code</span></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># and then remove those lines if anything is going to be saved</span></span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># save some useful credentials</span></span>
+<span id="cb2-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_set_with_value</span>(</span>
+<span id="cb2-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-service"</span>,</span>
+<span id="cb2-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-username"</span>,</span>
+<span id="cb2-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-super-secret-password-SSSHHHH"</span></span>
+<span id="cb2-10">)</span>
+<span id="cb2-11"></span>
+<span id="cb2-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># interactively - you would call `key_set("my-service")`</span></span>
+<span id="cb2-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># and fill in the details in the pop up.</span></span></code></pre></div></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>Remember - you're just executing the code and not saving the
+plain text password or senstive information in the code in a real world situation.</code></pre>
+</div>
+</div>
+<p>Now how would we access those credentials for later use? The <code>service</code> and <code>username</code> previously entered becomes the identifiers used to pull the credential back into your environment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># if you happen to forget your services</span></span>
+<span id="cb4-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># you can list them all out!</span></span>
+<span id="cb4-3">keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_list</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     service    username
+1 my-service my-username</code></pre>
+</div>
+</div>
+<p>Notice how the usernames are listed alongside the service? Users should be aware of that if they do not want usernames showing up in the console output. However, we’ll exploit that functionality later on. All a logged in user needs to retrieve a credential is a service name and a username.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Typically keyrings are set per user and are thus subject to whatever security is employed around the user account. It is imperative that users take care to secure their accounts, otherwise one compromised account can quickly spill over into others.</p>
+</div>
+</div>
+<p>Let’s grab that credential now.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_get</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-service"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-username"</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "my-super-secret-password-SSSHHHH"</code></pre>
+</div>
+</div>
+<p>So the code above just prints straight to console - still not exactly what you would want in real life but now that can be saved to an object and used just about anywhere.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>Let’s walk through some plausible examples:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># remember - interactively we'd be using key_set("&lt;service name here&gt;")</span></span>
+<span id="cb8-2"></span>
+<span id="cb8-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_set_with_value</span>(</span>
+<span id="cb8-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"open data portal"</span>,</span>
+<span id="cb8-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"me@asenetcky.dev"</span>,</span>
+<span id="cb8-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mytotallyrealpassword123"</span></span>
+<span id="cb8-7">)</span>
+<span id="cb8-8"></span>
+<span id="cb8-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># sometimes you just want to use the service name</span></span>
+<span id="cb8-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># and the password - and the "password" may</span></span>
+<span id="cb8-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># not even be a password per se.</span></span>
+<span id="cb8-12"></span>
+<span id="cb8-13"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_set_with_value</span>(</span>
+<span id="cb8-14">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"definitely real sql server connection string"</span>,</span>
+<span id="cb8-15">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"127.0.0.1"</span></span>
+<span id="cb8-16">)</span></code></pre></div></div>
+</div>
+</section>
+<section id="helper-functions" class="level3">
+<h3 class="anchored" data-anchor-id="helper-functions">Helper Functions</h3>
+<p>Keyring works great for little private/internal helper functions and packages that you might write or contribute to in your line of work. Why not wrap a helper function around some keyring functionality?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I am using <code>renv</code> - for dependency management and I think you should <em>too</em> but that can be the topic of another post. I am going to assume the reader is not using <code>renv</code> and list the libraries - but I may miss one because <code>renv</code> has spoiled me. Be sure to check our <a href="https://rstudio.github.io/renv/articles/renv.html"><code>renv</code></a> and its excellent documentation.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># pak::pak(</span></span>
+<span id="cb9-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#   c(</span></span>
+<span id="cb9-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#     "dplyr", # for tidyverse data manipulations</span></span>
+<span id="cb9-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#     "purrr", # for funtional programming - and in our example, error catching</span></span>
+<span id="cb9-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#     "glue", # for easy formatted strings</span></span>
+<span id="cb9-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#     "checkmate", # for common checks in functions</span></span>
+<span id="cb9-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#     "rlang" # great for core language helpers</span></span>
+<span id="cb9-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#   )</span></span>
+<span id="cb9-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># )</span></span>
+<span id="cb9-10"></span>
+<span id="cb9-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># if we use `renv` and don't mind using the full function name - package::function</span></span>
+<span id="cb9-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># you can avoid these library statements entirely.</span></span>
+<span id="cb9-13"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(dplyr)</span>
+<span id="cb9-14"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(purrr)</span>
+<span id="cb9-15"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(rlang)</span>
+<span id="cb9-16"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(glue)</span>
+<span id="cb9-17"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(checkmate)</span></code></pre></div></div>
+</div>
+<p>Our dependencies are set up - I’ll use the full function names so that there will be no ambiguity about what function comes from where.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">nab_service_cred <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span>(service_name) {</span>
+<span id="cb10-2">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># check user input</span></span>
+<span id="cb10-3">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># `checkmate` is great to testing function input</span></span>
+<span id="cb10-4">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># and/or putting together unit tests in packages</span></span>
+<span id="cb10-5">  checkmate<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">assert_character</span>(service_name)</span>
+<span id="cb10-6"></span>
+<span id="cb10-7">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># handle global bindings</span></span>
+<span id="cb10-8">  service <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> username <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span></span>
+<span id="cb10-9"></span>
+<span id="cb10-10">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># grab email</span></span>
+<span id="cb10-11">  email <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span></span>
+<span id="cb10-12">    keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_list</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb10-13">    dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filter</span>(service <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> service_name) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb10-14">    dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pull</span>(username)</span>
+<span id="cb10-15"></span>
+<span id="cb10-16">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># throw error if empty</span></span>
+<span id="cb10-17">  <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> (purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">is_empty</span>(email)) {</span>
+<span id="cb10-18">    rlang<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">abort</span>(</span>
+<span id="cb10-19">      glue<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">glue</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"service: '{service_name}' - credential not found"</span>)</span>
+<span id="cb10-20">    )</span>
+<span id="cb10-21">  }</span>
+<span id="cb10-22"></span>
+<span id="cb10-23">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># grab password</span></span>
+<span id="cb10-24">  password <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span></span>
+<span id="cb10-25">    keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_get</span>(</span>
+<span id="cb10-26">      <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> service_name,</span>
+<span id="cb10-27">      <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> email</span>
+<span id="cb10-28">    )</span>
+<span id="cb10-29"></span>
+<span id="cb10-30">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># return a named list</span></span>
+<span id="cb10-31">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lst</span>(</span>
+<span id="cb10-32">    email,</span>
+<span id="cb10-33">    password</span>
+<span id="cb10-34">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb10-35">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># probably best to return</span></span>
+<span id="cb10-36">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># invisibily in case of unintended prints</span></span>
+<span id="cb10-37">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">invisible</span>()</span>
+<span id="cb10-38">}</span></code></pre></div></div>
+</div>
+<p>This little helper can be a building block for other functionality in your scripts or package. Maybe you have a process upstream that handles errors elegantly - you can then wrap this up in <code>purrr::safely()</code> and then handle potential errors at your convenience.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">safer_nab <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">safely</span>(</span>
+<span id="cb11-2">  nab_service_cred,</span>
+<span id="cb11-3">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># set some default or placeholder values in case of errors</span></span>
+<span id="cb11-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">otherwise =</span> dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lst</span>(</span>
+<span id="cb11-5">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">email =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"default-or-fake@email.com"</span>,</span>
+<span id="cb11-6">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"default-or-fake-password.com"</span></span>
+<span id="cb11-7">  )</span>
+<span id="cb11-8">)</span></code></pre></div></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># test it out</span></span>
+<span id="cb12-2">results <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">safer_nab</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"not-a-service"</span>)</span>
+<span id="cb12-3">results<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>result</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$email
+[1] "default-or-fake@email.com"
+
+$password
+[1] "default-or-fake-password.com"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># the show goes on!</span></span>
+<span id="cb14-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># but if we want to see the error - we still can.</span></span>
+<span id="cb14-3">results<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>error<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>message</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>service: 'not-a-service' - credential not found</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># look there is our error message!</span></span></code></pre></div></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># what about our service from before?</span></span>
+<span id="cb17-2">results <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">safer_nab</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"open data portal"</span>)</span>
+<span id="cb17-3">results</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$result
+$result$email
+[1] "me@asenetcky.dev"
+
+$result$password
+[1] "mytotallyrealpassword123"
+
+
+$error
+NULL</code></pre>
+</div>
+</div>
+<p>Please keep in mind that <code>keyring</code> is very local to the user, and computer they are using. It is not a replacement for some more heavyweight solutions. However, it doesn’t cost users anything to use, it’s licensed under the permissive MIT license so it can generally be incorporated into codebases, and it is easy to use and readily available. So for simple setups and/or simple projects I cannot really think of a reason <em>not</em> to use it.</p>
+<p>Hopefully these examples highlight how keyring can be a great tool to bolster security around credential handling in code, as well as a building block for helper functions that can get your team on the same page with connections, databases, service accounts and other credentials.</p>
+</section>
+<section id="cleaning-up" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-up">Cleaning up</h3>
+<p>Now we have all these fake services and credentials in our operating system’s credential manager. How do user clean it all up? <code>keyring</code> has tools for that as well.</p>
+<p>Users can use <code>keyring::key_delete()</code> to wipe out credentials they no longer want stored.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># jog our memories about the services...</span></span>
+<span id="cb19-2">keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_list</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                       service         username
+1                             open data portal me@asenetcky.dev
+2 definitely real sql server connection string                 
+3                                   my-service      my-username</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># oh yeah - these ones.</span></span>
+<span id="cb21-2"></span>
+<span id="cb21-3">dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lst</span>(</span>
+<span id="cb21-4">  <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"my-service"</span>,</span>
+<span id="cb21-5">  <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"open data portal"</span>,</span>
+<span id="cb21-6">  <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"definitely real sql server connection string"</span></span>
+<span id="cb21-7">) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb21-8">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># let's borrow from our helper function</span></span>
+<span id="cb21-9">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># I'm feeding the service names into our helper function</span></span>
+<span id="cb21-10">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># so we can keep the service name and the email needed</span></span>
+<span id="cb21-11">  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># for the deletion in `purr::walk()`</span></span>
+<span id="cb21-12">  purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">map</span>(</span>
+<span id="cb21-13">    \(serv) {</span>
+<span id="cb21-14">      cred <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nab_service_cred</span>(serv)</span>
+<span id="cb21-15">      cred<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>name <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> serv</span>
+<span id="cb21-16">      cred</span>
+<span id="cb21-17">    }</span>
+<span id="cb21-18">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb21-19">  purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">walk</span>(</span>
+<span id="cb21-20">    \(cred) {</span>
+<span id="cb21-21">      name <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pluck</span>(cred, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"name"</span>)</span>
+<span id="cb21-22">      email <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> purrr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pluck</span>(cred, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"email"</span>)</span>
+<span id="cb21-23">      keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_delete</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">service =</span> name, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">username =</span> email)</span>
+<span id="cb21-24">    }</span>
+<span id="cb21-25">  )</span>
+<span id="cb21-26"></span>
+<span id="cb21-27">keyring<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">key_list</span>()</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] service  username
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
+<p>If you haven’t already, check out <code>keyring</code> and see what use cases you can come up with.</p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{senetcky2025,
+  author = {Senetcky, Alexander},
+  title = {Managing {Credentials} with Keyring},
+  date = {2025-04-23},
+  url = {https://asenetcky.dev/posts/2025-04-23-keyring/},
+  langid = {en}
+}
+</code></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-senetcky2025" class="csl-entry quarto-appendix-citeas">
+Senetcky, Alexander. 2025. <span>“Managing Credentials with
+Keyring.”</span> April 23. <a href="https://asenetcky.dev/posts/2025-04-23-keyring/">https://asenetcky.dev/posts/2025-04-23-keyring/</a>.
+</div></div></section></div> ]]></description>
+  <category>R</category>
+  <category>R-Package</category>
+  <category>Developer-Toolkit</category>
+  <guid>https://asenetcky.dev/posts/2025-04-23-keyring/</guid>
+  <pubDate>Wed, 23 Apr 2025 00:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

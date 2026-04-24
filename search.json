@@ -1,17 +1,45 @@
 [
   {
-    "objectID": "projects.html",
-    "href": "projects.html",
-    "title": "Projects",
+    "objectID": "colophon.html",
+    "href": "colophon.html",
+    "title": "Colophon",
     "section": "",
-    "text": "distiller\n\n\n\nR\n\nR-Package\n\nCDC\n\nEPHT\n\npublic health\n\n\n\nDistill your wrangled data down to the CDC’s EPHT XML format\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nstrata\n\n\n\nR\n\nR-Package\n\n\n\nSimple Framework for Simple Automation\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "A note on how this site works, for anyone curious — or for future me, trying to remember why past me did something.\nThe whole thing is open source at github.com/asenetcky/asenetcky.dev."
   },
   {
-    "objectID": "presentations.html",
-    "href": "presentations.html",
-    "title": "Presentations",
+    "objectID": "colophon.html#the-stack",
+    "href": "colophon.html#the-stack",
+    "title": "Colophon",
+    "section": "The stack",
+    "text": "The stack\nQuarto renders the pages. Source is a mix of Markdown (.md) and Quarto documents (.qmd), the latter of which can embed executable R or Python. Posts that include code get computed at build time and cached via Quarto’s freeze mechanism, so I don’t re-run a six-hour model every time I fix a typo.\nrenv pins the R environment. If you clone the repo and run renv::restore(), you get the exact package versions the site was built with.\nGitHub Actions builds the site on every push to main and deploys the result to GitHub Pages. The custom domain (asenetcky.dev) is a DNS CNAME; GitHub handles HTTPS automatically via Let’s Encrypt."
+  },
+  {
+    "objectID": "colophon.html#design",
+    "href": "colophon.html#design",
+    "title": "Colophon",
+    "section": "Design",
+    "text": "Design\nTwo custom Sass partials in the repo root, theme-light.scss and theme-dark.scss, handle colors and typography. A small styles.css handles layout pieces that don’t change between modes (content width, the hero block, the post listing grid). Quarto’s built-in light/dark toggle does the rest.\nThe accent color is #3b6ea8 — a muted blue that is sort of like what I wish my kitchen used with butcher block tops… one can dream.\nFonts: Inter for body and UI, JetBrains Mono for code. Both served from Google Fonts.\nComments are handled by giscus, which backs comment threads with GitHub Discussions. If you leave a comment it appears both here and in the repo’s Discussions tab."
+  },
+  {
+    "objectID": "colophon.html#why-these-choices-and-not-others",
+    "href": "colophon.html#why-these-choices-and-not-others",
+    "title": "Colophon",
+    "section": "Why these choices and not others",
+    "text": "Why these choices and not others\nQuarto instead of a general-purpose static site generator. Hugo is faster, Astro is more flexible, Eleventy is more JavaScript-native. None of them natively execute R. Most of what I write starts as analysis I’m already doing in Quarto for work; using Quarto for the blog means my scratch notebook and my published post are the same file. When I inevitably realize a chart needs a fix, I re-render one file and push. That’s hard to give up.\nCustom SCSS instead of a theme. I started on Bootswatch’s lux and spent more time overriding it than I would have spent writing CSS from scratch. Themes make design decisions you’ll want to un-make. A hundred lines of Sass is cheaper than fighting a five-thousand-line framework.\nGitHub Pages instead of Netlify or Cloudflare. Both are excellent. GitHub Pages won on surface area: the code, the CI, the deploy, and the issue tracker all live behind one login. One fewer dashboard to remember the password for."
+  },
+  {
+    "objectID": "colophon.html#credits",
+    "href": "colophon.html#credits",
+    "title": "Colophon",
+    "section": "Credits",
+    "text": "Credits\n\nInter by Rasmus Andersson\nJetBrains Mono by JetBrains\nBootstrap Icons by the Bootstrap team\nQuarto by Posit\ngiscus by Ikko Ashimine et al.\nThe Connecticut R User Group, which is where a lot of what I write about gets its first read.\n\nLast rebuilt: April 24, 2026."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alexander Senetcky",
     "section": "",
-    "text": "Plotting Electric Vehicle Open Data\n\n\nwith ggplot2 and friends\n\n\n\nR\n\nR-User Group\n\nTidyTuesday\n\nggplot2\n\nbeginner\n\n\n\nPresentation given to CT R-User Group for our homegrown tidytuesday community challenge\n\n\n\n\n\nJun 10, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nR Packages: There and Back Again\n\n\n\n\n\n\nR\n\nR-User Group\n\nR Packages\n\n\n\nPresentation given to CT R-User Group about my thoughts on R package development\n\n\n\n\n\nDec 10, 2024\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "AI Engineer · Data Scientist · Epidemiologist\n\n\nHowdy, I’m Alex.\n\nI work at the intersection of public health and open-source data tooling — Working in R, Python, SQL and living in the Linux command line. I write here about the things I build, break, and learn along the way.\n\n\nRead the blog → About me → GitHub ↗ Email ↗"
   },
   {
     "objectID": "posts/2025-04-23-keyring/index.html",
@@ -42,18 +70,11 @@
     "text": "Your turn\nIf you haven’t already, check out keyring and see what use cases you can come up with."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Alexander Senetcky",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": "Hello, I’m Alexander Senetcky. You’re in the right place if you want to learn more about me and my work.\nI love working with and teaching open source data-focused tools and programming languages. I’m a father who loves camping, woodworking, computer hardware and making manual espresso - and all the other gear that goes along with coffee brewing at home!\n\nGitHub   Linkedin   Email me"
-  },
-  {
-    "objectID": "projects/distiller/index.html",
-    "href": "projects/distiller/index.html",
-    "title": "distiller",
-    "section": "",
-    "text": "distiller\ndistiller is my R-package I wrote to help me submit data to CDC’s Environmental Public Health Tracking.\nThis package will take your wrangled data and create the XML documents as required by the CDC specification. Check it out and please let me know if it helps ease your submissions.\nYou can find distiller documentation here.\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Distiller},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/distiller/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Distiller.” June 2, 2025. https://asenetcky.dev/projects/distiller/."
+    "text": "strata\n\n\n\nR\n\nR-Package\n\n\n\nSimple Framework for Simple Automation\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\ndistiller\n\n\n\nR\n\nR-Package\n\nCDC\n\nEPHT\n\npublic health\n\n\n\nDistill your wrangled data down to the CDC’s EPHT XML format\n\n\n\n\n\nJun 2, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "presentations/2024-12-10-rpkgs/index.html#it-is-possible",
@@ -140,6 +161,34 @@
     "text": "Pulling it all together\nIf users combine:\n\nR\ngit\nYour own R Package\nrenv package\n\nUsers will have a powerful combination of tools where reproducibility is paramount."
   },
   {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Writing",
+    "section": "",
+    "text": "Thinking in Projects\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\nDeveloper-Mindset\n\n\n\nIncreasing Portability and Reproducibility\n\n\n\n\n\nJun 5, 2025\n\n9 min\n\n\n\n\n\n\nManaging Credentials with keyring\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\n\n\nSimple Credential Management\n\n\n\n\n\nApr 23, 2025\n\n7 min\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/distiller/index.html",
+    "href": "projects/distiller/index.html",
+    "title": "distiller",
+    "section": "",
+    "text": "distiller\ndistiller is my R-package I wrote to help me submit data to CDC’s Environmental Public Health Tracking.\nThis package will take your wrangled data and create the XML documents as required by the CDC specification. Check it out and please let me know if it helps ease your submissions.\nYou can find distiller documentation here.\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Distiller},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/distiller/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Distiller.” June 2. https://asenetcky.dev/projects/distiller/."
+  },
+  {
+    "objectID": "projects/strata/index.html",
+    "href": "projects/strata/index.html",
+    "title": "strata",
+    "section": "",
+    "text": "strata\nstrata is my R-package that serves as a lightweight automation framework that teams without access to modern orchestration tools can implement easily.\n\nstrata documenation\nstrata on CRAN\n\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Strata},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/strata/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Strata.” June 2. https://asenetcky.dev/projects/strata/."
+  },
+  {
+    "objectID": "presentations.html",
+    "href": "presentations.html",
+    "title": "Presentations",
+    "section": "",
+    "text": "Plotting Electric Vehicle Open Data\n\n\nwith ggplot2 and friends\n\n\n\nR\n\nR-User Group\n\nTidyTuesday\n\nggplot2\n\nbeginner\n\n\n\nPresentation given to CT R-User Group for our homegrown tidytuesday community challenge\n\n\n\n\n\nJun 10, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nR Packages: There and Back Again\n\n\n\n\n\n\nR\n\nR-User Group\n\nR Packages\n\n\n\nPresentation given to CT R-User Group about my thoughts on R package development\n\n\n\n\n\nDec 10, 2024\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "presentations/2025-06-10-ggplot2/index.html",
     "href": "presentations/2025-06-10-ggplot2/index.html",
     "title": "Plotting Electric Vehicle Open Data",
@@ -180,13 +229,6 @@
     "title": "Plotting Electric Vehicle Open Data",
     "section": "5 ggplot 2 in action",
     "text": "5 ggplot 2 in action\nggplot2 is fairly flexible in how you structure your commands, so you’re likley to see some variations between developers.\n\n# we can start with the data, or a call to `ggplot()`\n# I prefer starting with the data and piping it in, otherwise\n# folks can use ggplot(data = ev, ...)\n\nev |&gt;\n  ggplot(\n    mapping = aes(\n      # we're mapping our aesthetic, think of it like a base we pin layers to\n      x = registration_date_start, # x axis\n      y = vehicletype # y axis\n    )\n  )\n\n\n\n\n\n\n\n\nIf we just run the above, we’ll get a blank plot. However, take a quick look at that - so much of the stage has already been laid out for us. ggplot2 has fairly sensible defaults, so for the folks who want to get in and get out quickly, they can do that. This allows plotting and visualizations to be used as one part of an exploratory analysis, and not just as a final, finished product, because it is so quick and easy to do once users are acquainted with ggplot2.\n\n5.1 Adding Details\nHow about we fill in some useful details, no?\n\n# Let's add some layers!\nev |&gt;\n  ggplot(\n    mapping = aes(\n      # we're mapping our aesthetic, think of it like a base we pin layers to\n      x = registration_date_start # x axis\n    )\n  ) +\n  geom_bar() # How about some bars?\n\n\n\n\n\n\n\n\nYou can combine geom_ layers!\nWe can have one geom:\n\n\nCode\ncount_by_day &lt;-\n  ev |&gt;\n  count(registration_date_start, name = \"count\")\n\ncount_by_day |&gt;\n  ggplot(\n    mapping = aes(\n      x = registration_date_start,\n      y = count\n    )\n  ) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nOr two - sharing the same aesthetic and variables\n\ncount_by_day |&gt;\n  ggplot(\n    mapping = aes(\n      x = registration_date_start,\n      y = count\n    )\n  ) +\n  geom_point() +\n  geom_smooth(\n    method = \"lm\",\n    se = FALSE,\n    color = \"red\",\n    linewidth = 1.5\n  ) |&gt;\n    suppressMessages()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nGoodness there is alot going on there!\nDoes day of week make a difference? Let’s find out.\n\nev |&gt;\n  select(registration_date_start) |&gt;\n  mutate(\n    dow = wday(\n      registration_date_start,\n      label = TRUE\n    )\n  ) |&gt;\n  count(registration_date_start, dow) |&gt;\n  ggplot() +\n  geom_boxplot(aes(dow, n))\n\n\n\n\n\n\n\n\nNotice again that we had some fairly sensible defaults, without having to dig into all the arguments of the functions.\n\n\n5.2 The Ask\nPretend for a moment that our supervisor wants to compare the vehicletype over time. We’ll do another quick wrangle so we can more easily compare types over time.\n\nagg_by_year_quarter_type &lt;-\n  ev |&gt;\n  mutate(\n    year = year(registration_date_start),\n    quarter = quarter(registration_date_start),\n    vehicletype = forcats::fct_lump_prop(\n      vehicletype,\n      prop = .01\n    )\n  ) |&gt;\n  count(year, quarter, vehicletype, name = \"type_count\")\n\nagg_by_year_quarter_type |&gt;\n  ggplot() +\n  geom_col(\n    aes(\n      x = quarter,\n      y = type_count\n    )\n  )\n\n\n\n\n\n\n\n\nwhat about year and quarter?\n\nagg_by_year_quarter_type |&gt;\n  ggplot() +\n  geom_col(\n    aes(\n      x = quarter,\n      y = type_count\n    )\n  ) +\n  facet_grid(cols = vars(year))\n\n\n\n\n\n\n\n\n\n\n5.3 Adding Color based on Features in the Data\nDidn’t we want to compare vehicletype? let’s do that….but how?\nUsing color!\n\nagg_by_year_quarter_type |&gt;\n  ggplot() +\n  geom_col(\n    aes(\n      x = quarter,\n      y = type_count,\n      # now colors are added to break out based on values in the data\n      fill = vehicletype\n    ),\n    position = position_dodge()\n  ) +\n  facet_grid(cols = vars(year))\n\n\n\n\n\n\n\n\nLet’s natural log transform these data to get rid of that skew.\n\n# using lubridate and forcats\nagg_by_year_quarter_type &lt;-\n  agg_by_year_quarter_type |&gt;\n  mutate(log_type = log(type_count))\n\nhead(agg_by_year_quarter_type)\n\n# A tibble: 6 × 5\n   year quarter vehicletype type_count log_type\n  &lt;dbl&gt;   &lt;int&gt; &lt;fct&gt;            &lt;int&gt;    &lt;dbl&gt;\n1  2022       1 Passenger          949    6.86 \n2  2022       1 SUV                627    6.44 \n3  2022       1 Truck               10    2.30 \n4  2022       1 Van                  5    1.61 \n5  2022       1 Other                2    0.693\n6  2022       2 Passenger         1428    7.26 \n\n\nAnd try again.\n\nagg_by_year_quarter_type |&gt;\n  ggplot() +\n  geom_col(\n    aes(quarter, log_type, fill = vehicletype),\n    position = position_dodge()\n  ) +\n  facet_grid(cols = vars(year))\n\n\n\n\n\n\n\n\nNow, I want to save some typing. ggplot2 objects can be saved and combined in fun and exciting ways.\n\nbase &lt;-\n  agg_by_year_quarter_type |&gt;\n  ggplot(\n    aes(quarter, log_type, fill = vehicletype)\n  ) +\n  facet_grid(cols = vars(year))\n\nbase\n\n\n\n\n\n\n\n\nNothing in that plot until we add a geom_. So just like our plot with the points and the trendline where we combined geom_’s in one end to end statement - you can combine saved ggplot2 objects with geom_’s as well.\n\ncol_base &lt;- base + geom_col(position = position_dodge())\ncol_base\n\n\n\n\n\n\n\n\nCool… now we can focus on making this look nicer.\n\n\n5.4 Tweaking the look and feel\nggplot2 has a number of built in themes, and you can even make your own. State of Connecticut has some newish style specifications, sounds like a great theme to make and have on hand. Why not ship it in an R package?\n\n\n\n\n\n\nTip\n\n\n\nOPM took that style spec and ran with it in their publication: CT Data Visualization Guidelines\n\n\nHere are some common built-in themes:\n\n# there are many to choose from - and you can even build your own!\n\ncol_base + theme_classic()\n\n\n\n\n\n\n\ncol_base + theme_bw()\n\n\n\n\n\n\n\ncol_base + theme_minimal()\n\n\n\n\n\n\n\n\n\n# now for the labels\nwith_labels &lt;-\n  col_base +\n  theme_classic() +\n  # add some labels\n  labs(\n    title = \"This is a Title\",\n    subtitle = paste(\"Subtitle as of\", lubridate::today()),\n    caption = \"this is a caption - Open Data is Awesome!\",\n    tag = \"This is a tag\",\n    # the next bit refers to the mapped variables x, y etc... BUT it may\n    # not always be x and y\n    x = \"This is an x axis\",\n    y = \"This is a y axis\",\n    fill = \"my fill values\"\n  )\n\nwith_labels\n\n\n\n\n\n\n\n\n\n\n5.5 Opinionated Polish\n\nbase +\n  geom_col(\n    position = position_dodge(), # I want bars side by side, not stacked\n    col = \"black\" # just a black outline\n  ) +\n  scale_fill_viridis_d() + # use viridis color scale\n  theme_classic() + # we can use a default theme\n  theme(\n    # and add our own components!\n    legend.position = \"bottom\",\n    legend.direction = \"horizontal\"\n  ) +\n  labs(\n    x = \"\", # I don't want axis labels\n    y = \"\",\n    fill = \"\",\n    title = \"Natural Log of Vehicle Type Count by Quarter by Year\"\n  )"
-  },
-  {
-    "objectID": "projects/strata/index.html",
-    "href": "projects/strata/index.html",
-    "title": "strata",
-    "section": "",
-    "text": "strata\nstrata is my R-package that serves as a lightweight automation framework that teams without access to modern orchestration tools can implement easily.\n\nstrata documenation\nstrata on CRAN\n\n\n\n\n\nCitationBibTeX citation:@online{senetcky2025,\n  author = {Senetcky, Alexander},\n  title = {Strata},\n  date = {2025-06-02},\n  url = {https://asenetcky.dev/projects/strata/},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nSenetcky, Alexander. 2025. “Strata.” June 2, 2025. https://asenetcky.dev/projects/strata/."
   },
   {
     "objectID": "posts/2025-05-20-thinking-in-projects/index.html",
@@ -249,13 +291,62 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "I am a Data Scientist and an Epidemiologist currently working for Connecticut Department of Public Health (DPH). I am passionate about the R programming language, Linux and other free and open-source software (FOSS).\nIf you happen to work for the State of Connecticut, you can often find me presenting or helping out with our inter-agency R_User Group.\nDuring my 7 years in public health I’ve worked with my colleagues to tackle the opioid epidemic in Connecticut, expand the use of near-realtime syndromic surveillance, and helped bring automated daily and weekly reporting to DPH and to the public through our Open Data Portal."
+    "text": "I’m a data scientist and epidemiologist at the Connecticut Department of Public Health (DPH). I care a lot about the R programming language, Linux, and free and open-source software — and about bringing those tools to bear on problems that matter.\nIf you work for the State of Connecticut, you’ll often find me presenting or helping out at our inter-agency R User Group."
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
+    "objectID": "about.html#what-ive-worked-on",
+    "href": "about.html#what-ive-worked-on",
+    "title": "About",
+    "section": "What I’ve worked on",
+    "text": "What I’ve worked on\nOver the last seven years at DPH, I’ve worked with colleagues to:\n\nHelp tackle the opioid epidemic in Connecticut.\nExpand the use of near-real-time syndromic surveillance.\nBring automated daily and weekly reporting to DPH and to the public through the Connecticut Open Data Portal."
+  },
+  {
+    "objectID": "about.html#outside-of-work",
+    "href": "about.html#outside-of-work",
+    "title": "About",
+    "section": "Outside of work",
+    "text": "Outside of work\nI’m a father who spends time camping, doing woodworking, tinkering with computer hardware, and pulling manual espresso shots (along with all the other coffee gear that tends to follow)."
+  },
+  {
+    "objectID": "about.html#elsewhere",
+    "href": "about.html#elsewhere",
+    "title": "About",
+    "section": "Elsewhere",
+    "text": "Elsewhere\n\nGitHub\nLinkedIn\nEmail"
+  },
+  {
+    "objectID": "now.html",
+    "href": "now.html",
+    "title": "Now",
     "section": "",
-    "text": "Thinking in Projects\n\n\nUsing fs and friends\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\nDeveloper-Mindset\n\n\n\nIncreasing Portability and Reproducibility\n\n\n\n\n\nJun 5, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\n\n\n\n\n\n\n\nManaging Credentials with keyring\n\n\nDeveloper Toolkit\n\n\n\nR\n\nR-Package\n\nDeveloper-Toolkit\n\n\n\nSimple Credential Management\n\n\n\n\n\nApr 23, 2025\n\n\nAlexander Senetcky\n\n\n\n\n\nNo matching items"
+    "text": "This is a /now page — a snapshot of what’s actually on my plate, updated every month or two. Last touched on April 24, 2026."
+  },
+  {
+    "objectID": "now.html#at-work",
+    "href": "now.html#at-work",
+    "title": "Now",
+    "section": "At work",
+    "text": "At work\nI’m in the middle of refactoring a data pipeline — the one that’s been held together with intensely manual steps and institutional memory for toooo long."
+  },
+  {
+    "objectID": "now.html#on-the-side",
+    "href": "now.html#on-the-side",
+    "title": "Now",
+    "section": "On the side",
+    "text": "On the side\nRevamping this website and building a “digital twin” resume app in Python — a small RAG application that answers questions about my work experience from my own documents. It’s an excuse to get deep into hexagonal architecture, ports-and-adapters patterns, and the kinds of Python generics that feel abstract until you actually need them. Ingestion, embeddings and retrieval work, the front end is next."
+  },
+  {
+    "objectID": "now.html#tooling",
+    "href": "now.html#tooling",
+    "title": "Now",
+    "section": "Tooling",
+    "text": "Tooling\nLeaning hard into Claude Code right now — specifically, using it with Obsidian as a thinking and writing environment. Configuring skills from community repos, working out sensible sandboxing The goal is an AI-assisted workflow for my “second brain” where I can just shout ideas into the void and they get organized and linked without thinking about it. Next I want to get openWhispr up and running on fedora using my local AI stack."
+  },
+  {
+    "objectID": "now.html#off-the-computer",
+    "href": "now.html#off-the-computer",
+    "title": "Now",
+    "section": "Off the computer",
+    "text": "Off the computer\nGetting outdoor house projects we’ve been putting off for years! First up is replacing the outside flood lights without falling off my ladder.\n\nThis page is inspired by Derek Sivers’ now page movement. If you have one, I’d love to see it."
   }
 ]
