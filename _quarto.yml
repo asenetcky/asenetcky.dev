@@ -10,6 +10,25 @@ website:
   site-url: https://asenetcky.dev/
   description: "Data scientist and epidemiologist writing about R, open-source tooling, and public health data."
 
+# TODO: create these two images and uncomment.
+  #   - favicon.png: 512x512 square, usually a monogram or simple mark on a
+  #     solid background. Export to /images/favicon.png.
+  #   - og-image.png: 1200x630 social share card. This is what shows up when
+  #     a link to any page on the site is pasted into Slack, LinkedIn, etc.
+  #     A simple "Alexander Senetcky / asenetcky.dev" on a solid background
+  #     works fine. Can be generated from a Figma template or at
+  #     https://og-playground.vercel.app/.
+  # favicon: images/favicon.png
+  # open-graph:
+  #   image: /images/og-image.png
+  # twitter-card:
+  #   image: /images/og-image.png
+  #   card-style: summary_large_image
+
+  # Make the RSS feed discoverable to browsers and feed readers via a
+  # <link rel="alternate"> tag in every page's <head>.
+
+
   navbar:
     pinned: true
     collapse-below: sm
@@ -40,6 +59,7 @@ website:
   page-footer:
     border: false
     left: "© 2026 Alexander Senetcky"
+    center: "[RSS](/posts.xml)"
     right: "Built with [Quarto](https://quarto.org/)"
 
   draft-mode: unlinked
@@ -48,6 +68,9 @@ website:
 
 format:
   html:
+    include-in-header:
+      - text: |
+          <link rel="alternate" type="application/rss+xml" title="Alexander Senetcky — Writing" href="https://asenetcky.dev/posts.xml">
     theme:
       light: theme-light.scss
       dark: theme-dark.scss
