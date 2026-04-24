@@ -6,7 +6,7 @@ listing:
   type: default
   sort: "date desc"
   categories: true
-  fields: [date, title, description, categories]
+  fields: [date, title, description, reading-time, categories]
   date-format: "MMM D, YYYY"
   feed: true
   sort-ui: false
