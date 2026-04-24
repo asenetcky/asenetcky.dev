@@ -33,4 +33,12 @@ I build, break, and learn along the way.
 [Email ↗](mailto:me@asenetcky.dev)
 :::
 
+<!--
+When you have a post you want to feature, replace the "Read the blog →"
+link above with a direct link to it, e.g.:
+
+  [Latest: *On building a digital-twin resume* →](posts/2026-05-digital-twin/index.qmd)
+
+Then move the generic blog link into the list below if you still want it.
+-->
 :::
